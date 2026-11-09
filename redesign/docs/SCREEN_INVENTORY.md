@@ -100,7 +100,7 @@ Every frame on the design's flow boards. Each row is an **acceptance target**: w
 |---|---|---|---|
 
 ### 2.4 Menu bar — every menu
-`view=player;menu=<Name>` for Media, Playback, Audio, Video, Subtitle, Tools, View, Help. Item lists and shortcuts are in the prototype's `M` object — keep them identical to VLC's existing menus (see `modules/gui/qt/menus/menus.cpp`).
+`view=player;menu=<Name>` for Media, Playback, Audio, Video, Subtitle, Tools, View, Help. Item lists and shortcuts are in the prototype's `M` object — keep them identical to VLC's existing menus (see `modules/gui/qt/menus.cpp`).
 
 ### 2.5 Preferences (Ctrl+P)
 `view=settings;sec=<Section>` for Interface, Audio, Video, Subtitles / OSD, Input / Codecs, Hotkeys, Advanced. Rows per section are in the prototype's `SETTINGS` object. Simple prefs by default; Advanced → "Show all settings" reveals the full module tree (existing expert prefs).

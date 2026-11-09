@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block" rel="stylesheet">
+<style>@keyframes vlcFade{from{opacity:0}to{opacity:1}}@keyframes vlcDrop{from{opacity:0;transform:translateY(-6px) scale(.98)}to{opacity:1;transform:none}}@keyframes vlcRise{from{opacity:0;transform:translateY(8px) scale(.98)}to{opacity:1;transform:none}}@keyframes vlcSlideR{from{opacity:0;transform:translateX(28px)}to{opacity:1;transform:none}}@keyframes vlcPop{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}@keyframes vlcView{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}@keyframes vlcToast{from{opacity:0;transform:translate(-50%,12px)}to{opacity:1;transform:translate(-50%,0)}}@keyframes vlcSpin{to{transform:rotate(360deg)}}@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}[data-motion="off"] *{animation:none!important;transition:none!important}:root,[data-theme="dark"]{--page:#0a0a09;--bg:#121110;--chrome:#0e0d0c;--panel:#141312;--surface:#1a1917;--raised:#23211f;--hover:#2c2a27;--hover2:#35322f;--tx:#f2efea;--tx2:#cfcac3;--mute:#a39e96;--dim:#8d877f;--accTx:#ffa552;--st1:#22201e;--st2:#1c1a18;--ink:255,255,255;--fxbg:rgba(26,25,23,0.97);--glass:rgba(30,29,27,0.72)}[data-theme="light"]{--page:#d6d2cc;--bg:#f6f4f1;--chrome:#ebe8e4;--panel:#f1eeea;--surface:#ffffff;--raised:#ffffff;--hover:#e6e2dd;--hover2:#dbd6d0;--tx:#1b1916;--tx2:#3d3933;--mute:#5f5a53;--dim:#746e66;--accTx:#b35300;--st1:#e7e3dd;--st2:#dfdad3;--ink:0,0,0;--fxbg:rgba(255,255,255,0.97);--glass:rgba(250,249,247,0.74)}body{margin:0;background:var(--page)}*{box-sizing:border-box}a{color:#ff8a1f}a:hover{color:var(--accTx)}input{font:inherit}::-webkit-scrollbar{width:10px;height:10px}::-webkit-scrollbar-thumb{background:rgba(var(--ink),.12);border-radius:10px;border:3px solid transparent;background-clip:content-box}</style>
+</helmet>
+<div data-theme="{{ theme }}" data-motion="{{ motion }}" style="min-height:{{ rootMinH }};display:flex;align-items:center;justify-content:center;padding:{{ rootPad }};background:{{ rootBg }};font-family:'Segoe UI Variable Text','Segoe UI','Instrument Sans',system-ui,sans-serif;color:var(--tx);user-select:none">
+
+<sc-if value="{{ showWindow }}" hint-placeholder-val="{{ true }}">
+<div data-screen-label="VLC Window" onDragEnter="{{ dragIn }}" onDragOver="{{ dragOver }}" onDrop="{{ dropFile }}" onMouseMove="{{ wake }}" style="cursor:{{ cursor }};position:relative;width:{{ winW }};height:{{ winH }};flex:none;display:flex;flex-direction:column;background:var(--bg);border:1px solid rgba(var(--ink),0.09);border-radius:8px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,0.6)">
+
+  <div style="white-space:nowrap;position:relative;z-index:50;height:40px;flex:none;display:flex;align-items:center;background:var(--chrome);border-bottom:1px solid rgba(var(--ink),0.06)">
+    <div onClick="{{ goLibrary }}" title="Go to library" style="display:flex;align-items:center;padding:0 10px 0 14px;height:100%;cursor:pointer">
+      <svg width="18" height="18" viewBox="0 0 64 64"><defs><linearGradient id="vlcC" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#ffb04a"></stop><stop offset="0.45" stop-color="#ff8800"></stop><stop offset="1" stop-color="#e05e00"></stop></linearGradient><linearGradient id="vlcB" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#ff9420"></stop><stop offset="1" stop-color="#c94f00"></stop></linearGradient><linearGradient id="vlcW" x1="0.2" x2="0.8" y1="0" y2="0"><stop offset="0" stop-color="#ffffff"></stop><stop offset="1" stop-color="#d9d9d9"></stop></linearGradient><clipPath id="vlcK"><path d="M28.6 5.2c1.5-2.6 5.3-2.6 6.8 0L50 50H14z"></path></clipPath></defs><path d="M28.6 5.2c1.5-2.6 5.3-2.6 6.8 0L50 50H14z" fill="url(#vlcC)"></path><g clip-path="url(#vlcK)"><rect x="0" y="17" width="64" height="7" fill="url(#vlcW)"></rect><rect x="0" y="31.5" width="64" height="8" fill="url(#vlcW)"></rect></g><path d="M9.5 47h45c1.6 0 3 .9 3.6 2.4l2.6 6.4c.8 2-.7 4.2-2.9 4.2H6.2c-2.2 0-3.7-2.2-2.9-4.2l2.6-6.4C6.5 47.9 7.9 47 9.5 47z" fill="url(#vlcB)"></path><path d="M9.6 47.8h44.8" stroke="#ffb35c" stroke-width="1.2" stroke-linecap="round" opacity="0.7"></path></svg>
+    </div>
+    <sc-if value="{{ showMenuBar }}" hint-placeholder-val="{{ true }}">
+      <div style="flex:none;display:flex;align-items:center;gap:1px;height:100%">
+        <sc-for list="{{ menus }}" as="m" hint-placeholder-count="8">
+          <div style="position:relative">
+            <div onClick="{{ m.onClick }}" onMouseEnter="{{ m.onEnter }}" style="white-space:nowrap;height:28px;padding:0 9px;display:flex;align-items:center;border-radius:5px;font-size:13px;color:{{ m.color }};background:{{ m.bg }};cursor:default" style-hover="background:rgba(var(--ink),0.07)">{{ m.name }}</div>
+            <sc-if value="{{ m.open }}" hint-placeholder-val="{{ false }}">
+              <div style="animation:vlcDrop .14s cubic-bezier(0.2,0.8,0.2,1);transform-origin:top left;position:absolute;top:34px;left:0;min-width:290px;padding:4px;background:var(--raised);border:1px solid rgba(var(--ink),0.08);border-radius:8px;box-shadow:0 16px 40px rgba(0,0,0,0.5)">
+                <sc-for list="{{ m.items }}" as="it" hint-placeholder-count="6">
+                  <sc-if value="{{ it.isSep }}" hint-placeholder-val="{{ false }}"><div style="height:1px;margin:4px 8px;background:rgba(var(--ink),0.08)"></div></sc-if>
+                  <sc-if value="{{ it.isItem }}" hint-placeholder-val="{{ true }}">
+                    <div onClick="{{ it.onClick }}" style="height:30px;display:grid;grid-template-columns:22px 1fr auto;align-items:center;gap:6px;padding:0 10px 0 6px;border-radius:5px;font-size:13px;color:var(--tx)" style-hover="background:rgba(var(--ink),0.07)">
+                      <span style="display:inline-flex;align-items:center;justify-content:center;width:1em;height:1em;flex:none;overflow:hidden;font:18px/1 'Material Symbols Rounded';color:{{ it.iconColor }};text-align:center">{{ it.icon }}</span>
+                      <span>{{ it.label }}</span>
+                      <span style="font-size:12px;color:var(--dim)">{{ it.key }}</span>
+                    </div>
+                  </sc-if>
+                </sc-for>
+              </div>
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+    </sc-if>
+    <div style="flex:1;min-width:0;text-align:center;font-size:12px;color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:0 16px">{{ windowTitle }}</div>
+    <div style="display:flex;height:100%">
+      <div style="width:46px;overflow:hidden;display:flex;align-items:center;justify-content:center;font:18px/1 'Material Symbols Rounded';color:var(--tx2)" title="Minimize" style-hover="background:rgba(var(--ink),0.07)">remove</div>
+      <div style="width:46px;overflow:hidden;display:flex;align-items:center;justify-content:center;font:16px/1 'Material Symbols Rounded';color:var(--tx2)" title="Maximize" style-hover="background:rgba(var(--ink),0.07)">crop_square</div>
+      <div style="width:46px;overflow:hidden;display:flex;align-items:center;justify-content:center;font:18px/1 'Material Symbols Rounded';color:var(--tx2);border-top-right-radius:8px" title="Close" style-hover="background:#c42b1c;color:#fff">close</div>
+    </div>
+  </div>
+
+  <div style="flex:1;min-height:0;display:flex">
+    <sc-if value="{{ showSidebar }}" hint-placeholder-val="{{ false }}">
+      <div style="width:{{ sbW }};flex:none;display:flex;flex-direction:column;gap:4px;padding:14px 10px;background:var(--chrome);border-right:1px solid rgba(var(--ink),0.06)">
+        <div onClick="{{ openDialog }}" title="Open media (Ctrl+O)" style="white-space:nowrap;height:38px;display:flex;align-items:center;justify-content:center;gap:8px;border-radius:7px;background:#ff8a1f;color:#1c1206;font-size:13px;font-weight:600;cursor:pointer;margin-bottom:10px" style-hover="background:#ff9a3c">
+          <span style="display:inline-flex;align-items:center;justify-content:center;width:1em;height:1em;flex:none;overflow:hidden;font:20px/1 'Material Symbols Rounded'">add</span><span style="display:{{ labelDisp }}">Open media</span>
+        </div>
+        <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="4">
+          <div onClick="{{ n.onClick }}" title="{{ n.label }}" style="white-space:nowrap;height:36px;display:flex;align-items:center;gap:12px;padding:0 12px;border-radius:6px;font-size:13px;background:{{ n.bg }};color:{{ n.color }};cursor:pointer" style-hover="background:rgba(var(--ink),0.06)">
+            <span style="display:inline-flex;align-items:center;justify-content:center;width:1em;height:1em;flex:none;overflow:hidden;font:20px/1 'Material Symbols Rounded';font-variation-settings:'FILL' 1">{{ n.icon }}</span><span style="display:{{ labelDisp }}">{{ n.label }}</span>
+          </div>
+        </sc-for>
+        <sc-if value="{{ showFolders }}" hint-placeholder-val="{{ true }}"><div style="font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--dim);padding:18px 12px 6px">Folders</div>
+        <sc-for list="{{ folders }}" as="f" hint-placeholder-count="3">
+          <div style="white-space:nowrap;height:32px;display:flex;align-items:center;gap:12px;padding:0 12px;border-radius:6px;font-size:13px;color:var(--tx2);cursor:pointer" style-hover="background:rgba(var(--ink),0.06)">
+            <span style="display:inline-flex;align-items:center;justify-content:center;width:1em;height:1em;flex:none;overflow:hidden;font:18px/1 'Material Symbols Rounded';color:var(--dim)">folder</span>{{ f }}
+          </div>
+        </sc-for></sc-if>
+        <div style="flex:1"></div>
+        <div onClick="{{ goSettings }}" style="white-space:nowrap;height:36px;display:flex;align-items:center;gap:12px;padding:0 12px;border-radius:6px;font-size:13px;background:{{ prefsBg }};color:{{ prefsColor }};cursor:pointer" style-hover="background:rgba(var(--ink),0.06)">
+          <span style="display:inline-flex;align-items:center;justify-content:center;width:1em;height:1em;flex:none;overflow:hidden;font:20px/1 'Material Symbols Rounded'">settings</span><span style="display:{{ labelDisp }}">Preferences</span>
+        </div>
+      </div>
+    </sc-if>
+
+    <div style="flex:1;min-width:0;display:flex;flex-direction:column;position:relative">
+
+      <sc-if value="{{ isLibrary }}" hint-placeholder-val="{{ false }}">
+        <div data-screen-label="Library" style="animation:vlcView .24s cubic-bezier(0.2,0.8,0.2,1);flex:1;overflow:auto;scrollbar-width:thin;scrollbar-color:rgba(var(--ink),0.22) transparent;padding:28px 32px 32px">
+          <div style="display:flex;align-items:center;gap:16px;margin-bottom:24px">
+            <div style="font-size:26px;font-weight:600;letter-spacing:-0.01em;flex:1">{{ navTitle }}</div>
+            <div style="white-space:nowrap;width:{{ searchW }};height:34px;display:flex;align-items:center;gap:8px;padding:0 12px;border-radius:6px;background:var(--surface);border:1px solid rgba(var(--ink),0.08);color:var(--dim);font-size:13px">
+              <span style="display:inline-flex;align-items:center;justify-content:center;width:1em;height:1em;flex:none;overflow:hidden;font:18px/1 'Material Symbols Rounded'">search</span>Search media library
+            </div>
+          </div>
+
+          <sc-if value="{{ isEmpty }}" hint-placeholder-val="{{ false }}">
+            <div data-screen-label="Empty library" style="animation:vlcView .24s cubic-bezier(0.2,0.8,0.2,1);min-height:420px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;padding:32px;border:1.5px dashed rgba(var(--ink),0.14);border-radius:12px">
+              <svg width="56" height="56" viewBox="0 0 64 64"><defs><linearGradient id="vlcC" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#ffb04a"></stop><stop offset="0.45" stop-color="#ff8800"></stop><stop offset="1" stop-color="#e05e00"></stop></linearGradient><linearGradient id="vlcB" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#ff9420"></stop><stop offset="1" stop-color="#c94f00"></stop></linearGradient><linearGradient id="vlcW" x1="0.2" x2="0.8" y1="0" y2="0"><stop offset="0" stop-color="#ffffff"></stop><stop offset="1" stop-color="#d9d9d9"></stop></linearGradient><clipPath id="vlcK"><path d="M28.6 5.2c1.5-2.6 5.3-2.6 6.8 0L50 50H14z"></path></clipPath></defs><path d="M28.6 5.2c1.5-2.6 5.3-2.6 6.8 0L50 50H14z" fill="url(#vlcC)"></path><g clip-path="url(#vlcK)"><rect x="0" y="17" width="64" height="7" fill="url(#vlcW)"></rect><rect x="0" y="31.5" width="64" height="8" fill="url(#vlcW)"></rect></g><path d="M9.5 47h45c1.6 0 3 .9 3.6 2.4l2.6 6.4c.8 2-.7 4.2-2.9 4.2H6.2c-2.2 0-3.7-2.2-2.9-4.2l2.6-6.4C6.5 47.9 7.9 47 9.5 47z" fill="url(#vlcB)"></path><path d="M9.6 47.8h44.8" stroke="#ffb35c" stroke-width="1.2" stroke-linecap="round" opacity="0.7"></path></svg>
+              <div style="font-size:20px;font-weight:600">Your library is empty</div>
+              <div style="font-size:13px;color:var(--mute);max-width:380px;line-height:1.5;text-wrap:pretty">Add folders and VLC will index your videos and music. Files are never moved or modified.</div>
+              <div style="display:flex;gap:8px;margin-top:6px">
+                <div onClick="{{ addFolder }}" style="white-space:nowrap;height:36px;display:flex;align-items:center;gap:8px;padding:0 16px;border-radius:6px;background:#ff8a1f;color:#1c1206;font-size:13px;font-weight:600;line-height:1;cursor:pointer" style-hover="background:#ff9a3c"><span style="display:inline-flex;align-items:center;justify-content:center;width:1em;height:1em;flex:none;overflow:hidden;font:18px/1 'Material Symbols Rounded'">create_new_folder</span>Add a folder</div>
+                <div onClick="{{ openDialog }}" title="Open media (Ctrl+O)" style="white-space:nowrap;height:36px;display:flex;align-items:center;padding:0 16px;border-radius:6px;border:1px solid rgba(var(--ink),0.16);font-size:13px;cursor:pointer" style-hover="background:rgba(var(--ink),0.06)">Open media…</div>
+              </div>
+              <div style="font:12px 'JetBrains Mono',monospace;color:var(--dim)">or drop files anywhere in this window</div>
+            </div>
+          </sc-if>
+          <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+            <div style="display:flex;flex-direction:column;gap:32px">
+              <div>
+                <div style="font-size:15px;font-weight:600;margin-bottom:12px">Continue watching</div>
+                <div style="display:grid;grid-template-columns:repeat({{ cols }},minmax(0,1fr));gap:16px">
+                  <sc-for list="{{ continueCards }}" as="c" hint-placeholder-count="4">
+                    <div onClick="{{ c.onClick }}" style="display:flex;flex-direction:column;gap:8px;cursor:pointer">
+                      <div style="position:relative;aspect-ratio:16/9;border-radius:8px;overflow:hidden;background:repeating-linear-gradient(135deg,var(--st1) 0 10px,var(--st2) 10px 20px);border:1px solid rgba(var(--ink),0.06);display:flex;align-items:center;justify-content:center" style-hover="border-color:#ff8a1f">
+                        <span style="font:11px 'JetBrains Mono',monospace;color:var(--dim)">thumbnail</span>
+                        <span style="position:absolute;right:8px;bottom:10px;white-space:nowrap;padding:2px 6px;border-radius:4px;background:rgba(0,0,0,0.75);color:#fff;font-size:11px;font-variant-numeric:tabular-nums">{{ c.left }}</span>
+                        <div style="position:absolute;left:0;right:0;bottom:0;height:3px;background:rgba(var(--ink),0.15)"><div style="height:100%;width:{{ c.pct }};background:#ff8a1f"></div></div>
+                      </div>
+                      <div>
+                        <div style="font-size:14px;font-weight:600">{{ c.title }}</div>
+                        <div style="font-size:12px;color:var(--mute);margin-top:2px">{{ c.meta }}</div>
+                      </div>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+              <div>
+                <div style="font-size:15px;font-weight:600;margin-bottom:8px">Recent media</div>
+                <div style="display:flex;flex-direction:column">
+                  <sc-for list="{{ recent }}" as="r" hint-placeholder-count="6">
+                    <div onClick="{{ r.onClick }}" style="height:44px;display:grid;grid-template-columns:{{ recentCols }};align-items:center;gap:12px;padding:0 10px;border-radius:6px;font-size:13px;cursor:pointer;border-bottom:1px solid rgba(var(--ink),0.04)" style-hover="background:rgba(var(--ink),0.05)">
+                      <span style="display:inline-flex;align-items:center;justify-content:center;width:1em;height:1em;flex:none;overflow:hidden;font:20px/1 'Material Symbols Rounded';color:#ff8a1f">{{ r.icon }}</span>
+                      <span style="font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ r.title }}</span>
+                      <span style="display:{{ pathDisp }};font:12px 'JetBrains Mono',monospace;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ r.path }}</span>
+                      <span style="color:var(--mute);font-variant-numeric:tabular-nums">{{ r.dur }}</span>
+                      <span style="color:var(--mute);text-align:right">{{ r.when }}</span>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ isVideos }}" hint-placeholder-val="{{ false }}">
+            <div style="display:grid;grid-template-columns:repeat({{ cols }},minmax(0,1fr));gap:24px 16px">
+              <sc-for list="{{ videoCards }}" as="c" hint-placeholder-count="8">
+                <div onClick="{{ c.onClick }}" style="display:flex;flex-direction:column;gap:8px;cursor:pointer">
+                  <div style="position:relative;aspect-ratio:16/9;border-radius:8px;overflow:hidden;background:repeating-linear-gradient(135deg,var(--st1) 0 10px,var(--st2) 10px 20px);border:1px solid rgba(var(--ink),0.06);display:flex;align-items:center;justify-content:center" style-hover="border-color:#ff8a1f">
+                    <span style="font:11px 'JetBrains Mono',monospace;color:var(--dim)">thumbnail</span>
+                    <span style="position:absolute;right:8px;bottom:8px;white-space:nowrap;padding:2px 6px;border-radius:4px;background:rgba(0,0,0,0.75);color:#fff;font-size:11px;font-variant-numeric:tabular-nums">{{ c.dur }}</span>
+                  </div>
+                  <div>
+                    <div style="font-size:14px;font-weight:600">{{ c.title }}</div>
+                    <div style="font-size:12px;color:var(--mute);margin-top:2px">{{ c.meta }}</div>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ isMusic }}" hint-placeholder-val="{{ false }}">
+            <div style="display:grid;grid-template-columns:repeat({{ albumCols }},minmax(0,1fr));gap:24px 16px">
+              <sc-for list="{{ albums }}" as="a" hint-placeholder-count="10">
+                <div onClick="{{ a.onClick }}" style="display:flex;flex-direction:column;gap:8px;cursor:pointer">
+                  <div style="aspect-ratio:1;border-radius:8px;background:repeating-linear-gradient(135deg,var(--st1) 0 10px,var(--st2) 10px 20px);border:1px solid rgba(var(--ink),0.06);display:flex;align-items:center;justify-content:center" style-hover="border-color:#ff8a1f">
+                    <span style="font:11px 'JetBrains Mono',monospace;color:var(--dim)">album art</span>
+                  </div>
+                  <div>
+                    <div style="font-size:14px;font-weight:600">{{ a.name }}</div>
+                    <div style="font-size:12px;color:var(--mute);margin-top:2px">{{ a.artist }}</div>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ isNetwork }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:28px">
+              <sc-for list="{{ netGroups }}" as="g" hint-placeholder-count="2">
+                <div>
+                  <div style="font-size:15px;font-weight:600;margin-bottom:10px">{{ g.title }}</div>
+                  <div style="display:grid;grid-template-columns:repeat({{ netCols }},minmax(0,1fr));gap:12px">
+                    <sc-for list="{{ g.items }}" as="d" hint-placeholder-count="3">
+                      <div onClick="{{ d.onClick }}" style="display:flex;align-items:center;gap:14px;padding:14px;border-radius:8px;background:var(--surface);border:1px solid rgba(var(--ink),0.06);cursor:pointer" style-hover="background:var(--raised)">
+                        <div style="white-space:nowrap;width:40px;height:40px;border-radius:8px;background:rgba(255,138,31,0.12);overflow:hidden;display:flex;align-items:center;justify-content:center;font:22px/1 'Material Symbols Rounded';color:#ff8a1f">{{ d.icon }}</div>
+                        <div style="min-width:0">
+                          <div style="font-size:13px;font-weight:600">{{ d.name }}</div>
+                          <div style="font:12px 'JetBrains Mono',monospace;color:var(--dim);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ d.sub }}</div>
+                        </div>
+                      </div>
+                    </sc-for>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isSettings }}" hint-placeholder-val="{{ false }}">
+        <div data-screen-label="Preferences" style="animation:vlcView .24s cubic-bezier(0.2,0.8,0.2,1);flex:1;min-height:0;display:flex">
+          <div style="width:{{ secW }};flex:none;padding:28px 10px;display:flex;flex-direction:column;gap:2px;border-right:1px solid rgba(var(--ink),0.06)">
+            <div style="display:{{ labelDisp }};font-size:26px;font-weight:600;padding:0 12px 18px">Preferences</div>
+            <sc-for list="{{ secs }}" as="s" hint-placeholder-count="7">
+              <div onClick="{{ s.onClick }}" title="{{ s.label }}" style="white-space:nowrap;height:34px;display:flex;align-items:center;gap:10px;padding:0 12px;border-radius:6px;font-size:13px;background:{{ s.bg }};color:{{ s.color }};cursor:pointer" style-hover="background:rgba(var(--ink),0.06)">
+                <span style="display:inline-flex;align-items:center;justify-content:center;width:1em;height:1em;flex:none;overflow:hidden;font:18px/1 'Material Symbols Rounded'">{{ s.icon }}</span><span style="display:{{ labelDisp }}">{{ s.label }}</span>
+              </div>
+            </sc-for>
+          </div>
+          <div style="flex:1;overflow:auto;scrollbar-width:thin;scrollbar-color:rgba(var(--ink),0.22) transparent;padding:28px 32px">
+            <div style="max-width:720px">
+              <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:16px;padding-top:8px">
+                <div style="font-size:18px;font-weight:600">{{ secTitle }}</div>
+                <div style="font-size:12px;color:var(--dim)">Changes apply immediately</div>
+              </div>
+              <div style="border-radius:8px;background:var(--surface);border:1px solid rgba(var(--ink),0.06)">
+                <sc-for list="{{ rows }}" as="row" hint-placeholder-count="5">
+                  <div style="min-height:60px;display:flex;align-items:center;gap:20px;padding:12px 18px;border-top:{{ row.border }}">
+                    <div style="flex:1;min-width:0">
+                      <div style="font-size:13px;font-weight:500">{{ row.label }}</div>
+                      <div style="font-size:12px;color:var(--mute);margin-top:3px;text-wrap:pretty">{{ row.desc }}</div>
+                    </div>
+                    <sc-if value="{{ row.isToggle }}" hint-placeholder-val="{{ false }}">
+                      <div onClick="{{ row.onClick }}" style="display:flex;align-items:center;gap:10px;cursor:pointer">
+                        <span style="font-size:12px;color:var(--mute);width:22px;text-align:right">{{ row.stateLabel }}</span>
+                        <div style="position:relative;width:40px;height:20px;border-radius:10px;background:{{ row.trackBg }};border:1px solid {{ row.trackBorder }};transition:background .15s">
+                          <div style="position:absolute;top:3px;left:{{ row.knobLeft }};width:12px;height:12px;border-radius:6px;background:{{ row.knobBg }};transition:left .15s"></div>
+                        </div>
+                      </div>
+                    </sc-if>
+                    <sc-if value="{{ row.isSelect }}" hint-placeholder-val="{{ false }}">
+                      <div style="white-space:nowrap;min-width:{{ selW }};height:32px;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:0 10px 0 12px;border-radius:6px;background:var(--raised);border:1px solid rgba(var(--ink),0.08);font-size:13px;cursor:pointer" style-hover="background:var(--hover)">
+                        {{ row.value }}<span style="display:inline-flex;align-items:center;justify-content:center;width:1em;height:1em;flex:none;overflow:hidden;font:18px/1 'Material Symbols Rounded';color:var(--mute)">expand_more</span>
+                      </div>
+                    </sc-if>
+                    <sc-if value="{{ row.isKey }}" hint-placeholder-val="{{ false }}">
+                      <div style="padding:4px 10px;border-radius:5px;background:var(--raised);border:1px solid rgba(var(--ink),0.1);border-bottom-width:2px;font:12px 'JetBrains Mono',monospace">{{ row.value }}</div>
+                    </sc-if>
+                    <sc-if value="{{ row.isButton }}" hint-placeholder-val="{{ false }}">
+                      <div onClick="{{ row.onClick }}" style="white-space:nowrap;height:32px;display:flex;align-items:center;padding:0 14px;border-radius:6px;border:1px solid rgba(var(--ink),0.14);font-size:13px;cursor:pointer" style-hover="background:rgba(var(--ink),0.06)">{{ row.value }}</div>
+                    </sc-if>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isPlayer }}" hint-placeholder-val="{{ true }}">
+        <div data-screen-label="Player" style="animation:vlcView .24s cubic-bezier(0.2,0.8,0.2,1);flex:1;min-height:0;display:flex;position:relative">
+          <div style="flex:1;min-width:0;position:relative;background:#000;overflow:hidden">
+            <div onClick="{{ togglePlay }}" title="Play / Pause (Space)" style="position:absolute;inset:0;background:repeating-linear-gradient(135deg,#171615 0 14px,#100f0e 14px 28px);display:flex;align-items:center;justify-content:center">
+              <span style="font:12px 'JetBrains Mono',monospace;color:var(--dim)">video frame · {{ cur.title }}</span>
+            </div>
+            <div style="opacity:{{ deckOpacity }};transition:opacity .3s ease;--tx:#f2efea;--tx2:#cfcac3;--ink:255,255,255;color:#f2efea;position:absolute;top:0;left:0;right:0;display:flex;align-items:center;gap:12px;padding:16px 18px;background:linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0))">
+              <div onClick="{{ goLibrary }}" title="Go to library" style="white-space:nowrap;width:34px;height:34px;border-radius:17px;overflow:hidden;display:flex;align-items:center;justify-content:center;font:20px/1 'Material Symbols Rounded';background:rgba(var(--ink),0.08);cursor:pointer" style-hover="background:rgba(var(--ink),0.16)">arrow_back</div>
+              <div>
+                <div style="font-size:15px;font-weight:600">{{ cur.title }}</div>
+                <div style="font-size:12px;color:var(--tx2)">{{ cur.meta }}</div>
+              </div>
+            </div>
+            <sc-if value="{{ paused }}" hint-placeholder-val="{{ false }}">
+              <div onClick="{{ togglePlay }}" title="Play / Pause (Space)" style="white-space:nowrap;position:absolute;left:50%;top:50%;width:76px;height:76px;margin:-38px 0 0 -38px;animation:vlcPop .18s cubic-bezier(0.2,0.8,0.2,1);border-radius:38px;background:rgba(0,0,0,0.55);border:1px solid rgba(var(--ink),0.15);overflow:hidden;display:flex;align-items:center;justify-content:center;font:44px/1 'Material Symbols Rounded';font-variation-settings:'FILL' 1;color:#fff;cursor:pointer">play_arrow</div>
+            </sc-if>
+            <sc-if value="{{ buffering }}" hint-placeholder-val="{{ false }}">
+              <div data-screen-label="Buffering" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;background:rgba(0,0,0,0.6);color:#f2efea">
+                <div style="width:48px;height:48px;border-radius:24px;border:3px solid rgba(255,255,255,0.15);border-top-color:#ff8a1f;animation:vlcSpin .9s linear infinite"></div>
+                <div style="font-size:15px;font-weight:600">Buffering… {{ bufPct }}</div>
+                <div style="font:12px 'JetBrains Mono',monospace;color:#cfcac3">{{ url }}</div>
+              </div>
+            </sc-if>
+            <sc-if value="{{ subtitleOn }}" hint-placeholder-val="{{ true }}">
+              <div style="position:absolute;left:0;right:0;bottom:{{ subBottom }};display:flex;justify-content:center;pointer-events:none">
+                <div style="max-width:80%;text-align:center;text-wrap:balance;padding:4px 12px;border-radius:4px;background:rgba(0,0,0,0.65);font-size:22px;line-height:1.35;font-weight:500;color:#fff">{{ subtitleText }}</div>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ fxOpen }}" hint-placeholder-val="{{ false }}">
+              <div data-screen-label="Effects and filters" style="animation:vlcSlideR .22s cubic-bezier(0.2,0.8,0.2,1);z-index:5;position:absolute;top:14px;right:14px;bottom:{{ fxBottom }};width:{{ fxW }};display:flex;flex-direction:column;background:var(--fxbg);border:1px solid rgba(var(--ink),0.08);border-radius:10px;box-shadow:0 20px 50px rgba(0,0,0,0.5);overflow:hidden">
+                <div style="display:flex;align-items:center;padding:14px 14px 0 18px">
+                  <div style="flex:1;font-size:15px;font-weight:600">Effects and filters</div>
+                  <div onClick="{{ toggleFx }}" title="Close effects" style="white-space:nowrap;flex:none;width:30px;height:30px;border-radius:6px;overflow:hidden;display:flex;align-items:center;justify-content:center;font:18px/1 'Material Symbols Rounded';cursor:pointer" style-hover="background:rgba(var(--ink),0.08)">close</div>
+                </div>
+                <div style="display:flex;gap:4px;padding:12px 14px 0;border-bottom:1px solid rgba(var(--ink),0.06)">
+                  <sc-for list="{{ fxTabs }}" as="ft" hint-placeholder-count="3">
+                    <div onClick="{{ ft.onClick }}" style="padding:8px 10px 10px;font-size:13px;color:{{ ft.color }};border-bottom:2px solid {{ ft.line }};cursor:pointer">{{ ft.label }}</div>
+                  </sc-for>
+                </div>
+                <div style="flex:1;overflow:auto;scrollbar-width:thin;scrollbar-color:rgba(var(--ink),0.22) transparent;padding:18px">
+                  <sc-if value="{{ fxEq }}" hint-placeholder-val="{{ true }}">
+                    <div style="display:flex;flex-direction:column;gap:18px">
+                      <div style="display:flex;align-items:center;justify-content:space-between">
+                        <div onClick="{{ toggleEq }}" style="display:flex;align-items:center;gap:10px;font-size:13px;cursor:pointer">
+                          <div style="position:relative;width:40px;height:20px;border-radius:10px;background:{{ eqTrack }}">
+                            <div style="position:absolute;top:4px;left:{{ eqKnob }};width:12px;height:12px;border-radius:6px;background:#1c1206;transition:left .15s"></div>
+                          </div>Enable equalizer
+                        </div>
+                        <div style="font-size:12px;color:var(--mute)">Preset: <span style="color:var(--tx)">{{ preset }}</span></div>
+                      </div>
+                      <div style="display:flex;flex-wrap:wrap;gap:6px">
+                        <sc-for list="{{ presets }}" as="p" hint-placeholder-count="8">
+                          <div onClick="{{ p.onClick }}" style="white-space:nowrap;height:28px;display:flex;align-items:center;padding:0 10px;border-radius:14px;font-size:12px;background:{{ p.bg }};color:{{ p.color }};border:1px solid {{ p.border }};cursor:pointer">{{ p.label }}</div>
+                        </sc-for>
+                      </div>
+                      <div style="display:grid;grid-template-columns:28px repeat(10,minmax(0,1fr));gap:4px;align-items:stretch;opacity:{{ eqOpacity }}">
+                        <div style="display:flex;flex-direction:column;justify-content:space-between;height:170px;font-size:10px;color:var(--dim);text-align:right;padding-right:2px"><span>+20</span><span>0</span><span>−20</span></div>
+                        <sc-for list="{{ eqBands }}" as="b" hint-placeholder-count="10">
+                          <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+                            <div onClick="{{ b.onClick }}" style="white-space:nowrap;position:relative;width:100%;height:170px;cursor:ns-resize;display:flex;justify-content:center">
+                              <div style="position:absolute;top:0;bottom:0;width:4px;border-radius:2px;background:rgba(var(--ink),0.1)"></div>
+                              <div style="position:absolute;left:0;right:0;top:50%;height:1px;background:rgba(var(--ink),0.12)"></div>
+                              <div style="position:absolute;width:4px;border-radius:2px;top:{{ b.top }};height:{{ b.height }};background:#ff8a1f;transition:top .15s ease-out,height .15s ease-out"></div>
+                              <div style="position:absolute;transition:top .15s ease-out;top:{{ b.knob }};width:14px;height:14px;margin-top:-7px;border-radius:7px;background:var(--tx);box-shadow:0 1px 4px rgba(0,0,0,0.5)"></div>
+                            </div>
+                            <div style="font-size:10px;color:var(--mute)">{{ b.freq }}</div>
+                          </div>
+                        </sc-for>
+                      </div>
+                      <div style="display:flex;align-items:center;gap:12px;font-size:12px;color:var(--mute)">
+                        <span>Preamp</span>
+                        <div style="flex:1;height:4px;border-radius:2px;background:rgba(var(--ink),0.1)"><div style="width:58%;height:100%;border-radius:2px;background:#ff8a1f"></div></div>
+                        <span style="font-variant-numeric:tabular-nums;color:var(--tx)">+3.2 dB</span>
+                      </div>
+                    </div>
+                  </sc-if>
+                  <sc-if value="{{ fxVideo }}" hint-placeholder-val="{{ false }}">
+                    <div style="display:flex;flex-direction:column;gap:20px">
+                      <sc-for list="{{ vidAdj }}" as="v" hint-placeholder-count="5">
+                        <div>
+                          <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:8px"><span>{{ v.label }}</span><span style="color:var(--mute);font-variant-numeric:tabular-nums">{{ v.val }}</span></div>
+                          <div onClick="{{ v.onClick }}" style="white-space:nowrap;position:relative;height:16px;display:flex;align-items:center;cursor:pointer">
+                            <div style="position:absolute;left:0;right:0;height:4px;border-radius:2px;background:rgba(var(--ink),0.1)"></div>
+                            <div style="position:absolute;left:0;height:4px;border-radius:2px;width:{{ v.pct }};background:#ff8a1f"></div>
+                            <div style="position:absolute;left:{{ v.pct }};width:14px;height:14px;margin-left:-7px;border-radius:7px;background:var(--tx)"></div>
+                          </div>
+                        </div>
+                      </sc-for>
+                      <div onClick="{{ resetVideo }}" style="white-space:nowrap;align-self:flex-start;height:30px;display:flex;align-items:center;padding:0 12px;border-radius:6px;border:1px solid rgba(var(--ink),0.14);font-size:12px;cursor:pointer" style-hover="background:rgba(var(--ink),0.06)">Reset to defaults</div>
+                    </div>
+                  </sc-if>
+                  <sc-if value="{{ fxSync }}" hint-placeholder-val="{{ false }}">
+                    <div style="display:flex;flex-direction:column;gap:12px">
+                      <sc-for list="{{ syncRows }}" as="sr" hint-placeholder-count="3">
+                        <div style="display:flex;align-items:center;gap:12px;padding:14px;border-radius:8px;background:var(--raised)">
+                          <div style="flex:1">
+                            <div style="font-size:13px;font-weight:500">{{ sr.label }}</div>
+                            <div style="font-size:12px;color:var(--mute);margin-top:2px">{{ sr.desc }}</div>
+                          </div>
+                          <div onClick="{{ sr.dec }}" style="white-space:nowrap;flex:none;width:30px;height:30px;border-radius:6px;overflow:hidden;display:flex;align-items:center;justify-content:center;font:18px/1 'Material Symbols Rounded';background:rgba(var(--ink),0.06);cursor:pointer" style-hover="background:rgba(var(--ink),0.12)">remove</div>
+                          <div style="width:84px;text-align:center;font:13px 'JetBrains Mono',monospace">{{ sr.val }}</div>
+                          <div onClick="{{ sr.inc }}" style="white-space:nowrap;flex:none;width:30px;height:30px;border-radius:6px;overflow:hidden;display:flex;align-items:center;justify-content:center;font:18px/1 'Material Symbols Rounded';background:rgba(var(--ink),0.06);cursor:pointer" style-hover="background:rgba(var(--ink),0.12)">add</div>
+                        </div>
+                      </sc-for>
+                      <div style="font-size:12px;color:var(--dim);line-height:1.5">Steps of 50 ms. Shortcuts: <span style="font-family:'JetBrains Mono',monospace;color:var(--tx2)">J / K</span> for audio, <span style="font-family:'JetBrains Mono',monospace;color:var(--tx2)">G / H</span> for subtitles.</div>
+                    </div>
+                  </sc-if>
+                </div>
+              </div>
+            </sc-if>
+          </div>
+
+          <sc-if value="{{ playlistOpen }}" hint-placeholder-val="{{ true }}">
+            <div data-screen-label="Playlist" style="animation:vlcSlideR .22s cubic-bezier(0.2,0.8,0.2,1);width:{{ plW }};position:{{ plPos }};top:0;right:0;bottom:0;z-index:20;box-shadow:{{ plShadow }};flex:none;display:flex;flex-direction:column;background:var(--panel);border-left:1px solid rgba(var(--ink),0.06)">
+              <div style="display:flex;align-items:center;gap:6px;padding:16px 12px 10px 18px">
+                <div style="flex:1">
+                  <div style="font-size:15px;font-weight:600">Playlist</div>
+                  <div style="font-size:12px;color:var(--mute);margin-top:2px">{{ plSummary }}</div>
+                </div>
+                <div onClick="{{ openDialog }}" title="Open media (Ctrl+O)" style="white-space:nowrap;flex:none;width:30px;height:30px;border-radius:6px;overflow:hidden;display:flex;align-items:center;justify-content:center;font:20px/1 'Material Symbols Rounded';cursor:pointer" style-hover="background:rgba(var(--ink),0.08)">add</div>
+                <div onClick="{{ togglePlaylist }}" title="Close playlist (Ctrl+L)" style="white-space:nowrap;flex:none;width:30px;height:30px;border-radius:6px;overflow:hidden;display:flex;align-items:center;justify-content:center;font:20px/1 'Material Symbols Rounded';cursor:pointer" style-hover="background:rgba(var(--ink),0.08)">close</div>
+              </div>
+              <div style="white-space:nowrap;margin:0 12px 8px;height:32px;display:flex;align-items:center;gap:8px;padding:0 10px;border-radius:6px;background:var(--surface);border:1px solid rgba(var(--ink),0.07);font-size:12px;color:var(--dim)">
+                <span style="display:inline-flex;align-items:center;justify-content:center;width:1em;height:1em;flex:none;overflow:hidden;font:16px/1 'Material Symbols Rounded'">search</span>Filter playlist
+              </div>
+              <div style="flex:1;overflow:auto;scrollbar-width:thin;scrollbar-color:rgba(var(--ink),0.22) transparent;padding:0 6px 10px">
+                <sc-for list="{{ playlist }}" as="p" hint-placeholder-count="8">
+                  <div onClick="{{ p.onClick }}" onContextMenu="{{ p.onCtx }}" style="display:grid;grid-template-columns:24px minmax(0,1fr) auto;align-items:center;gap:10px;padding:8px 10px;border-radius:6px;background:{{ p.bg }};cursor:pointer" style-hover="background:rgba(var(--ink),0.05)">
+                    <span style="font:{{ p.numFont }};color:{{ p.numColor }};text-align:center;font-variant-numeric:tabular-nums">{{ p.num }}</span>
+                    <div style="min-width:0">
+                      <div style="font-size:13px;font-weight:500;color:{{ p.color }};white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ p.title }}</div>
+                      <div style="font-size:11px;color:var(--dim);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ p.meta }}</div>
+                    </div>
+                    <span style="font-size:12px;color:var(--mute);font-variant-numeric:tabular-nums">{{ p.dur }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isAudio }}" hint-placeholder-val="{{ false }}">
+        <div data-screen-label="Audio mode" style="animation:vlcView .24s cubic-bezier(0.2,0.8,0.2,1);flex:1;min-height:0;position:relative;display:flex;flex-direction:column;overflow:hidden;padding-bottom:{{ audioPad }}">
+          <div style="flex:1;min-height:0;display:grid;grid-template-columns:{{ audioCols }};gap:{{ audioGap }};padding:{{ audioPadIn }}">
+            <div style="display:flex;flex-direction:column;gap:16px">
+              <div onClick="{{ goLibrary }}" title="Go to library" style="white-space:nowrap;align-self:flex-start;height:30px;display:flex;align-items:center;gap:6px;padding:0 10px 0 6px;border-radius:6px;font-size:13px;color:var(--tx2);cursor:pointer" style-hover="background:rgba(var(--ink),0.06)"><span style="display:inline-flex;align-items:center;justify-content:center;width:1em;height:1em;flex:none;overflow:hidden;font:18px/1 'Material Symbols Rounded'">arrow_back</span>Library</div>
+              <div style="width:{{ artSize }};height:{{ artSize }};border-radius:10px;background:repeating-linear-gradient(135deg,var(--st1) 0 12px,var(--st2) 12px 24px);border:1px solid rgba(var(--ink),0.06);display:flex;align-items:center;justify-content:center;box-shadow:0 24px 60px rgba(0,0,0,0.45)">
+                <span style="font:12px 'JetBrains Mono',monospace;color:var(--dim);text-align:center;padding:0 16px">album art · {{ album.name }}</span>
+              </div>
+              <div style="display:flex;gap:8px;flex-wrap:wrap">
+                <span style="white-space:nowrap;padding:3px 8px;border-radius:4px;background:rgba(255,138,31,0.14);color:var(--accTx);font-size:11px;font-weight:600">{{ album.format }}</span>
+                <span style="white-space:nowrap;padding:3px 8px;border-radius:4px;background:rgba(var(--ink),0.06);color:var(--tx2);font-size:11px">{{ album.year }}</span>
+              </div>
+            </div>
+            <div style="min-width:0;display:flex;flex-direction:column;padding-top:46px">
+              <div style="font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#ff8a1f">Now playing</div>
+              <div style="font-size:{{ audioTitle }};font-weight:600;letter-spacing:-0.02em;margin-top:8px;line-height:1.1">{{ cur.title }}</div>
+              <div style="font-size:15px;color:var(--mute);margin-top:8px">{{ album.artist }} · {{ album.name }}</div>
+              <div style="flex:1;min-height:0;overflow:auto;scrollbar-width:thin;scrollbar-color:rgba(var(--ink),0.22) transparent;margin-top:24px">
+                <sc-for list="{{ playlist }}" as="p" hint-placeholder-count="8">
+                  <div onClick="{{ p.onClick }}" style="display:grid;grid-template-columns:28px minmax(0,1fr) auto;align-items:center;gap:12px;height:40px;padding:0 10px;border-radius:6px;background:{{ p.bg }};cursor:pointer" style-hover="background:rgba(var(--ink),0.05)">
+                    <span style="font:{{ p.numFont }};color:{{ p.numColor }};text-align:center;font-variant-numeric:tabular-nums">{{ p.num }}</span>
+                    <span style="font-size:14px;color:{{ p.color }};white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ p.title }}</span>
+                    <span style="font-size:13px;color:var(--mute);font-variant-numeric:tabular-nums">{{ p.dur }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+          <div style="white-space:nowrap;height:84px;flex:none;display:flex;align-items:flex-end;gap:3px;padding:0 44px">
+            <sc-for list="{{ bars }}" as="bar" hint-placeholder-count="64">
+              <div style="flex:1;height:{{ bar.h }};border-radius:2px 2px 0 0;background:{{ bar.c }};transition:height .25s linear"></div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+    </div>
+  </div>
+
+  <sc-if value="{{ showDeck }}" hint-placeholder-val="{{ true }}">
+    <div style="position:{{ deckPos }};left:{{ deckL }};right:{{ deckR }};bottom:{{ deckB }};z-index:50;flex:none;padding:10px 16px 12px;background:{{ deckBg }};backdrop-filter:{{ deckBlur }};border-radius:{{ deckRad }};box-shadow:{{ deckShadow }};opacity:{{ deckOpacity }};transform:{{ deckShift }};transition:opacity .3s ease, transform .3s ease">
+      <div style="display:flex;align-items:center;gap:12px;font-size:12px;color:var(--tx2);font-variant-numeric:tabular-nums">
+        <span style="width:52px">{{ timeStr }}</span>
+        <div onClick="{{ seek }}" onMouseMove="{{ seekHover }}" onMouseLeave="{{ seekLeave }}" style="white-space:nowrap;flex:1;position:relative;height:20px;display:flex;align-items:center;cursor:pointer">
+          <sc-if value="{{ seekTipOn }}" hint-placeholder-val="{{ false }}">
+            <div style="position:absolute;bottom:24px;left:{{ seekTipX }};transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 9px;border-radius:6px;background:var(--raised);border:1px solid rgba(var(--ink),0.1);box-shadow:0 8px 24px rgba(0,0,0,0.4);pointer-events:none;animation:vlcFade .1s ease-out">
+              <span style="font-size:12px;font-weight:600;color:var(--tx)">{{ seekTipTime }}</span>
+              <span style="font-size:11px;color:var(--mute)">{{ seekTipChapter }}</span>
+            </div>
+            <div style="position:absolute;left:{{ seekTipX }};width:2px;height:{{ seekTh }};margin-left:-1px;background:rgba(var(--ink),0.5);pointer-events:none"></div>
+          </sc-if>
+          <div style="position:absolute;left:0;right:0;height:{{ seekTh }};border-radius:3px;background:rgba(var(--ink),0.12);transition:height .12s ease-out"></div>
+          <div style="position:absolute;left:0;height:{{ seekTh }};border-radius:3px;width:{{ pct }};background:#ff8a1f;transition:width .25s linear,height .12s ease-out"></div>
+          <sc-for list="{{ chapters }}" as="ch" hint-placeholder-count="3">
+            <div style="position:absolute;left:{{ ch.left }};width:2px;height:{{ seekTh }};background:var(--bg);transition:height .12s ease-out"></div>
+          </sc-for>
+          <div style="position:absolute;left:{{ pct }};transition:left .25s linear;width:14px;height:14px;margin-left:-7px;border-radius:7px;background:#fff;box-shadow:0 0 0 3px rgba(255,138,31,0.35)"></div>
+        </div>
+        <span style="width:52px;text-align:right">{{ remainStr }}</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:4px;margin-top:6px">
+        <div onClick="{{ togglePlay }}" title="Play / Pause (Space)" style="white-space:nowrap;flex:none;width:44px;height:44px;border-radius:22px;background:#ff8a1f;color:#1c1206;overflow:hidden;display:flex;align-items:center;justify-content:center;font:28px/1 'Material Symbols Rounded';font-variation-settings:'FILL' 1;cursor:pointer;margin-right:6px;transition:transform .1s ease-out,background .12s" style-hover="background:#ff9a3c" style-active="transform:scale(0.92)">{{ playIcon }}</div>
+        <div onClick="{{ prev }}" title="Previous (P)" style="white-space:nowrap;flex:none;width:36px;height:36px;border-radius:6px;overflow:hidden;display:flex;align-items:center;justify-content:center;font:24px/1 'Material Symbols Rounded';font-variation-settings:'FILL' 1;cursor:pointer" style-hover="background:rgba(var(--ink),0.07)">skip_previous</div>
+        <sc-if value="{{ showSecondary }}" hint-placeholder-val="{{ true }}"><div onClick="{{ stop }}" title="Stop (S)" style="white-space:nowrap;flex:none;width:36px;height:36px;border-radius:6px;overflow:hidden;display:flex;align-items:center;justify-content:center;font:24px/1 'Material Symbols Rounded';font-variation-settings:'FILL' 1;cursor:pointer" style-hover="background:rgba(var(--ink),0.07)">stop</div></sc-if>
+        <div onClick="{{ next }}" title="Next (N)" style="white-space:nowrap;flex:none;width:36px;height:36px;border-radius:6px;overflow:hidden;display:flex;align-items:center;justify-content:center;font:24px/1 'Material Symbols Rounded';font-variation-settings:'FILL' 1;cursor:pointer" style-hover="background:rgba(var(--ink),0.07)">skip_next</div>
+        <sc-if value="{{ showSecondary }}" hint-placeholder-val="{{ true }}"><div style="display:flex;align-items:center;gap:4px"><div style="width:1px;height:20px;background:rgba(var(--ink),0.1);margin:0 6px"></div>
+        <div onClick="{{ cycleLoop }}" title="Loop" style="white-space:nowrap;flex:none;width:36px;height:36px;border-radius:6px;overflow:hidden;display:flex;align-items:center;justify-content:center;font:22px/1 'Material Symbols Rounded';color:{{ loopColor }};cursor:pointer" style-hover="background:rgba(var(--ink),0.07)">{{ loopIcon }}</div>
+        <div onClick="{{ toggleShuffle }}" title="Random" style="white-space:nowrap;flex:none;width:36px;height:36px;border-radius:6px;overflow:hidden;display:flex;align-items:center;justify-content:center;font:22px/1 'Material Symbols Rounded';color:{{ shuffleColor }};cursor:pointer" style-hover="background:rgba(var(--ink),0.07)">shuffle</div></div></sc-if>
+        <sc-if value="{{ expert }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;align-items:center;gap:4px">
+            <div style="width:1px;height:20px;background:rgba(var(--ink),0.1);margin:0 6px"></div>
+            <sc-for list="{{ expertTools }}" as="x" hint-placeholder-count="5">
+              <div onClick="{{ x.onClick }}" title="{{ x.label }}" style="flex:none;white-space:nowrap;min-width:36px;height:36px;padding:0 6px;border-radius:6px;display:flex;align-items:center;justify-content:center;font:{{ x.font }};font-variation-settings:{{ x.fvs }};color:{{ x.color }};cursor:pointer" style-hover="background:rgba(var(--ink),0.07)"><sc-if value="{{ x.isIcon }}" hint-placeholder-val="{{ true }}">{{ x.icon }}</sc-if><sc-if value="{{ x.isRatio }}" hint-placeholder-val="{{ false }}"><span style="white-space:nowrap;position:relative;display:flex;align-items:center;justify-content:center;box-sizing:border-box;height:18px;min-width:24px;padding:0 8px;border:2px solid currentColor;border-radius:4px"><span style="position:absolute;top:2px;left:2px;width:4px;height:3px;border-top:1.5px solid currentColor;border-left:1.5px solid currentColor;border-top-left-radius:1px"></span><span style="position:absolute;bottom:2px;right:2px;width:4px;height:3px;border-bottom:1.5px solid currentColor;border-right:1.5px solid currentColor;border-bottom-right-radius:1px"></span><span style="display:block;font:700 9px/9px 'Segoe UI Variable Text','Segoe UI','Instrument Sans',sans-serif;letter-spacing:0;white-space:nowrap">{{ x.ratio }}</span></span></sc-if></div>
+            </sc-for>
+          </div>
+        </sc-if>
+        <div style="flex:1;min-width:0;padding:0 16px;font-size:12px;color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:center">{{ deckInfo }}</div>
+
+        <div style="position:relative;flex:none">
+          <div onClick="{{ toggleTracks }}" title="Audio and subtitle tracks" style="white-space:nowrap;flex:none;width:36px;height:36px;border-radius:6px;overflow:hidden;display:flex;align-items:center;justify-content:center;font:22px/1 'Material Symbols Rounded';color:{{ subColor }};background:{{ tracksBg }};cursor:pointer" style-hover="background:rgba(var(--ink),0.07)">subtitles</div>
+          <sc-if value="{{ tracksOpen }}" hint-placeholder-val="{{ false }}">
+            <div style="animation:vlcRise .16s cubic-bezier(0.2,0.8,0.2,1);transform-origin:bottom right;position:absolute;bottom:48px;right:-120px;width:560px;display:grid;grid-template-columns:1fr 1fr;background:var(--raised);border:1px solid rgba(var(--ink),0.08);border-radius:10px;box-shadow:0 20px 50px rgba(0,0,0,0.5);overflow:hidden">
+              <div style="padding:12px 6px 8px;border-right:1px solid rgba(var(--ink),0.06)">
+                <div style="font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--dim);padding:0 10px 6px">Audio track</div>
+                <sc-for list="{{ audioTracks }}" as="tr" hint-placeholder-count="3">
+                  <div onClick="{{ tr.onClick }}" style="display:grid;grid-template-columns:20px 1fr;gap:8px;align-items:center;padding:7px 10px;border-radius:6px;cursor:pointer" style-hover="background:rgba(var(--ink),0.07)">
+                    <span style="display:inline-flex;align-items:center;justify-content:center;width:1em;height:1em;flex:none;overflow:hidden;font:16px/1 'Material Symbols Rounded';color:#ff8a1f">{{ tr.check }}</span>
+                    <div><div style="font-size:13px">{{ tr.label }}</div><div style="font-size:11px;color:var(--dim);margin-top:1px">{{ tr.sub }}</div></div>
+                  </div>
+                </sc-for>
+              </div>
+              <div style="padding:12px 6px 8px">
+                <div style="font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--dim);padding:0 10px 6px">Subtitles</div>
+                <sc-for list="{{ subTracks }}" as="tr" hint-placeholder-count="4">
+                  <div onClick="{{ tr.onClick }}" style="display:grid;grid-template-columns:20px 1fr;gap:8px;align-items:center;padding:7px 10px;border-radius:6px;cursor:pointer" style-hover="background:rgba(var(--ink),0.07)">
+                    <span style="display:inline-flex;align-items:center;justify-content:center;width:1em;height:1em;flex:none;overflow:hidden;font:16px/1 'Material Symbols Rounded';color:#ff8a1f">{{ tr.check }}</span>
+                    <div><div style="font-size:13px">{{ tr.label }}</div><div style="font-size:11px;color:var(--dim);margin-top:1px">{{ tr.sub }}</div></div>
+                  </div>
+                </sc-for>
+                <div onClick="{{ addSub }}" style="display:flex;align-items:center;gap:8px;margin:6px 4px 0;padding:8px 6px;border-top:1px solid rgba(var(--ink),0.06);font-size:13px;color:var(--accTx);cursor:pointer"><span style="display:inline-flex;align-items:center;justify-content:center;width:1em;height:1em;flex:none;overflow:hidden;font:18px/1 'Material Symbols Rounded'">add</span>Add subtitle file…</div>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+        <div style="position:relative;flex:none">
+          <div onClick="{{ toggleSpeed }}" title="Playback speed" style="height:36px;padding:0 10px;border-radius:6px;display:{{ speedDisp }};align-items:center;font-size:13px;font-weight:600;font-variant-numeric:tabular-nums;color:{{ speedColor }};background:{{ speedBg }};cursor:pointer" style-hover="background:rgba(var(--ink),0.07)">{{ speedLabel }}</div>
+          <sc-if value="{{ speedOpen }}" hint-placeholder-val="{{ false }}">
+            <div style="animation:vlcRise .16s cubic-bezier(0.2,0.8,0.2,1);transform-origin:bottom center;position:absolute;bottom:48px;left:50%;margin-left:-70px;width:140px;padding:4px;background:var(--raised);border:1px solid rgba(var(--ink),0.08);border-radius:10px;box-shadow:0 20px 50px rgba(0,0,0,0.5)">
+              <sc-for list="{{ speeds }}" as="sp" hint-placeholder-count="8">
+                <div onClick="{{ sp.onClick }}" style="white-space:nowrap;height:30px;display:flex;align-items:center;justify-content:space-between;padding:0 10px;border-radius:6px;font-size:13px;font-variant-numeric:tabular-nums;color:{{ sp.color }};cursor:pointer" style-hover="background:rgba(var(--ink),0.07)">{{ sp.label }}<span style="display:inline-flex;align-items:center;justify-content:center;width:1em;height:1em;flex:none;overflow:hidden;font:16px/1 'Material Symbols Rounded'">{{ sp.check }}</span></div>
+              </sc-for>
+            </div>
+          </sc-if>
+        </div>
+        <div onClick="{{ toggleFx }}" title="Effects and filters (Ctrl+E)" style="white-space:nowrap;flex:none;width:36px;height:36px;border-radius:6px;overflow:hidden;display:flex;align-items:center;justify-content:center;font:22px/1 'Material Symbols Rounded';color:{{ fxColor }};background:{{ fxBg }};cursor:pointer" style-hover="background:rgba(var(--ink),0.07)">tune</div>
+        <div onClick="{{ togglePlaylist }}" title="Playlist (Ctrl+L)" style="white-space:nowrap;flex:none;width:36px;height:36px;border-radius:6px;overflow:hidden;display:flex;align-items:center;justify-content:center;font:22px/1 'Material Symbols Rounded';color:{{ plColor }};background:{{ plBg }};cursor:pointer" style-hover="background:rgba(var(--ink),0.07)">playlist_play</div>
+        <div onClick="{{ toggleMini }}" title="Mini player (Ctrl+H)" style="flex:none;width:36px;height:36px;border-radius:6px;display:{{ winBtnDisp }};align-items:center;justify-content:center;font:22px/1 'Material Symbols Rounded';cursor:pointer" style-hover="background:rgba(var(--ink),0.07)">picture_in_picture_alt</div>
+        <div onClick="{{ fullscreen }}" title="Fullscreen (F)" style="flex:none;width:36px;height:36px;border-radius:6px;display:{{ winBtnDisp }};align-items:center;justify-content:center;font:22px/1 'Material Symbols Rounded';cursor:pointer" style-hover="background:rgba(var(--ink),0.07)">fullscreen</div>
+        <div style="width:1px;height:20px;background:rgba(var(--ink),0.1);margin:0 6px"></div>
+        <div onClick="{{ toggleMute }}" title="Mute (M)" style="white-space:nowrap;flex:none;width:36px;height:36px;border-radius:6px;overflow:hidden;display:flex;align-items:center;justify-content:center;font:22px/1 'Material Symbols Rounded';font-variation-settings:'FILL' 1;cursor:pointer" style-hover="background:rgba(var(--ink),0.07)">{{ volIcon }}</div>
+        <div onClick="{{ setVol }}" title="Volume (up to 125%)" style="white-space:nowrap;flex:none;position:relative;width:{{ volW }};height:24px;display:flex;align-items:center;cursor:pointer">
+          <div style="position:absolute;left:0;right:0;height:4px;border-radius:2px;background:rgba(var(--ink),0.12)"></div>
+          <div style="position:absolute;left:0;height:4px;border-radius:2px;width:{{ volPct }};background:{{ volColor }};transition:width .12s ease-out,background .12s"></div>
+          <div style="position:absolute;left:80%;top:4px;width:1px;height:16px;background:rgba(var(--ink),0.25)"></div>
+        </div>
+        <span style="flex:none;width:40px;text-align:right;font-size:12px;color:var(--tx2);font-variant-numeric:tabular-nums">{{ volLabel }}</span>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ showNowBar }}" hint-placeholder-val="{{ false }}">
+    <div data-screen-label="Now playing bar" style="flex:none;height:76px;display:grid;grid-template-columns:{{ nowCols }};align-items:center;gap:24px;padding:0 20px;background:var(--chrome);border-top:1px solid rgba(var(--ink),0.06)">
+      <div onClick="{{ expand }}" title="Open player" style="min-width:0;display:flex;align-items:center;gap:12px;cursor:pointer">
+        <div style="width:64px;height:40px;flex:none;border-radius:6px;background:repeating-linear-gradient(135deg,var(--st1) 0 6px,var(--st2) 6px 12px);border:1px solid rgba(var(--ink),0.08)"></div>
+        <div style="min-width:0;display:flex;flex-direction:column;gap:3px">
+          <div style="font-size:13px;line-height:16px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ cur.title }}</div>
+          <div style="font-size:12px;line-height:15px;color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ cur.meta }}</div>
+        </div>
+      </div>
+      <div style="min-width:0;display:flex;flex-direction:column;align-items:stretch;gap:4px">
+        <div style="display:flex;align-items:center;justify-content:center;gap:12px">
+          <div onClick="{{ prev }}" title="Previous (P)" style="flex:none;width:32px;height:32px;border-radius:6px;display:flex;align-items:center;justify-content:center;font:22px/1 'Material Symbols Rounded';font-variation-settings:'FILL' 1;color:var(--tx2);cursor:pointer;" style-hover="background:rgba(var(--ink),0.07);color:var(--tx)">skip_previous</div>
+          <div onClick="{{ togglePlay }}" title="Play / Pause (Space)" style="flex:none;width:36px;height:36px;border-radius:50%;background:#ff8a1f;color:#1c1206;display:flex;align-items:center;justify-content:center;font:24px/1 'Material Symbols Rounded';font-variation-settings:'FILL' 1;cursor:pointer;transition:transform .1s ease-out" style-hover="background:#ff9a3c" style-active="transform:scale(0.92)">{{ playIcon }}</div>
+          <div onClick="{{ next }}" title="Next (N)" style="flex:none;width:32px;height:32px;border-radius:6px;display:flex;align-items:center;justify-content:center;font:22px/1 'Material Symbols Rounded';font-variation-settings:'FILL' 1;color:var(--tx2);cursor:pointer;" style-hover="background:rgba(var(--ink),0.07);color:var(--tx)">skip_next</div>
+        </div>
+        <div style="display:grid;grid-template-columns:40px minmax(0,1fr) 40px;align-items:center;gap:10px;font-size:11px;line-height:1;color:var(--mute);font-variant-numeric:tabular-nums">
+          <span style="text-align:right">{{ timeStr }}</span>
+          <div onClick="{{ seek }}" title="Seek — click to jump" style="position:relative;height:12px;display:flex;align-items:center;cursor:pointer">
+            <div style="position:absolute;left:0;right:0;height:3px;border-radius:2px;background:rgba(var(--ink),0.14)"></div>
+            <div style="position:absolute;left:0;height:3px;border-radius:2px;width:{{ pct }};background:#ff8a1f;transition:width .25s linear"></div>
+          </div>
+          <span style="text-align:left">{{ durStr }}</span>
+        </div>
+      </div>
+      <div style="min-width:0;display:flex;align-items:center;justify-content:flex-end;gap:6px">
+        <div onClick="{{ toggleMute }}" title="Mute (M)" style="flex:none;width:32px;height:32px;border-radius:6px;display:flex;align-items:center;justify-content:center;font:22px/1 'Material Symbols Rounded';font-variation-settings:'FILL' 1;color:var(--tx2);cursor:pointer;" style-hover="background:rgba(var(--ink),0.07);color:var(--tx)">{{ volIcon }}</div>
+        <div onClick="{{ setVol }}" title="Volume (up to 125%)" style="flex:none;position:relative;width:{{ nowVolW }};height:20px;display:{{ nowVolDisp }};align-items:center;cursor:pointer;margin-right:8px">
+          <div style="position:absolute;left:0;right:0;height:3px;border-radius:2px;background:rgba(var(--ink),0.14)"></div>
+          <div style="position:absolute;left:0;height:3px;border-radius:2px;width:{{ volPct }};background:{{ volColor }}"></div>
+        </div>
+        <div onClick="{{ expand }}" title="Open player" style="flex:none;width:32px;height:32px;border-radius:6px;display:flex;align-items:center;justify-content:center;font:20px/1 'Material Symbols Rounded';font-variation-settings:'FILL' 0;color:var(--tx2);cursor:pointer;" style-hover="background:rgba(var(--ink),0.07);color:var(--tx)">open_in_full</div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ anyPop }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeAll }}" style="position:absolute;inset:0;z-index:45"></div>
+  </sc-if>
+
+  <sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute;left:50%;bottom:120px;transform:translateX(-50%);animation:vlcToast .22s cubic-bezier(0.2,0.8,0.2,1);z-index:80;display:flex;align-items:center;gap:10px;padding:10px 16px;border-radius:8px;background:var(--hover);border:1px solid rgba(var(--ink),0.1);box-shadow:0 12px 30px rgba(0,0,0,0.5);font-size:13px;white-space:nowrap">
+      <span style="display:inline-flex;align-items:center;justify-content:center;width:1em;height:1em;flex:none;overflow:hidden;font:18px/1 'Material Symbols Rounded';color:#ff8a1f">info</span>{{ toast }}
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ dlgOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute;inset:0;z-index:70;background:rgba(0,0,0,0.55);animation:vlcFade .18s ease-out;display:flex;align-items:center;justify-content:center">
+      <div data-screen-label="Open media" style="animation:vlcPop .2s cubic-bezier(0.2,0.8,0.2,1);width:640px;background:var(--surface);border:1px solid rgba(var(--ink),0.09);border-radius:12px;box-shadow:0 30px 80px rgba(0,0,0,0.6);overflow:hidden">
+        <div style="display:flex;align-items:center;padding:18px 16px 0 22px">
+          <div style="flex:1;font-size:17px;font-weight:600">Open media</div>
+          <div onClick="{{ closeDialog }}" title="Close (Esc)" style="white-space:nowrap;flex:none;width:30px;height:30px;border-radius:6px;overflow:hidden;display:flex;align-items:center;justify-content:center;font:18px/1 'Material Symbols Rounded';cursor:pointer" style-hover="background:rgba(var(--ink),0.08)">close</div>
+        </div>
+        <div style="display:flex;gap:6px;padding:16px 22px 0">
+          <sc-for list="{{ dlgTabs }}" as="dt" hint-placeholder-count="4">
+            <div onClick="{{ dt.onClick }}" style="flex:1;height:64px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;border-radius:8px;font-size:12px;background:{{ dt.bg }};color:{{ dt.color }};border:1px solid {{ dt.border }};cursor:pointer">
+              <span style="display:inline-flex;align-items:center;justify-content:center;width:1em;height:1em;flex:none;overflow:hidden;font:22px/1 'Material Symbols Rounded'">{{ dt.icon }}</span>{{ dt.label }}
+            </div>
+          </sc-for>
+        </div>
+        <div style="padding:20px 22px;min-height:200px">
+          <sc-if value="{{ tabFile }}" hint-placeholder-val="{{ false }}">
+            <div style="height:170px;border-radius:8px;border:1.5px dashed rgba(var(--ink),0.16);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:var(--mute);font-size:13px">
+              <span style="display:inline-flex;align-items:center;justify-content:center;width:1em;height:1em;flex:none;overflow:hidden;font:34px/1 'Material Symbols Rounded';color:#ff8a1f">upload_file</span>
+              <span>Drop files or folders here</span>
+              <div style="white-space:nowrap;height:30px;display:flex;align-items:center;padding:0 14px;border-radius:6px;background:var(--hover);color:var(--tx);font-size:13px;cursor:pointer">Browse…</div>
+            </div>
+          </sc-if>
+          <sc-if value="{{ tabNet }}" hint-placeholder-val="{{ true }}">
+            <div style="display:flex;flex-direction:column;gap:14px">
+              <div style="font-size:13px;color:var(--tx2)">Network URL</div>
+              <input value="{{ url }}" onChange="{{ setUrl }}" style="width:100%;min-width:0;height:38px;padding:0 12px;border-radius:6px;background:var(--bg);border:1px solid #ff8a1f;color:var(--tx);font:13px 'JetBrains Mono',monospace;outline:none">
+              <div style="font-size:12px;color:var(--dim)">Supports http, https, rtsp, rtmp, mms, udp, ftp, smb and HLS / DASH manifests.</div>
+              <div style="font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--dim);margin-top:4px">Recent</div>
+              <sc-for list="{{ recentUrls }}" as="u" hint-placeholder-count="3">
+                <div onClick="{{ u.onClick }}" style="display:flex;align-items:center;gap:10px;padding:6px 8px;margin:-6px -8px;border-radius:6px;font:12px 'JetBrains Mono',monospace;color:var(--tx2);cursor:pointer" style-hover="background:rgba(var(--ink),0.06)"><span style="display:inline-flex;align-items:center;justify-content:center;width:1em;height:1em;flex:none;overflow:hidden;font:16px/1 'Material Symbols Rounded';color:var(--dim)">history</span>{{ u.url }}</div>
+              </sc-for>
+            </div>
+          </sc-if>
+          <sc-if value="{{ tabDisc }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:14px">
+              <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px">
+                <sc-for list="{{ discTypes }}" as="dk" hint-placeholder-count="4">
+                  <div onClick="{{ dk.onClick }}" style="white-space:nowrap;height:40px;display:flex;align-items:center;justify-content:center;border-radius:6px;font-size:13px;background:{{ dk.bg }};color:{{ dk.color }};border:1px solid {{ dk.border }};cursor:pointer">{{ dk.label }}</div>
+                </sc-for>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-radius:8px;background:var(--raised);font-size:13px"><span>Disc device</span><span style="font-family:'JetBrains Mono',monospace;color:var(--tx2)">E:\ — BD-RE drive</span></div>
+              <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-radius:8px;background:var(--raised);font-size:13px"><span>No disc menus</span><span style="color:var(--mute)">Off</span></div>
+            </div>
+          </sc-if>
+          <sc-if value="{{ tabCap }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-radius:8px;background:var(--raised);font-size:13px"><span>Capture mode</span><span style="color:var(--tx2)">DirectShow</span></div>
+              <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-radius:8px;background:var(--raised);font-size:13px"><span>Video device</span><span style="color:var(--tx2)">Integrated Camera</span></div>
+              <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-radius:8px;background:var(--raised);font-size:13px"><span>Audio device</span><span style="color:var(--tx2)">Microphone Array</span></div>
+              <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-radius:8px;background:var(--raised);font-size:13px"><span>Video size</span><span style="color:var(--tx2)">1920 × 1080</span></div>
+            </div>
+          </sc-if>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;padding:14px 22px;background:var(--panel);border-top:1px solid rgba(var(--ink),0.06)">
+          <div style="flex:1;display:flex;align-items:center;gap:8px;font-size:13px;color:var(--mute)"><span style="display:inline-flex;align-items:center;justify-content:center;width:1em;height:1em;flex:none;overflow:hidden;font:18px/1 'Material Symbols Rounded'">check_box_outline_blank</span>Show more options</div>
+          <div onClick="{{ closeDialog }}" title="Close (Esc)" style="white-space:nowrap;height:34px;display:flex;align-items:center;padding:0 16px;border-radius:6px;background:var(--hover);font-size:13px;cursor:pointer" style-hover="background:var(--hover2)">Cancel</div>
+          <div style="display:flex;border-radius:6px;overflow:hidden">
+            <div onClick="{{ playFromDialog }}" style="white-space:nowrap;height:34px;display:flex;align-items:center;padding:0 18px;background:#ff8a1f;color:#1c1206;font-size:13px;font-weight:600;line-height:1;cursor:pointer" style-hover="background:#ff9a3c">Play</div>
+            <div style="white-space:nowrap;width:32px;height:34px;display:flex;align-items:center;justify-content:center;background:#ff8a1f;border-left:1px solid rgba(28,18,6,0.25);color:#1c1206;font:18px/1 'Material Symbols Rounded'">expand_more</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ mError }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeModal }}" style="position:absolute;inset:0;z-index:70;background:rgba(0,0,0,0.55);animation:vlcFade .18s ease-out;display:flex;align-items:center;justify-content:center">
+      <div onClick="{{ stop2 }}" data-screen-label="Error dialog" style="width:480px;max-width:calc(100% - 32px);animation:vlcPop .2s cubic-bezier(0.2,0.8,0.2,1);background:var(--surface);border:1px solid rgba(var(--ink),0.09);border-radius:12px;box-shadow:0 30px 80px rgba(0,0,0,0.6);overflow:hidden">
+        <div style="display:flex;gap:16px;padding:22px">
+          <div style="white-space:nowrap;width:40px;height:40px;flex:none;border-radius:20px;background:rgba(255,90,78,0.14);overflow:hidden;display:flex;align-items:center;justify-content:center;font:22px/1 'Material Symbols Rounded';color:#e5483c">error</div>
+          <div style="min-width:0">
+            <div style="font-size:16px;font-weight:600">Your input can't be opened</div>
+            <div style="font-size:13px;color:var(--mute);margin-top:6px;line-height:1.5">VLC is unable to open the MRL <span style="font-family:'JetBrains Mono',monospace;color:var(--tx);word-break:break-all">{{ url }}</span>. Check the log for details.</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:flex-end;gap:8px;padding:14px 22px;background:var(--panel);border-top:1px solid rgba(var(--ink),0.06)"><div style="flex:1;font-size:13px;color:var(--accTx);cursor:pointer" onClick="{{ showLog }}">Show log</div><div onClick="{{ closeModal }}" title="Close (Esc)" style="white-space:nowrap;height:34px;display:flex;align-items:center;padding:0 16px;border-radius:6px;background:var(--hover);font-size:13px;cursor:pointer" style-hover="background:var(--hover2)">Close</div><div onClick="{{ retry }}" style="white-space:nowrap;height:34px;display:flex;align-items:center;padding:0 18px;border-radius:6px;background:#ff8a1f;color:#1c1206;font-size:13px;font-weight:600;line-height:1;cursor:pointer" style-hover="background:#ff9a3c">Retry</div></div>
+      </div>
+    </div>
+  </sc-if>
+  <sc-if value="{{ mInfo }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeModal }}" style="position:absolute;inset:0;z-index:70;background:rgba(0,0,0,0.55);animation:vlcFade .18s ease-out;display:flex;align-items:center;justify-content:center">
+      <div onClick="{{ stop2 }}" data-screen-label="Media information" style="width:680px;max-width:calc(100% - 32px);animation:vlcPop .2s cubic-bezier(0.2,0.8,0.2,1);background:var(--surface);border:1px solid rgba(var(--ink),0.09);border-radius:12px;box-shadow:0 30px 80px rgba(0,0,0,0.6);overflow:hidden">
+        <div style="display:flex;align-items:center;padding:18px 16px 0 22px">
+          <div style="flex:1;font-size:17px;font-weight:600">Media information</div>
+          <div onClick="{{ closeModal }}" title="Close (Esc)" style="white-space:nowrap;flex:none;width:30px;height:30px;border-radius:6px;overflow:hidden;display:flex;align-items:center;justify-content:center;font:18px/1 'Material Symbols Rounded';cursor:pointer" style-hover="background:rgba(var(--ink),0.08)">close</div>
+        </div>
+        <div style="display:flex;gap:4px;padding:10px 18px 0;border-bottom:1px solid rgba(var(--ink),0.06)">
+          <sc-for list="{{ infoTabs }}" as="it" hint-placeholder-count="4">
+            <div onClick="{{ it.onClick }}" style="padding:8px 10px 10px;font-size:13px;color:{{ it.color }};border-bottom:2px solid {{ it.line }};cursor:pointer">{{ it.label }}</div>
+          </sc-for>
+        </div>
+        <div style="height:340px;overflow-y:auto;overflow-x:hidden;scrollbar-width:thin;scrollbar-color:rgba(var(--ink),0.22) transparent;padding:16px 22px;display:flex;flex-direction:column;gap:16px">
+          <sc-for list="{{ infoGroups }}" as="g" hint-placeholder-count="2">
+            <div>
+              <div style="font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--dim);margin-bottom:6px">{{ g.title }}</div>
+              <div style="border-radius:8px;background:var(--raised);border:1px solid rgba(var(--ink),0.06)">
+                <sc-for list="{{ g.rows }}" as="r" hint-placeholder-count="4">
+                  <div style="display:grid;grid-template-columns:170px minmax(0,1fr);gap:12px;padding:8px 12px;font-size:13px;border-top:{{ r.border }}">
+                    <span style="color:var(--mute)">{{ r.k }}</span><span style="word-break:break-all">{{ r.v }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:flex-end;gap:8px;padding:14px 22px;background:var(--panel);border-top:1px solid rgba(var(--ink),0.06)"><div style="flex:1;font:12px 'JetBrains Mono',monospace;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ curPath }}</div><div onClick="{{ closeModal }}" title="Close (Esc)" style="white-space:nowrap;height:34px;display:flex;align-items:center;padding:0 16px;border-radius:6px;background:var(--hover);font-size:13px;cursor:pointer" style-hover="background:var(--hover2)">Close</div></div>
+      </div>
+    </div>
+  </sc-if>
+  <sc-if value="{{ mJump }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeModal }}" style="position:absolute;inset:0;z-index:70;background:rgba(0,0,0,0.55);animation:vlcFade .18s ease-out;display:flex;align-items:center;justify-content:center">
+      <div onClick="{{ stop2 }}" data-screen-label="Go to time" style="width:380px;max-width:calc(100% - 32px);animation:vlcPop .2s cubic-bezier(0.2,0.8,0.2,1);background:var(--surface);border:1px solid rgba(var(--ink),0.09);border-radius:12px;box-shadow:0 30px 80px rgba(0,0,0,0.6);overflow:hidden">
+        <div style="padding:22px;display:flex;flex-direction:column;gap:14px">
+          <div style="font-size:16px;font-weight:600">Go to time</div>
+          <input value="{{ jumpVal }}" onChange="{{ setJump }}" style="height:44px;padding:0 14px;border-radius:6px;background:var(--bg);border:1px solid #ff8a1f;color:var(--tx);font:20px 'JetBrains Mono',monospace;letter-spacing:0.04em;outline:none">
+          <div style="font-size:12px;color:var(--mute)">Format h:mm:ss — media length {{ durStr }}</div>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:flex-end;gap:8px;padding:14px 22px;background:var(--panel);border-top:1px solid rgba(var(--ink),0.06)"><div onClick="{{ closeModal }}" title="Close (Esc)" style="white-space:nowrap;height:34px;display:flex;align-items:center;padding:0 16px;border-radius:6px;background:var(--hover);font-size:13px;cursor:pointer" style-hover="background:var(--hover2)">Cancel</div><div onClick="{{ doJump }}" style="white-space:nowrap;height:34px;display:flex;align-items:center;padding:0 18px;border-radius:6px;background:#ff8a1f;color:#1c1206;font-size:13px;font-weight:600;line-height:1;cursor:pointer" style-hover="background:#ff9a3c">Go</div></div>
+      </div>
+    </div>
+  </sc-if>
+  <sc-if value="{{ mAbout }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeModal }}" style="position:absolute;inset:0;z-index:70;background:rgba(0,0,0,0.55);animation:vlcFade .18s ease-out;display:flex;align-items:center;justify-content:center">
+      <div onClick="{{ stop2 }}" data-screen-label="About" style="width:440px;max-width:calc(100% - 32px);animation:vlcPop .2s cubic-bezier(0.2,0.8,0.2,1);background:var(--surface);border:1px solid rgba(var(--ink),0.09);border-radius:12px;box-shadow:0 30px 80px rgba(0,0,0,0.6);overflow:hidden">
+        <div style="padding:32px 28px 24px;display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center">
+          <svg width="64" height="64" viewBox="0 0 64 64"><defs><linearGradient id="vlcC" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#ffb04a"></stop><stop offset="0.45" stop-color="#ff8800"></stop><stop offset="1" stop-color="#e05e00"></stop></linearGradient><linearGradient id="vlcB" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#ff9420"></stop><stop offset="1" stop-color="#c94f00"></stop></linearGradient><linearGradient id="vlcW" x1="0.2" x2="0.8" y1="0" y2="0"><stop offset="0" stop-color="#ffffff"></stop><stop offset="1" stop-color="#d9d9d9"></stop></linearGradient><clipPath id="vlcK"><path d="M28.6 5.2c1.5-2.6 5.3-2.6 6.8 0L50 50H14z"></path></clipPath></defs><path d="M28.6 5.2c1.5-2.6 5.3-2.6 6.8 0L50 50H14z" fill="url(#vlcC)"></path><g clip-path="url(#vlcK)"><rect x="0" y="17" width="64" height="7" fill="url(#vlcW)"></rect><rect x="0" y="31.5" width="64" height="8" fill="url(#vlcW)"></rect></g><path d="M9.5 47h45c1.6 0 3 .9 3.6 2.4l2.6 6.4c.8 2-.7 4.2-2.9 4.2H6.2c-2.2 0-3.7-2.2-2.9-4.2l2.6-6.4C6.5 47.9 7.9 47 9.5 47z" fill="url(#vlcB)"></path><path d="M9.6 47.8h44.8" stroke="#ffb35c" stroke-width="1.2" stroke-linecap="round" opacity="0.7"></path></svg>
+          <div style="font-size:20px;font-weight:600;margin-top:6px">VLC media player</div>
+          <div style="font:12px 'JetBrains Mono',monospace;color:var(--mute)">4.0 · concept redesign · 64-bit</div>
+          <div style="font-size:13px;color:var(--mute);line-height:1.55;max-width:340px;text-wrap:pretty;margin-top:6px">A free, open source multimedia player that plays most files, discs, devices and streaming protocols.</div>
+          <div style="display:flex;gap:18px;font-size:13px;margin-top:8px"><a href="#">Authors</a><a href="#">License</a><a href="#">Credits</a></div>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:flex-end;gap:8px;padding:14px 22px;background:var(--panel);border-top:1px solid rgba(var(--ink),0.06)"><div onClick="{{ closeModal }}" title="Close (Esc)" style="white-space:nowrap;height:34px;display:flex;align-items:center;padding:0 16px;border-radius:6px;background:var(--hover);font-size:13px;cursor:pointer" style-hover="background:var(--hover2)">Close</div></div>
+      </div>
+    </div>
+  </sc-if>
+  <sc-if value="{{ ctxOpen }}" hint-placeholder-val="{{ false }}">
+    <div data-screen-label="Playlist context menu" style="animation:vlcPop .12s cubic-bezier(0.2,0.8,0.2,1);transform-origin:top right;position:absolute;z-index:55;top:{{ ctxTop }};right:24px;width:240px;padding:4px;background:var(--raised);border:1px solid rgba(var(--ink),0.08);border-radius:8px;box-shadow:0 16px 40px rgba(0,0,0,0.5)">
+      <sc-for list="{{ ctxItems }}" as="it" hint-placeholder-count="8">
+        <sc-if value="{{ it.isSep }}" hint-placeholder-val="{{ false }}"><div style="height:1px;margin:4px 8px;background:rgba(var(--ink),0.08)"></div></sc-if>
+        <sc-if value="{{ it.isItem }}" hint-placeholder-val="{{ true }}">
+          <div onClick="{{ it.onClick }}" style="height:30px;display:grid;grid-template-columns:22px 1fr auto;align-items:center;gap:8px;padding:0 10px 0 8px;border-radius:5px;font-size:13px;color:{{ it.color }}" style-hover="background:rgba(var(--ink),0.07)">
+            <span style="display:inline-flex;align-items:center;justify-content:center;width:1em;height:1em;flex:none;overflow:hidden;font:17px/1 'Material Symbols Rounded';color:var(--mute)">{{ it.icon }}</span><span>{{ it.label }}</span><span style="font-size:12px;color:var(--dim)">{{ it.key }}</span>
+          </div>
+        </sc-if>
+      </sc-for>
+    </div>
+  </sc-if>
+  <sc-if value="{{ drop }}" hint-placeholder-val="{{ false }}">
+    <div data-screen-label="Drop target" onDragLeave="{{ dragOut }}" style="animation:vlcFade .15s ease-out;position:absolute;inset:8px;z-index:75;border:2px dashed #ff8a1f;border-radius:10px;background:rgba(255,138,31,0.10);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:10px;padding:28px 36px;border-radius:12px;background:var(--surface);box-shadow:0 20px 50px rgba(0,0,0,0.4);pointer-events:none">
+        <span style="display:inline-flex;align-items:center;justify-content:center;width:1em;height:1em;flex:none;overflow:hidden;font:40px/1 'Material Symbols Rounded';color:#ff8a1f">file_open</span>
+        <div style="font-size:17px;font-weight:600">Drop to play</div>
+        <div style="font-size:13px;color:var(--mute)">Hold <span style="font-family:'JetBrains Mono',monospace;color:var(--tx)">Shift</span> to add to the playlist instead</div>
+      </div>
+    </div>
+  </sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{ mini }}" hint-placeholder-val="{{ false }}">
+  <div data-screen-label="Mini player" style="animation:vlcPop .24s cubic-bezier(0.2,0.8,0.2,1);width:400px;border-radius:10px;overflow:hidden;background:var(--surface);border:1px solid rgba(var(--ink),0.09);box-shadow:0 30px 80px rgba(0,0,0,0.6)">
+    <div style="position:relative;aspect-ratio:16/9;background:repeating-linear-gradient(135deg,#171615 0 10px,#100f0e 10px 20px);display:flex;align-items:center;justify-content:center">
+      <span style="font:11px 'JetBrains Mono',monospace;color:var(--dim)">video · {{ cur.title }}</span>
+      <div style="position:absolute;top:8px;right:8px;display:flex;gap:4px">
+        <div onClick="{{ toggleMini }}" title="Restore" style="white-space:nowrap;flex:none;width:30px;height:30px;border-radius:6px;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.55);color:#fff;font:18px/1 'Material Symbols Rounded';cursor:pointer">open_in_full</div>
+      </div>
+    </div>
+    <div style="height:3px;background:rgba(var(--ink),0.1)"><div style="height:100%;width:{{ pct }};background:#ff8a1f"></div></div>
+    <div style="display:flex;align-items:center;gap:6px;padding:10px 12px">
+      <div style="flex:1;min-width:0">
+        <div style="font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ cur.title }}</div>
+        <div style="font-size:11px;color:var(--mute);font-variant-numeric:tabular-nums">{{ timeStr }} / {{ durStr }}</div>
+      </div>
+      <div onClick="{{ prev }}" title="Previous (P)" style="white-space:nowrap;flex:none;width:32px;height:32px;border-radius:6px;overflow:hidden;display:flex;align-items:center;justify-content:center;font:22px/1 'Material Symbols Rounded';font-variation-settings:'FILL' 1;cursor:pointer" style-hover="background:rgba(var(--ink),0.07)">skip_previous</div>
+      <div onClick="{{ togglePlay }}" title="Play / Pause (Space)" style="white-space:nowrap;flex:none;width:36px;height:36px;border-radius:18px;background:#ff8a1f;color:#1c1206;overflow:hidden;display:flex;align-items:center;justify-content:center;font:24px/1 'Material Symbols Rounded';font-variation-settings:'FILL' 1;cursor:pointer">{{ playIcon }}</div>
+      <div onClick="{{ next }}" title="Next (N)" style="white-space:nowrap;flex:none;width:32px;height:32px;border-radius:6px;overflow:hidden;display:flex;align-items:center;justify-content:center;font:22px/1 'Material Symbols Rounded';font-variation-settings:'FILL' 1;cursor:pointer" style-hover="background:rgba(var(--ink),0.07)">skip_next</div>
+    </div>
+  </div>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;dark&quot;,&quot;light&quot;],&quot;default&quot;:&quot;dark&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;layout&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;docked&quot;,&quot;immersive&quot;],&quot;default&quot;:&quot;docked&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;startView&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;player&quot;,&quot;library&quot;,&quot;audio&quot;,&quot;settings&quot;],&quot;default&quot;:&quot;player&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;winW&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;1920&quot;,&quot;1280&quot;,&quot;1024&quot;,&quot;800&quot;],&quot;default&quot;:&quot;1280&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Window size&quot;},&quot;winH&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;1080&quot;,&quot;800&quot;,&quot;700&quot;,&quot;600&quot;],&quot;default&quot;:&quot;800&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Window size&quot;},&quot;showMenuBar&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;advancedControls&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;},&quot;reduceMotion&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;},&quot;scene&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;string&quot;},&quot;bare&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;boolean&quot;},&quot;frozen&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;boolean&quot;}}">
+const VIDEOS = [
+  { title: 'Sintel', meta: '2010 · 1080p · H.264 · 5.1', dur: 888, path: 'D:\\Movies\\Blender\\sintel_1080p.mkv' },
+  { title: 'Big Buck Bunny', meta: '2008 · 4K · H.265', dur: 596, path: 'D:\\Movies\\Blender\\bbb_sunflower_2160p.mp4' },
+  { title: 'Tears of Steel', meta: '2012 · 1080p · VP9', dur: 734, path: 'D:\\Movies\\Blender\\tears_of_steel.webm' },
+  { title: 'Elephants Dream', meta: '2006 · 1080p · H.264', dur: 654, path: 'C:\\Users\\Mara\\Videos\\elephants_dream.avi' },
+  { title: 'Cosmos Laundromat', meta: '2015 · 2K · AV1', dur: 730, path: 'D:\\Movies\\Blender\\cosmos_laundromat.mkv' },
+  { title: 'Spring', meta: '2019 · 4K HDR · H.265', dur: 464, path: 'D:\\Movies\\Blender\\spring_hdr.mkv' },
+  { title: 'Caminandes: Llamigos', meta: '2016 · 1080p · H.264', dur: 150, path: 'C:\\Users\\Mara\\Downloads\\llamigos.mp4' },
+  { title: 'Agent 327: Operation Barbershop', meta: '2017 · 2K · H.264', dur: 232, path: 'C:\\Users\\Mara\\Downloads\\agent327.mp4' },
+];
+const ALBUM = { name: 'Coastal Static', artist: 'The Marrow Lines', year: '2024', format: 'FLAC · 24-bit / 96 kHz' };
+const MUSIC = [
+  { title: 'Low Tide Radio', dur: 231 }, { title: 'Salt in the Wiring', dur: 264 }, { title: 'Harbour Lights (Reprise)', dur: 198 },
+  { title: 'Static Bloom', dur: 302 }, { title: 'Lighthouse Frequencies', dur: 247 }, { title: 'Undertow', dur: 219 },
+  { title: 'Fog Signal', dur: 276 }, { title: 'Last Ferry Out', dur: 341 },
+].map(m => ({ ...m, meta: ALBUM.artist }));
+const ALBUMS = [
+  ['Coastal Static', 'The Marrow Lines'], ['Night Shift Tapes', 'Okra Kollektiv'], ['Paper Satellites', 'Juniper Vale'],
+  ['Grey Market', 'Hollow Sons'], ['Weathervane', 'Ines Calder'], ['Room Tone', 'Field Unit'], ['Mirrorball Kids', 'Discotheque Ruins'],
+  ['Slow Orbit', 'Tamsin Rae'], ['Concrete Garden', 'The Lowlands'], ['Signal / Noise', 'Arcade Static'],
+];
+const SUBS = ["You're a long way from home.", "I'm looking for someone.", 'A friend. A small one, with wings.', "Then you'd better keep moving."];
+const PRESETS = { Flat: [0,0,0,0,0,0,0,0,0,0], Rock: [8,5,-5,-8,-3,4,9,11,11,11], Pop: [-2,5,7,8,5,0,-2,-2,-2,-2], Jazz: [4,3,1,2,-2,-2,0,1,3,4], Classical: [0,0,0,0,0,0,-7,-7,-7,-9], Live: [-5,0,4,5,5,5,4,2,2,2], Headphones: [5,11,5,-3,-2,1,5,10,13,14], 'Full bass': [10,10,10,6,2,-4,-8,-10,-11,-11] };
+const FREQS = ['60', '170', '310', '600', '1K', '3K', '6K', '12K', '14K', '16K'];
+const SPEEDS = [0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2];
+const AUDIO_TR = [['English', '5.1 · E-AC3 · 640 kb/s'], ['English — Commentary', 'Stereo · AAC'], ['Español', '5.1 · AC3']];
+const SUB_TR = [['Disabled', 'No subtitles'], ['English', 'SRT · embedded'], ['English (SDH)', 'SRT · embedded'], ['Français', 'ASS · sintel.fr.ass']];
+const SETTINGS = {
+  Interface: { icon: 'web', rows: [
+    ['lang', 'Language', 'Interface language for menus and dialogs.', 'select', 'System default (English)'],
+    ['theme', 'Theme', 'Follow Windows or force a color scheme.', 'select', 'Dark'],
+    ['libStart', 'Open media library on startup', 'Show Home instead of an empty player window.', 'toggle', true],
+    ['oneInst', 'Allow only one instance', 'Files opened from Explorer go to the running player.', 'toggle', true],
+    ['enqueue', 'Enqueue items instead of playing', 'Applies when one instance mode is on.', 'toggle', false],
+    ['pauseMin', 'Pause on minimize', 'Resume when the window is restored.', 'toggle', false],
+    ['mediaKeys', 'Windows media controls', 'Show in the volume flyout and respond to media keys.', 'toggle', true],
+  ]},
+  Audio: { icon: 'graphic_eq', rows: [
+    ['aout', 'Output module', 'How VLC talks to your sound hardware.', 'select', 'WASAPI (Windows Audio Session)'],
+    ['adev', 'Device', '', 'select', 'Speakers (Realtek High Definition)'],
+    ['norm', 'Normalize volume', 'Keep loudness consistent between files.', 'toggle', false],
+    ['rg', 'Replay gain', 'Use embedded loudness tags.', 'select', 'Track'],
+    ['spdif', 'S/PDIF passthrough', 'Send Dolby / DTS streams to your receiver untouched.', 'toggle', true],
+  ]},
+  Video: { icon: 'movie', rows: [
+    ['vout', 'Output', '', 'select', 'Direct3D 11'],
+    ['hw', 'Hardware-accelerated decoding', 'Lower CPU use; disable if you see artifacts.', 'select', 'Automatic (D3D11VA)'],
+    ['hdr', 'HDR passthrough', 'Requires HDR enabled in Windows display settings.', 'toggle', true],
+    ['deint', 'Deinterlacing', '', 'select', 'Automatic · Yadif'],
+    ['fitwin', 'Resize window to video size', '', 'toggle', false],
+  ]},
+  'Subtitles / OSD': { icon: 'subtitles', rows: [
+    ['osd', 'On-screen display', 'Show title, volume and seek feedback over video.', 'toggle', true],
+    ['enc', 'Default encoding', 'Used when a subtitle file declares none.', 'select', 'UTF-8'],
+    ['sfont', 'Font', '', 'select', 'Segoe UI Semibold'],
+    ['ssize', 'Size', '', 'select', 'Normal'],
+    ['sbg', 'Background box', 'Draw a translucent box behind text.', 'toggle', true],
+  ]},
+  'Input / Codecs': { icon: 'input', rows: [
+    ['cache', 'File caching', '', 'select', '1000 ms'],
+    ['ncache', 'Network caching', 'Increase for unstable connections.', 'select', 'Normal (1500 ms)'],
+    ['avi', 'Damaged or incomplete AVI files', '', 'select', 'Ask for action'],
+    ['fastseek', 'Fast seek', 'Jump to the nearest keyframe for snappier seeking.', 'toggle', true],
+  ]},
+  Hotkeys: { icon: 'keyboard', rows: [
+    ['k1', 'Play / Pause', '', 'key', 'Space'], ['k2', 'Fullscreen', '', 'key', 'F'], ['k3', 'Jump 10 s forward / back', '', 'key', 'Shift + → / ←'],
+    ['k4', 'Next frame', '', 'key', 'E'], ['k5', 'Take snapshot', '', 'key', 'Shift + S'], ['k6', 'Toggle playlist', '', 'key', 'Ctrl + L'],
+  ]},
+  Advanced: { icon: 'code', rows: [
+    ['all', 'Show all settings', 'The full module tree, for power users.', 'toggle', false],
+    ['log', 'Log to file', 'Write verbose logs to %APPDATA%\\vlc.', 'toggle', false],
+    ['reset', 'Reset preferences', 'Restore every setting to its default.', 'button', 'Reset…'],
+  ]},
+};
+function parseScene(str) {
+  const o = {}; if (!str) return o;
+  str.split(';').forEach(p => { const [k, ...r] = p.split('='); if (!k.trim()) return; let v = r.join('=').trim();
+    v = v === 'true' ? true : v === 'false' ? false : /^-?\d+(\.\d+)?$/.test(v) ? Number(v) : v; o[k.trim()] = v; });
+  if (o.preset && PRESETS[o.preset]) o.eq = [...PRESETS[o.preset]];
+  if (o.view === 'player') o.mode = o.mode || 'video'; if (o.view === 'audio') o.mode = 'music';
+  if (o.tv !== undefined || o.tm !== undefined) o.t = { video: o.tv ?? 312, music: o.tm ?? 64 };
+  return o;
+}
+const fmt = s => { s = Math.max(0, Math.floor(s)); const h = Math.floor(s / 3600), m = Math.floor(s % 3600 / 60), x = s % 60; return (h ? h + ':' + String(m).padStart(2, '0') : m) + ':' + String(x).padStart(2, '0'); };
+const INFO = {
+  General: (it, v) => [['Media', [['Title', it.title], ['Artist', v ? 'Blender Foundation' : 'The Marrow Lines'], ['Album', v ? '—' : 'Coastal Static'], ['Genre', v ? 'Animation' : 'Ambient'], ['Date', v ? (it.meta || '').slice(0, 4) : '2024'], ['Language', 'English'], ['Duration', fmt(it.dur)]]]],
+  Metadata: (it, v) => [['Tags', [['Copyright', v ? 'CC BY 3.0 · Blender Foundation' : '℗ 2024 Low Signal Records'], ['Encoded by', v ? 'HandBrake 1.8.2' : 'XLD 2024.03'], ['Track number', v ? '—' : '2 / 8'], ['Description', v ? 'Open movie project' : '—'], ['Publisher', v ? 'blender.org' : 'Low Signal Records']]]],
+  Codec: (it, v) => v ? [['Stream 0 · Video', [['Codec', 'H.264 - MPEG-4 AVC (part 10) (avc1)'], ['Video resolution', '1920 × 818'], ['Frame rate', '24'], ['Decoded format', 'Planar 4:2:0 YUV'], ['Color primaries', 'ITU-R BT.709']]], ['Stream 1 · Audio', [['Codec', 'E-AC3 (eac3)'], ['Language', 'English'], ['Channels', '3F2R/LFE'], ['Sample rate', '48000 Hz'], ['Bitrate', '640 kb/s']]], ['Stream 2 · Subtitle', [['Codec', 'Text subtitles with various tags (subt)'], ['Language', 'English']]]]
+    : [['Stream 0 · Audio', [['Codec', 'FLAC (Free Lossless Audio Codec) (flac)'], ['Channels', 'Stereo'], ['Sample rate', '96000 Hz'], ['Bits per sample', '24']]]],
+  Statistics: () => [['Input / Read', [['Media data size', '312 MiB'], ['Input bitrate', '6 840 kb/s'], ['Demuxed data size', '298 MiB'], ['Content bitrate', '6 512 kb/s']]], ['Video', [['Decoded', '7 488 blocks'], ['Displayed', '7 480 frames'], ['Lost', '0 frames']]], ['Audio', [['Decoded', '14 621 blocks'], ['Played', '14 621 buffers'], ['Lost', '0 buffers']]]],
+};
+const MENU_ICONS = {
+  'Open File…': 'draft', 'Open Multiple Files…': 'file_copy', 'Open Folder…': 'folder_open', 'Open Disc…': 'album', 'Open Network Stream…': 'language', 'Open Capture Device…': 'videocam', 'Open Recent Media': 'history',
+  'Save Playlist to File…': 'playlist_add_check', 'Convert / Save…': 'sync_alt', 'Stream…': 'cast', 'Quit at the end of playlist': 'playlist_remove', 'Quit': 'logout',
+  'Title': 'title', 'Chapter': 'bookmarks', 'Speed': 'speed', 'Jump Forward': 'forward_10', 'Jump Backward': 'replay_10', 'Jump to Specific Time…': 'schedule',
+  'Play': 'play_arrow', 'Pause': 'pause', 'Stop': 'stop', 'Previous': 'skip_previous', 'Next': 'skip_next', 'Record': 'fiber_manual_record',
+  'Audio Track': 'audiotrack', 'Audio Device': 'speaker', 'Stereo Mode': 'surround_sound', 'Visualizations': 'equalizer', 'Audio mode': 'library_music', 'Increase Volume': 'volume_up', 'Decrease Volume': 'volume_down', 'Mute': 'volume_off',
+  'Video Track': 'movie', 'Fullscreen': 'fullscreen', 'Always Fit Window': 'fit_screen', 'Set as Wallpaper': 'wallpaper', 'Zoom': 'zoom_in', 'Aspect Ratio': 'aspect_ratio', 'Crop': 'crop', 'Deinterlace': 'blur_linear', 'Take Snapshot': 'photo_camera',
+  'Add Subtitle File…': 'note_add', 'Sub Track': 'subtitles', 'Track Synchronization': 'av_timer',
+  'Effects and Filters': 'tune', 'Media Information': 'info', 'Codec Information': 'memory', 'VLM Configuration': 'dns', 'Program Guide': 'event_note', 'Messages': 'terminal', 'Plugins and extensions': 'extension', 'Preferences': 'settings',
+  'Media Library': 'video_library', 'Playlist': 'playlist_play', 'Menu Bar': 'menu', 'Mini Player': 'picture_in_picture_alt', 'Fullscreen Interface': 'fullscreen', 'Advanced Controls': 'construction', 'Status Bar': 'call_to_action',
+  'Help': 'help', 'Check for Updates…': 'update', 'About': 'info',
+};
+const AR = ['Auto', '16:9', '4:3', '21:9', '16:10', '1:1', '5:4', '2.35:1'];
+const ON = '#ff8a1f', ACTIVE_BG = 'rgba(255,138,31,0.12)', TX = 'var(--tx)';
+
+class Component extends DCLogic {
+  state = {
+    view: this.props.startView || 'player', mode: this.props.startView === 'audio' ? 'music' : 'video',
+    vIdx: 0, mIdx: 1, t: { video: 312, music: 64 }, playing: true, vol: 80, muted: false,
+    playlistOpen: true, pop: null, menu: null, fx: false, fxTab: 'Equalizer', eqOn: true,
+    eq: [6, 4, 1, -2, -1, 2, 4, 6, 7, 6], preset: 'Custom', vid: { Brightness: 50, Contrast: 52, Saturation: 58, Hue: 50, Gamma: 50 },
+    aDelay: 0, sDelay: 150, aTrack: 0, sTrack: 1, speed: 1, loop: 'all', shuffle: false, nav: 'Home', sec: 'Interface', tg: {},
+    mini: false, idle: false, modal: null, ctx: null, buffering: false, bufPct: 0, empty: false, drop: false, jumpVal: '', dlg: false, dlgTab: 'Network', disc: 'Blu-ray', url: 'https://stream.example.org/live/master.m3u8', toast: null, expert: null,
+  };
+  _scene = (this.state = { ...this.state, ...parseScene(this.props.scene) });
+  frozen() { return !!(this.props.frozen || /freeze/.test(this.props.scene || '')); }
+  componentDidMount() {
+    this.iv = setInterval(() => { if (this.state.playing && !this.state.buffering && !this.frozen()) this.tick(); }, 250);
+    this.onKey = e => {
+      if (e.target.tagName === 'INPUT' || this.frozen()) return;
+      if (e.code === 'Space') { e.preventDefault(); this.setState(s => ({ playing: !s.playing })); }
+      else if (e.key === 'ArrowRight') this.jump(e.shiftKey ? 10 : 3);
+      else if (e.key === 'ArrowLeft') this.jump(e.shiftKey ? -10 : -3);
+      else if (e.key === 'm') this.setState(s => ({ muted: !s.muted }));
+      else if (e.key === 'Escape') this.setState({ menu: null, pop: null, dlg: false });
+    };
+    window.addEventListener('keydown', this.onKey);
+  }
+  componentWillUnmount() { clearTimeout(this.it); clearInterval(this.iv); clearInterval(this.bi); clearTimeout(this.tt); window.removeEventListener('keydown', this.onKey); }
+  componentDidUpdate(pp) { if (pp.startView !== this.props.startView && this.props.startView) this.go(this.props.startView); }
+  list(s = this.state) { return s.mode === 'video' ? VIDEOS : MUSIC; }
+  idxKey(s = this.state) { return s.mode === 'video' ? 'vIdx' : 'mIdx'; }
+  tick() {
+    this.setState(s => {
+      const L = this.list(s), k = this.idxKey(s);
+      let t = s.t[s.mode] + 0.25 * s.speed, idx = s[k];
+      if (t >= L[idx].dur) {
+        t = 0;
+        if (s.loop !== 'one') {
+          idx = s.shuffle ? Math.floor(Math.random() * L.length) : idx + 1;
+          if (idx >= L.length) { if (s.loop === 'all') idx = 0; else return { playing: false, t: { ...s.t, [s.mode]: 0 }, [k]: 0 }; }
+        }
+      }
+      return { t: { ...s.t, [s.mode]: t }, [k]: idx };
+    });
+  }
+  jump(d) { this.setState(s => { const L = this.list(s); const dur = L[s[this.idxKey(s)]].dur; return { t: { ...s.t, [s.mode]: Math.min(dur - 1, Math.max(0, s.t[s.mode] + d)) } }; }); }
+  step(d) { this.setState(s => { const L = this.list(s), k = this.idxKey(s); return { [k]: (s[k] + d + L.length) % L.length, t: { ...s.t, [s.mode]: 0 }, playing: true }; }); }
+  go(view) { const p = { view, menu: null, pop: null, mini: false }; if (view === 'player') p.mode = 'video'; if (view === 'audio') p.mode = 'music'; this.setState(p); }
+  play(mode, i) { this.setState(s => ({ mode, [mode === 'video' ? 'vIdx' : 'mIdx']: i, t: { ...s.t, [mode]: 0 }, playing: true, view: mode === 'video' ? 'player' : 'audio' })); }
+  flash(msg) { clearTimeout(this.tt); this.setState({ toast: msg, menu: null, pop: null }); this.tt = setTimeout(() => this.setState({ toast: null }), 2400); }
+  startStream() {
+    const bad = /^rtsp:\/\/192/.test(this.state.url);
+    clearInterval(this.bi);
+    this.setState({ dlg: false, view: 'player', mode: 'video', buffering: true, bufPct: 0, playing: true });
+    this.bi = setInterval(() => {
+      const p = this.state.bufPct + 7;
+      if (bad && p > 40) { clearInterval(this.bi); this.setState({ buffering: false, playing: false, modal: 'error' }); }
+      else if (p >= 100) { clearInterval(this.bi); this.setState(x => ({ buffering: false, vIdx: 0, t: { ...x.t, video: 0 } })); }
+      else this.setState({ bufPct: p });
+    }, 120);
+  }
+  frac(e) { const r = e.currentTarget.getBoundingClientRect(); return Math.min(1, Math.max(0, (e.clientX - r.left) / r.width)); }
+
+  renderVals() {
+    const s = this.state, L = this.list(), idx = s[this.idxKey()], item = L[idx], t = s.t[s.mode];
+    const expert = s.expert ?? this.props.advancedControls ?? false;
+    const showMenuBar = this.props.showMenuBar ?? true;
+    const imm = (this.props.layout ?? 'docked') === 'immersive';
+    const hide = imm && s.view === 'player' && s.idle && !s.pop && !s.menu && !s.fx && !s.dlg && !s.modal;
+    const bare = !!this.props.bare, W = Number(this.props.winW) || 1280, H = Number(this.props.winH) || 800;
+    const bp = W >= 1600 ? 'L' : W >= 1200 ? 'M' : W >= 960 ? 'S' : 'XS';
+    const pick = (l, m, sm, xs) => ({ L: l, M: m, S: sm, XS: xs })[bp];
+    const deckAvail = imm ? W - 32 - (s.view === 'player' && s.playlistOpen && bp !== 'XS' ? ({ L: 360, M: 320, S: 300 })[bp] + 16 : 0) : W;
+    const tight = !!(s.expert ?? this.props.advancedControls) && deckAvail < 1000;
+    const wide = bp === 'L' || bp === 'M', cols = pick(5, 4, 3, 2), plWn = pick(360, 320, 300, 300), overlayPl = bp === 'XS';
+    const isVideo = s.mode === 'video';
+    const act = {
+      openFile: () => this.setState({ dlg: true, dlgTab: 'File', menu: null }), openDisc: () => this.setState({ dlg: true, dlgTab: 'Disc', menu: null }),
+      openNet: () => this.setState({ dlg: true, dlgTab: 'Network', menu: null }), openCap: () => this.setState({ dlg: true, dlgTab: 'Capture', menu: null }),
+      fx: () => this.setState({ fx: true, view: 'player', mode: 'video', menu: null }), sync: () => this.setState({ fx: true, fxTab: 'Synchronization', view: 'player', mode: 'video', menu: null }),
+      prefs: () => this.go('settings'), playlist: () => this.setState(x => ({ playlistOpen: !x.playlistOpen, menu: null })),
+      mini: () => this.setState({ mini: true, menu: null }), expert: () => this.setState({ expert: !expert, menu: null }),
+      menuBar: () => this.flash('Menu bar hidden — press Alt to show it'),
+      play: () => this.setState(x => ({ playing: !x.playing, menu: null })), stop: () => this.setState(x => ({ playing: false, t: { ...x.t, [x.mode]: 0 }, menu: null })),
+      prev: () => { this.step(-1); this.setState({ menu: null }); }, next: () => { this.step(1); this.setState({ menu: null }); },
+      jf: () => { this.jump(10); this.setState({ menu: null }); }, jb: () => { this.jump(-10); this.setState({ menu: null }); },
+      mute: () => this.setState(x => ({ muted: !x.muted, menu: null })), vu: () => this.setState(x => ({ vol: Math.min(125, x.vol + 5), muted: false, menu: null })), vd: () => this.setState(x => ({ vol: Math.max(0, x.vol - 5), menu: null })),
+      snap: () => this.flash('Snapshot saved to Pictures\\vlcsnap-2026-11-10-21h14m02s.png'), full: () => this.flash('Fullscreen — press Esc or F to exit'),
+      addSub: () => this.flash('Loaded subtitle: sintel.en.srt'), info: () => this.setState({ modal: 'info', infoTab: 'General', menu: null, ctx: null }), jumpT: () => this.setState({ modal: 'jump', jumpVal: fmt(t), menu: null }), about: () => this.setState({ modal: 'about', menu: null }),
+      audioMode: () => this.go('audio'), library: () => this.go('library'), rec: () => this.flash('Recording started — saving to Videos\\vlc-record.mp4'),
+    };
+    const ctxItems = [['play_arrow', 'Play', '', () => this.play(s.mode, s.ctx)], ['cast', 'Stream…', ''], ['save', 'Save / Convert…', 'Ctrl+R'], ['folder_open', 'Show containing folder', ''], '-', ['info', 'Information…', 'Ctrl+I', act.info], ['content_copy', 'Copy path', ''], ['delete', 'Remove selected', 'Del', () => this.flash('Removed from playlist')], '-', ['sort', 'Sort by', '›'], ['shuffle', 'Shuffle playlist', '']]
+      .map(c => c === '-' ? { isSep: true, isItem: false } : { isSep: false, isItem: true, icon: c[0], label: c[1], key: c[2], color: c[1].startsWith('Remove') ? '#e5483c' : 'var(--tx)', onClick: c[3] || (() => this.setState({ ctx: null })) });
+    const M = {
+      Media: [['Open File…', 'Ctrl+O', 'openFile'], ['Open Multiple Files…', 'Ctrl+Shift+O', 'openFile'], ['Open Folder…', 'Ctrl+F', 'openFile'], ['Open Disc…', 'Ctrl+D', 'openDisc'], ['Open Network Stream…', 'Ctrl+N', 'openNet'], ['Open Capture Device…', 'Ctrl+C', 'openCap'], ['Open Recent Media', '›'], '-', ['Save Playlist to File…', 'Ctrl+Y'], ['Convert / Save…', 'Ctrl+R'], ['Stream…', 'Ctrl+S'], '-', ['Quit at the end of playlist', ''], ['Quit', 'Ctrl+Q']],
+      Playback: [['Title', '›'], ['Chapter', '›'], ['Speed', '›'], '-', ['Jump Forward', 'Shift+→', 'jf'], ['Jump Backward', 'Shift+←', 'jb'], ['Jump to Specific Time…', 'Ctrl+T', 'jumpT'], '-', [s.playing ? 'Pause' : 'Play', 'Space', 'play'], ['Stop', 'S', 'stop'], ['Previous', 'P', 'prev'], ['Next', 'N', 'next'], ['Record', 'Shift+R', 'rec']],
+      Audio: [['Audio Track', '›'], ['Audio Device', '›'], ['Stereo Mode', '›'], ['Visualizations', '›'], '-', ['Audio mode', '', 'audioMode'], ['Increase Volume', 'Ctrl+↑', 'vu'], ['Decrease Volume', 'Ctrl+↓', 'vd'], ['Mute', 'M', 'mute', s.muted]],
+      Video: [['Video Track', '›'], ['Fullscreen', 'F', 'full'], ['Always Fit Window', ''], ['Set as Wallpaper', ''], '-', ['Zoom', '›'], ['Aspect Ratio', '›'], ['Crop', '›'], ['Deinterlace', '›'], '-', ['Take Snapshot', 'Shift+S', 'snap']],
+      Subtitle: [['Add Subtitle File…', '', 'addSub'], ['Sub Track', '›'], ['Track Synchronization', '', 'sync']],
+      Tools: [['Effects and Filters', 'Ctrl+E', 'fx'], ['Track Synchronization', '', 'sync'], ['Media Information', 'Ctrl+I', 'info'], ['Codec Information', 'Ctrl+J', 'info'], ['VLM Configuration', 'Ctrl+Shift+W'], ['Program Guide', ''], ['Messages', 'Ctrl+M'], ['Plugins and extensions', ''], '-', ['Preferences', 'Ctrl+P', 'prefs']],
+      View: [['Media Library', 'Ctrl+B', 'library', s.view === 'library'], ['Playlist', 'Ctrl+L', 'playlist', s.playlistOpen], ['Menu Bar', 'Alt', 'menuBar', showMenuBar], ['Mini Player', 'Ctrl+H', 'mini'], ['Fullscreen Interface', 'F11', 'full'], ['Advanced Controls', '', 'expert', expert], ['Status Bar', '']],
+      Help: [['Help', 'F1'], ['Check for Updates…', ''], '-', ['About', 'Shift+F1', 'about']],
+    };
+    const menus = Object.keys(M).map(name => ({
+      name, open: s.menu === name, bg: s.menu === name ? 'rgba(var(--ink),0.09)' : 'transparent', color: s.menu === name ? TX : 'var(--tx2)',
+      onClick: () => this.setState(x => ({ menu: x.menu === name ? null : name, pop: null })),
+      onEnter: () => { if (this.state.menu && this.state.menu !== name) this.setState({ menu: name }); },
+      items: M[name].map(it => it === '-' ? { isSep: true, isItem: false } : { isSep: false, isItem: true, label: it[0], key: it[1], icon: it[3] ? 'check' : (MENU_ICONS[it[0]] || ''), iconColor: it[3] ? ON : 'var(--mute)', onClick: act[it[2]] || (() => this.setState({ menu: null })) }),
+    }));
+
+    const dur = item.dur, pctN = t / dur * 100;
+    const vol = s.muted ? 0 : s.vol;
+    const sub = isVideo && s.sTrack > 0;
+    const curMeta = isVideo ? item.meta : ALBUM.artist + ' · ' + ALBUM.name;
+
+    const navIcons = { Home: 'home', Videos: 'movie', Music: 'library_music', Network: 'lan' };
+    const navItems = Object.keys(navIcons).map(n => {
+      const a = s.view === 'library' && s.nav === n;
+      return { label: n, icon: navIcons[n], bg: a ? ACTIVE_BG : 'transparent', color: a ? 'var(--accTx)' : 'var(--tx2)', onClick: () => this.setState({ nav: n, view: 'library' }) };
+    });
+    const progress = [0.35, 0.72, 0.18, 0.55, 0.88];
+    const continueCards = VIDEOS.slice(0, Math.max(4, cols)).map((v, i) => ({ title: v.title, meta: v.meta, pct: (progress[i] * 100) + '%', left: fmt(v.dur * (1 - progress[i])) + ' left', onClick: () => this.play('video', i) }));
+    const videoCards = VIDEOS.map((v, i) => ({ title: v.title, meta: v.meta, dur: fmt(v.dur), onClick: () => this.play('video', i) }));
+    const whens = ['Just now', 'Today, 18:02', 'Yesterday', 'Yesterday', 'Mon', 'Last week'];
+    const recent = [VIDEOS[0], { title: 'Low Tide Radio.flac', path: 'C:\\Users\\Mara\\Music\\The Marrow Lines\\Coastal Static\\01.flac', dur: 231, music: true }, VIDEOS[2], { title: 'stream.example.org/live', path: 'https://stream.example.org/live/master.m3u8', dur: 0, net: true }, VIDEOS[4], VIDEOS[6]]
+      .map((r, i) => ({ title: r.title, path: r.path, dur: r.dur ? fmt(r.dur) : 'Live', when: whens[i], icon: r.music ? 'music_note' : r.net ? 'podcasts' : 'movie', onClick: () => r.music ? this.play('music', 0) : r.net ? this.setState({ dlg: true, dlgTab: 'Network' }) : this.play('video', VIDEOS.indexOf(r)) }));
+    const albums = ALBUMS.map(([name, artist]) => ({ name, artist, onClick: () => this.play('music', 0) }));
+    const openNet = () => this.setState({ dlg: true, dlgTab: 'Network' });
+    const netGroups = [
+      { title: 'On your network', items: [['dns', 'NAS-LIVINGROOM', 'smb://192.168.1.20/media'], ['cast', 'Plex Media Server', 'upnp · 4 libraries'], ['computer', 'DESKTOP-7QK2', '\\\\DESKTOP-7QK2\\Movies']] },
+      { title: 'Streams', items: [['podcasts', 'Open network stream', 'http, rtsp, hls, dash…'], ['radio', 'Icecast directory', 'Internet radio · 2,400 stations'], ['rss_feed', 'Podcasts', '3 subscriptions']] },
+    ].map(g => ({ title: g.title, items: g.items.map(([icon, name, sub]) => ({ icon, name, sub, onClick: name === 'Open network stream' ? openNet : () => this.flash('Browsing ' + name + '…') })) }));
+
+    const secs = Object.keys(SETTINGS).map(k => ({ label: k, icon: SETTINGS[k].icon, bg: s.sec === k ? ACTIVE_BG : 'transparent', color: s.sec === k ? 'var(--accTx)' : 'var(--tx2)', onClick: () => this.setState({ sec: k }) }));
+    const rows = SETTINGS[s.sec].rows.map(([id, label, desc, type, def], i) => {
+      const on = s.tg[id] ?? def;
+      return {
+        label, desc, value: def, border: i ? '1px solid rgba(var(--ink),0.05)' : 'none',
+        isToggle: type === 'toggle', isSelect: type === 'select', isKey: type === 'key', isButton: type === 'button',
+        stateLabel: on ? 'On' : 'Off', trackBg: on ? ON : 'transparent', trackBorder: on ? ON : 'rgba(var(--ink),0.35)', knobLeft: on ? '23px' : '3px', knobBg: on ? '#1c1206' : 'var(--tx2)',
+        onClick: type === 'button' ? () => this.flash('Preferences reset to defaults') : () => this.setState(x => ({ tg: { ...x.tg, [id]: !(x.tg[id] ?? def) } })),
+      };
+    });
+
+    const playlist = L.map((p, i) => {
+      const c = i === idx;
+      return {
+        title: p.title, meta: isVideo ? p.meta : ALBUM.artist, dur: fmt(p.dur), bg: c ? ACTIVE_BG : 'transparent', color: c ? 'var(--accTx)' : TX,
+        num: c ? (s.playing ? 'graphic_eq' : 'pause') : String(i + 1), numColor: c ? ON : 'var(--dim)',
+        numFont: c ? "18px/1 'Material Symbols Rounded'" : "500 12px/1 'Segoe UI Variable Text','Segoe UI','Instrument Sans',sans-serif", onClick: () => this.play(s.mode, i),
+        onCtx: e => { e.preventDefault(); this.setState({ ctx: i, menu: null, pop: null }); },
+      };
+    });
+    const total = L.reduce((a, b) => a + b.dur, 0);
+
+    const eqBands = s.eq.map((v, i) => ({
+      freq: FREQS[i], top: v >= 0 ? (50 - v / 20 * 50) + '%' : '50%', height: Math.abs(v) / 20 * 50 + '%', knob: (50 - v / 20 * 50) + '%',
+      onClick: e => { const r = e.currentTarget.getBoundingClientRect(); const val = Math.round((0.5 - (e.clientY - r.top) / r.height) * 40); this.setState(x => { const eq = [...x.eq]; eq[i] = Math.max(-20, Math.min(20, val)); return { eq, preset: 'Custom' }; }); },
+    }));
+    const presets = Object.keys(PRESETS).map(p => ({ label: p, bg: s.preset === p ? ACTIVE_BG : 'transparent', color: s.preset === p ? 'var(--accTx)' : 'var(--tx2)', border: s.preset === p ? 'rgba(255,138,31,0.5)' : 'rgba(var(--ink),0.12)', onClick: () => this.setState({ eq: [...PRESETS[p]], preset: p }) }));
+    const vidAdj = Object.keys(s.vid).map(k => ({ label: k, val: (s.vid[k] * 2 / 100).toFixed(2), pct: s.vid[k] + '%', onClick: e => { const f = this.frac(e); this.setState(x => ({ vid: { ...x.vid, [k]: Math.round(f * 100) } })); } }));
+    const dly = v => (v >= 0 ? '+' : '−') + (Math.abs(v) / 1000).toFixed(3) + ' s';
+    const syncRows = [
+      { label: 'Audio track', desc: 'Positive delays audio behind video', val: dly(s.aDelay), dec: () => this.setState(x => ({ aDelay: x.aDelay - 50 })), inc: () => this.setState(x => ({ aDelay: x.aDelay + 50 })) },
+      { label: 'Subtitle track', desc: 'Positive shows subtitles later', val: dly(s.sDelay), dec: () => this.setState(x => ({ sDelay: x.sDelay - 50 })), inc: () => this.setState(x => ({ sDelay: x.sDelay + 50 })) },
+      { label: 'Subtitle speed', desc: 'Stretch timing for mismatched frame rates', val: '1.000×', dec: () => {}, inc: () => {} },
+    ];
+
+    const bars = Array.from({ length: 64 }, (_, i) => {
+      const h = s.playing && !isVideo ? 6 + 74 * Math.abs(Math.sin(i * 0.61 + t * 1.7) * Math.cos(i * 0.17 - t * 0.9)) * (1 - i / 90) : 3;
+      return { h: h.toFixed(0) + 'px', c: i % 2 ? 'rgba(255,138,31,0.55)' : 'rgba(255,138,31,0.85)' };
+    });
+
+    const dlgIcons = { File: 'draft', Disc: 'album', Network: 'language', Capture: 'videocam' };
+    const dlgTabs = Object.keys(dlgIcons).map(k => { const a = s.dlgTab === k; return { label: k === 'Capture' ? 'Capture device' : k, icon: dlgIcons[k], bg: a ? ACTIVE_BG : 'var(--raised)', color: a ? 'var(--accTx)' : 'var(--tx2)', border: a ? 'rgba(255,138,31,0.5)' : 'transparent', onClick: () => this.setState({ dlgTab: k }) }; });
+    const discTypes = ['DVD', 'Blu-ray', 'Audio CD', 'SVCD / VCD'].map(k => { const a = s.disc === k; return { label: k, bg: a ? ACTIVE_BG : 'var(--raised)', color: a ? 'var(--accTx)' : 'var(--tx2)', border: a ? 'rgba(255,138,31,0.5)' : 'transparent', onClick: () => this.setState({ disc: k }) }; });
+
+    const tool = (icon, label, fn, color = TX, font = "22px/1 'Material Symbols Rounded'") => ({ icon, label, onClick: fn, color, font, fvs: "'FILL' 0", isIcon: true, isRatio: false });
+    const expertTools = [
+      tool('A–B', 'A–B loop', () => this.flash('A–B loop: point A set at ' + fmt(t)), TX, "600 12px/1 'Segoe UI Variable Text','Segoe UI','Instrument Sans',sans-serif"),
+      tool('keyboard_tab', 'Frame by frame (E)', () => { this.setState({ playing: false }); this.jump(1 / 24); }),
+      tool('photo_camera', 'Take snapshot', act.snap),
+      { ...tool('fiber_manual_record', 'Record', act.rec, '#ff5a4e'), fvs: "'FILL' 1" },
+      { ...tool('', 'Aspect ratio (A)', () => { const i = (AR.indexOf(s.ar || 'Auto') + 1) % AR.length; this.setState({ ar: AR[i] }); this.flash('Aspect ratio: ' + AR[i]); }, (s.ar && s.ar !== 'Auto') ? ON : 'var(--tx)'), isRatio: true, isIcon: false, ratio: s.ar || 'Auto' },
+    ];
+
+    const pop = name => () => this.setState(x => ({ pop: x.pop === name ? null : name, menu: null }));
+    return {
+      theme: this.props.theme ?? 'dark', motion: this.props.reduceMotion ? 'off' : 'on',
+      deckOpacity: hide ? 0 : 1, deckShift: hide ? 'translateY(12px)' : 'none', cursor: hide ? 'none' : 'default',
+      wake: () => { if (!imm || this.frozen()) return; if (this.state.idle) this.setState({ idle: false }); clearTimeout(this.it); this.it = setTimeout(() => { if (this.state.playing && this.state.view === 'player') this.setState({ idle: true }); }, 2500); },
+      deckPos: imm ? 'absolute' : 'relative', deckL: imm ? '16px' : 'auto', deckB: imm ? '16px' : 'auto',
+      deckR: imm ? (s.view === 'player' && s.playlistOpen && !overlayPl ? (plWn + 16) + 'px' : '16px') : 'auto', deckBg: imm ? 'var(--glass)' : 'var(--bg)',
+      deckBlur: imm ? 'blur(24px) saturate(1.4)' : 'none', deckRad: imm ? '12px' : '0', deckShadow: imm ? '0 16px 40px rgba(0,0,0,0.35), inset 0 0 0 1px rgba(var(--ink),0.1)' : 'inset 0 1px 0 rgba(var(--ink),0.06)',
+      subBottom: imm ? '150px' : '32px', fxBottom: imm ? '136px' : '14px', audioPad: imm ? '120px' : '0',
+      showWindow: !s.mini, mini: s.mini, showMenuBar, menus,
+      windowTitle: bp === 'XS' ? '' : item.title + ' — VLC media player',
+      showSidebar: s.view === 'library' || s.view === 'settings', isLibrary: s.view === 'library', isSettings: s.view === 'settings', isPlayer: s.view === 'player', isAudio: s.view === 'audio',
+      showDeck: s.view === 'player' || s.view === 'audio', showNowBar: (s.view === 'library' || s.view === 'settings') && !s.empty,
+      goLibrary: () => this.go('library'), goSettings: () => this.go('settings'), expand: () => this.go(isVideo ? 'player' : 'audio'),
+      prefsBg: s.view === 'settings' ? ACTIVE_BG : 'transparent', prefsColor: s.view === 'settings' ? 'var(--accTx)' : 'var(--tx2)',
+      navItems, folders: ['Videos', 'Downloads', 'D:\\Movies'], navTitle: s.nav,
+      isHome: s.nav === 'Home' && !s.empty, isVideos: s.nav === 'Videos', isMusic: s.nav === 'Music', isNetwork: s.nav === 'Network',
+      continueCards, videoCards, recent, albums, netGroups,
+      secs, rows, secTitle: s.sec,
+      cur: { title: item.title, meta: curMeta }, album: ALBUM,
+      paused: !s.playing, subtitleOn: sub, subtitleText: SUBS[Math.floor(t / 4) % SUBS.length],
+      playlistOpen: s.playlistOpen, togglePlaylist: act.playlist, playlist, plSummary: L.length + ' items · ' + fmt(total),
+      fxOpen: s.fx && s.view === 'player', toggleFx: () => this.setState(x => ({ fx: !x.fx, view: 'player', mode: 'video' })),
+      fxTabs: ['Equalizer', 'Video', 'Synchronization'].map(k => ({ label: k, color: s.fxTab === k ? TX : 'var(--mute)', line: s.fxTab === k ? ON : 'transparent', onClick: () => this.setState({ fxTab: k }) })),
+      fxEq: s.fxTab === 'Equalizer', fxVideo: s.fxTab === 'Video', fxSync: s.fxTab === 'Synchronization',
+      toggleEq: () => this.setState(x => ({ eqOn: !x.eqOn })), eqTrack: s.eqOn ? ON : 'rgba(var(--ink),0.2)', eqKnob: s.eqOn ? '24px' : '4px', eqOpacity: s.eqOn ? 1 : 0.4,
+      preset: s.preset, presets, eqBands, vidAdj, resetVideo: () => this.setState({ vid: { Brightness: 50, Contrast: 50, Saturation: 50, Hue: 50, Gamma: 50 } }), syncRows,
+      bars,
+      timeStr: fmt(t), durStr: fmt(dur), remainStr: '−' + fmt(dur - t), pct: pctN.toFixed(2) + '%',
+      chapters: isVideo ? [{ left: '18%' }, { left: '41%' }, { left: '67%' }, { left: '88%' }] : [],
+      nowCols: bp === 'XS' ? 'minmax(0,1fr) 260px auto' : 'minmax(0,1fr) minmax(280px,560px) minmax(0,1fr)',
+      nowVolW: bp === 'XS' ? '0px' : '96px', nowVolDisp: bp === 'XS' ? 'none' : 'flex',
+      seekTh: s.seekHover != null ? '6px' : '4px', seekTipOn: s.seekHover != null, seekTipX: ((s.seekHover || 0) * 100).toFixed(2) + '%', seekTipTime: fmt((s.seekHover || 0) * dur),
+      seekTipChapter: isVideo ? ['Prologue', 'The Dragon', 'Searching', 'The Cave', 'Ending'][[0.18, 0.41, 0.67, 0.88].filter(c => (s.seekHover || 0) >= c).length] : 'Track ' + (idx + 1),
+      seekHover: e => this.setState({ seekHover: this.frac(e) }), seekLeave: () => this.setState({ seekHover: null }),
+      seek: e => { const f = this.frac(e); this.setState(x => ({ t: { ...x.t, [x.mode]: f * dur } })); },
+      playIcon: s.playing ? 'pause' : 'play_arrow', togglePlay: act.play, prev: act.prev, next: act.next, stop: act.stop,
+      loopIcon: s.loop === 'one' ? 'repeat_one' : 'repeat', loopColor: s.loop === 'off' ? 'var(--tx2)' : ON,
+      cycleLoop: () => this.setState(x => ({ loop: x.loop === 'off' ? 'all' : x.loop === 'all' ? 'one' : 'off' })),
+      shuffleColor: s.shuffle ? ON : 'var(--tx2)', toggleShuffle: () => this.setState(x => ({ shuffle: !x.shuffle })),
+      expert, expertTools,
+      deckInfo: (bp === 'XS' || bp === 'S' && s.playlistOpen || expert && imm && s.playlistOpen && s.view === 'player') ? '' : isVideo ? [AUDIO_TR[s.aTrack][0], sub ? SUB_TR[s.sTrack][0] + ' subs' : 'No subtitles', s.loop === 'one' ? 'Repeat one' : s.loop === 'all' ? 'Repeat all' : ''].filter(Boolean).join(' · ') : ALBUM.format,
+      tracksOpen: s.pop === 'tracks', toggleTracks: pop('tracks'), tracksBg: s.pop === 'tracks' ? 'rgba(var(--ink),0.09)' : 'transparent', subColor: sub ? ON : 'var(--tx2)',
+      audioTracks: AUDIO_TR.map(([label, sb], i) => ({ label, sub: sb, check: s.aTrack === i ? 'check' : '', onClick: () => this.setState({ aTrack: i }) })),
+      subTracks: SUB_TR.map(([label, sb], i) => ({ label, sub: sb, check: s.sTrack === i ? 'check' : '', onClick: () => this.setState({ sTrack: i }) })),
+      addSub: act.addSub,
+      speedOpen: s.pop === 'speed', toggleSpeed: pop('speed'), speedLabel: s.speed.toFixed(2) + '×', speedColor: s.speed === 1 ? 'var(--tx2)' : ON, speedBg: s.pop === 'speed' ? 'rgba(var(--ink),0.09)' : 'transparent',
+      speeds: SPEEDS.map(v => ({ label: v.toFixed(2) + '×', color: v === s.speed ? 'var(--accTx)' : TX, check: v === s.speed ? 'check' : '', onClick: () => this.setState({ speed: v, pop: null }) })),
+      fxColor: s.fx ? ON : 'var(--tx2)', fxBg: s.fx ? 'rgba(var(--ink),0.07)' : 'transparent', plColor: s.playlistOpen ? ON : 'var(--tx2)', plBg: s.playlistOpen ? 'rgba(var(--ink),0.07)' : 'transparent',
+      toggleMini: () => this.setState(x => ({ mini: !x.mini, menu: null, pop: null })), fullscreen: act.full,
+      volIcon: vol === 0 ? 'volume_off' : vol < 50 ? 'volume_down' : 'volume_up', volPct: (vol / 125 * 100) + '%', volColor: vol > 100 ? '#ff5a1f' : ON, volLabel: Math.round(vol) + '%',
+      toggleMute: act.mute, setVol: e => { const f = this.frac(e); this.setState({ vol: Math.round(f * 125), muted: false }); },
+      anyPop: !!(s.menu || s.pop || (s.ctx !== null && s.ctx !== undefined)), closeAll: () => this.setState({ menu: null, pop: null, ctx: null }), toast: s.toast,
+      dlgOpen: s.dlg, openDialog: () => this.setState({ dlg: true }), closeDialog: () => this.setState({ dlg: false }), dlgTabs, discTypes,
+      tabFile: s.dlgTab === 'File', tabNet: s.dlgTab === 'Network', tabDisc: s.dlgTab === 'Disc', tabCap: s.dlgTab === 'Capture',
+      url: s.url, setUrl: e => this.setState({ url: e.target.value }),
+      recentUrls: ['https://stream.example.org/live/master.m3u8', 'rtsp://192.168.1.44:554/cam1', 'udp://@239.0.0.1:1234'].map(u => ({ url: u, onClick: () => this.setState({ url: u }) })),
+      playFromDialog: () => this.startStream(),
+      retry: () => { this.setState({ modal: null }); this.startStream(); }, showLog: () => this.flash('Messages: core input error: open of \'' + s.url + '\' failed'),
+      closeModal: () => this.setState({ modal: null }), stop2: e => e.stopPropagation(),
+      mError: s.modal === 'error', mInfo: s.modal === 'info', mJump: s.modal === 'jump', mAbout: s.modal === 'about',
+      infoTabs: Object.keys(INFO).map(k => ({ label: k, color: (s.infoTab || 'General') === k ? 'var(--tx)' : 'var(--mute)', line: (s.infoTab || 'General') === k ? ON : 'transparent', onClick: () => this.setState({ infoTab: k }) })),
+      infoGroups: INFO[s.infoTab || 'General'](item, isVideo).map(([title, rws]) => ({ title, rows: rws.map(([k, v], i) => ({ k, v, border: i ? '1px solid rgba(var(--ink),0.05)' : 'none' })) })),
+      curPath: item.path || 'C:\\Users\\Mara\\Music\\The Marrow Lines\\Coastal Static', jumpVal: s.jumpVal, setJump: e => this.setState({ jumpVal: e.target.value }),
+      doJump: () => { const p = String(s.jumpVal).split(':').map(Number).reverse(); const sec = (p[0] || 0) + (p[1] || 0) * 60 + (p[2] || 0) * 3600; this.setState(x => ({ modal: null, t: { ...x.t, [x.mode]: Math.min(dur - 1, sec) } })); },
+      buffering: s.buffering && isVideo, bufPct: s.bufPct + '%', spin: (s.bufPct * 12) + 'deg',
+      ctxOpen: s.ctx !== null && s.ctx !== undefined && s.view === 'player', ctxTop: (150 + (s.ctx || 0) * 50) + 'px', ctxItems: ctxItems,
+      drop: s.drop, dragIn: e => { e.preventDefault(); if (!this.state.drop) this.setState({ drop: true }); }, dragOver: e => e.preventDefault(),
+      dragOut: () => this.setState({ drop: false }), dropFile: e => { e.preventDefault(); const f = e.dataTransfer && e.dataTransfer.files[0]; this.setState({ drop: false }); this.flash('Playing ' + (f ? f.name : 'dropped file')); },
+      isEmpty: s.view === 'library' && s.nav === 'Home' && s.empty, addFolder: () => { this.setState({ empty: false }); this.flash('Indexing D:\\Movies — 8 videos found'); },
+      rootMinH: bare ? '0' : '100vh', rootPad: bare ? '0' : '48px', rootBg: bare ? 'transparent' : 'var(--page)',
+      winW: W + 'px', winH: H + 'px', sbW: pick(260, 232, 72, 64) + 'px', labelDisp: wide ? 'inline' : 'none', showFolders: wide,
+      cols, albumCols: pick(7, 5, 4, 3), netCols: pick(3, 3, 2, 2), searchW: pick(360, 300, 220, 180) + 'px',
+      recentCols: bp === 'XS' ? '28px minmax(0,1fr) 60px 90px' : bp === 'S' ? '28px minmax(0,1fr) 200px 60px 90px' : '28px minmax(0,1fr) 300px 70px 110px', pathDisp: bp === 'XS' ? 'none' : 'block',
+      secW: wide ? '220px' : '64px', selW: bp === 'XS' ? '180px' : '240px',
+      plW: plWn + 'px', plPos: overlayPl ? 'absolute' : 'relative', plShadow: overlayPl ? '-20px 0 50px rgba(0,0,0,0.45)' : 'none', fxW: bp === 'XS' ? '340px' : '430px',
+      showSecondary: bp !== 'XS', speedDisp: bp === 'XS' ? 'none' : 'flex', winBtnDisp: bp === 'XS' || tight ? 'none' : 'flex', volW: (tight ? 72 : pick(140, 110, 90, 64)) + 'px',
+      audioCols: pick(420, 340, 280, 220) + 'px minmax(0,1fr)', artSize: pick(420, 340, 280, 220) + 'px', audioTitle: pick(48, 40, 32, 28) + 'px', audioGap: pick(56, 44, 32, 24) + 'px',
+      audioPadIn: bp === 'L' ? '48px 64px 0' : bp === 'XS' ? '24px 24px 0' : '36px 44px 0',
+    };
+  }
+}
+</script>
+</body>
+</html>

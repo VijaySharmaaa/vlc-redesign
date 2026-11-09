@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<style>body{margin:0;background:#0a0a09}a{color:#ff8a1f;text-decoration:none}a:hover{color:#ffa552}</style>
+</helmet>
+<section style="padding:56px 64px 96px;background:#0a0a09;color:#f2efea;font-family:'Segoe UI Variable Text','Segoe UI','Instrument Sans',system-ui,sans-serif;min-width:1400px">
+  <div style="display:flex;align-items:center;gap:14px">
+    <svg width="34" height="34" viewBox="0 0 64 64"><defs><linearGradient id="vlcC" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#ffb04a"></stop><stop offset="0.45" stop-color="#ff8800"></stop><stop offset="1" stop-color="#e05e00"></stop></linearGradient><linearGradient id="vlcB" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#ff9420"></stop><stop offset="1" stop-color="#c94f00"></stop></linearGradient><linearGradient id="vlcW" x1="0.2" x2="0.8" y1="0" y2="0"><stop offset="0" stop-color="#ffffff"></stop><stop offset="1" stop-color="#d9d9d9"></stop></linearGradient><clipPath id="vlcK"><path d="M28.6 5.2c1.5-2.6 5.3-2.6 6.8 0L50 50H14z"></path></clipPath></defs><path d="M28.6 5.2c1.5-2.6 5.3-2.6 6.8 0L50 50H14z" fill="url(#vlcC)"></path><g clip-path="url(#vlcK)"><rect x="0" y="17" width="64" height="7" fill="url(#vlcW)"></rect><rect x="0" y="31.5" width="64" height="8" fill="url(#vlcW)"></rect></g><path d="M9.5 47h45c1.6 0 3 .9 3.6 2.4l2.6 6.4c.8 2-.7 4.2-2.9 4.2H6.2c-2.2 0-3.7-2.2-2.9-4.2l2.6-6.4C6.5 47.9 7.9 47 9.5 47z" fill="url(#vlcB)"></path><path d="M9.6 47.8h44.8" stroke="#ffb35c" stroke-width="1.2" stroke-linecap="round" opacity="0.7"></path></svg>
+    <div style="font-size:32px;font-weight:600;letter-spacing:-0.01em">{{ title }}</div>
+  </div>
+  <div style="font-size:15px;color:#a39e96;margin-top:8px;max-width:980px;line-height:1.5">{{ desc }}</div>
+  <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:20px">
+    <sc-for list="{{ boards }}" as="b" hint-placeholder-count="4">
+      <a href="{{ b.href }}" style="flex:none;white-space:nowrap;height:32px;display:flex;align-items:center;padding:0 14px;border-radius:16px;font-size:13px;background:{{ b.bg }};color:{{ b.color }};border:1px solid rgba(255,255,255,0.12)">{{ b.label }}</a>
+    </sc-for>
+  </div>
+  <div style="display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:20px;font-size:13px">
+    <sc-for list="{{ sections }}" as="sec" hint-placeholder-count="6">
+      <a href="{{ sec.href }}">{{ sec.num }} {{ sec.title }}</a>
+    </sc-for>
+  </div>
+
+  <sc-for list="{{ sections }}" as="sec" hint-placeholder-count="3">
+    <div id="{{ sec.anchor }}" style="margin-top:64px;padding-top:28px;border-top:1px solid rgba(255,255,255,0.08)">
+      <div style="display:flex;align-items:baseline;gap:14px">
+        <span style="font:600 14px 'JetBrains Mono',monospace;color:#ff8a1f">{{ sec.num }}</span>
+        <span style="font-size:24px;font-weight:600">{{ sec.title }}</span>
+      </div>
+      <div style="font-size:14px;color:#a39e96;margin:8px 0 24px;max-width:980px;line-height:1.5;text-wrap:pretty">{{ sec.desc }}</div>
+      <div style="display:flex;gap:20px;flex-wrap:wrap;align-items:flex-start">
+        <sc-for list="{{ sec.steps }}" as="st" hint-placeholder-count="4">
+          <div id="{{ st.id }}" style="display:flex;align-items:flex-start;gap:20px">
+            <div style="display:flex;flex-direction:column;gap:10px;width:{{ st.ow }}">
+              <div style="display:flex;align-items:center;gap:8px">
+                <span style="padding:2px 8px;border-radius:5px;background:#ff8a1f;color:#1c1206;font-weight:700;font-size:12px">{{ st.id }}</span>
+                <span style="font-size:14px;font-weight:600">{{ st.label }}</span>
+                <span style="margin-left:auto;font:11px 'JetBrains Mono',monospace;color:#8d877f">{{ st.dims }}</span>
+              </div>
+              <div style="width:{{ st.ow }};height:{{ st.oh }};border-radius:8px;overflow:hidden;background:{{ st.frameBg }};display:flex;align-items:center;justify-content:center">
+                <div style="zoom:{{ st.z }};width:{{ st.w }};height:{{ st.h }};flex:none;display:flex;align-items:center;justify-content:center">
+                  <dc-import name="VLC Redesign" bare="{{ true }}" scene="{{ st.scene }}" theme="{{ st.theme }}" layout="{{ st.layout }}" win-w="{{ st.wn }}" win-h="{{ st.hn }}" advanced-controls="{{ st.expert }}" hint-size="100%,100%"></dc-import>
+                </div>
+              </div>
+              <div style="font-size:13px;color:#a39e96;line-height:1.45;text-wrap:pretty">{{ st.caption }}</div>
+            </div>
+            <sc-if value="{{ st.arrow }}" hint-placeholder-val="{{ true }}">
+              <div style="height:{{ st.arrowH }};display:flex;align-items:center;font:28px/1 'Material Symbols Rounded';color:#8d877f">arrow_forward</div>
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </sc-for>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;board&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;playback&quot;,&quot;library&quot;,&quot;sizes&quot;],&quot;default&quot;:&quot;playback&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+const S = (label, scene, caption, o = {}) => ({ label, scene, caption, ...o });
+const BOARDS = {
+  playback: {
+    label: 'Playback flows', file: 'VLC Flows — Playback.dc.html',
+    title: 'VLC redesign — playback flows',
+    desc: 'Every step of every playback flow, rendered from the live prototype. Each frame is a fully working instance: click into any of them. Frames are frozen at the step shown (time does not advance) to keep the board light; the standalone prototype runs live.',
+    sections: [
+      { title: 'First launch → first playback', desc: 'Empty state on first run, drag-and-drop or Open media, library indexing, then playback.', flow: true, steps: [
+        S('Empty library', 'view=library;nav=Home;empty=1', 'First run. One primary action (Add a folder), one secondary (Open media). Now-playing bar hidden until something has played.'),
+        S('Drag files in', 'view=library;nav=Home;empty=1;drop=1', 'Dragging files anywhere over the window shows the drop target. Shift adds to playlist instead of playing.'),
+        S('Open media · File', 'view=library;nav=Home;empty=1;dlg=1;dlgTab=File', 'Open media dialog merges VLC’s File / Disc / Network / Capture into one tabbed sheet.'),
+        S('Library home', 'view=library;nav=Home', 'After indexing: Continue watching with resume progress, then Recent media with full paths.'),
+        S('Videos', 'view=library;nav=Videos', 'Full video grid. Durations on thumbnails; codec and resolution in metadata.'),
+        S('Playback', 'view=player;tv=4', 'Clicking a card goes straight into the player with the playlist docked.'),
+      ]},
+      { title: 'Watching a video', desc: 'Core player states, the simple-by-default deck vs. expert controls, immersive layout and the mini player.', flow: true, steps: [
+        S('Playing · docked', 'view=player', 'Default: controls under the video, docked playlist on the right.'),
+        S('Paused', 'view=player;playing=0', 'Center play affordance appears; click anywhere on the video to resume.'),
+        S('Playlist hidden', 'view=player;playlistOpen=0', 'Ctrl+L or the playlist button. Video expands to full width.'),
+        S('Expert controls', 'view=player;playlistOpen=0;expert=1', 'View → Advanced Controls adds A–B loop, frame step, snapshot, record and aspect ratio.'),
+        S('Immersive', 'view=player;playlistOpen=0', 'Alternative layout: floating translucent control bar over full-height video.', { layout: 'immersive' }),
+        S('Immersive · idle', 'view=player;playlistOpen=0;idle=1', 'After 2.5 s without mouse movement the bar, title and cursor fade out (300 ms).', { layout: 'immersive' }),
+        S('Mini player', 'view=player;mini=1', 'Ctrl+H or the PiP button. Compact always-on-top window with transport controls.'),
+      ]},
+      { title: 'Audio tracks & subtitles', desc: 'One popover holds both audio and subtitle tracks; sync lives in Effects.', flow: true, steps: [
+        S('Tracks popover', 'view=player;pop=tracks', 'Audio tracks left, subtitles right, with codec and channel details per track.'),
+        S('Commentary track', 'view=player;pop=tracks;aTrack=1', 'Selecting a track applies immediately; the deck summary updates.'),
+        S('Subtitles off', 'view=player;pop=tracks;sTrack=0', 'Disabled subtitles; the subtitle icon returns to neutral.'),
+        S('Subtitle file added', 'view=player;toast=Loaded subtitle: sintel.en.srt', 'Add subtitle file… or drop an .srt on the video — confirmation toast.'),
+        S('Track synchronization', 'view=player;fx=1;fxTab=Synchronization', 'Audio and subtitle offsets in 50 ms steps, with keyboard shortcuts.'),
+      ]},
+      { title: 'Speed, loop & volume', desc: 'Transport modifiers and their visual states.', steps: [
+        S('Speed menu', 'view=player;pop=speed', 'Eight presets from 0.25× to 2×.'),
+        S('1.50× active', 'view=player;speed=1.5', 'Non-default speed is shown in accent orange.'),
+        S('Repeat one + random', 'view=player;loop=one;shuffle=1', 'Loop cycles off → all → one; random toggles independently.'),
+        S('Volume boost', 'view=player;vol=115', 'VLC’s volume goes to 125%. The bar shows a 100% mark and turns red-orange past it.'),
+        S('Muted', 'view=player;muted=1', 'M or the speaker button. Level is remembered.'),
+      ]},
+      { title: 'Effects & filters', desc: 'Ctrl+E. Docked sheet over the video so you can see the result while adjusting.', flow: true, steps: [
+        S('Equalizer', 'view=player;fx=1', '10-band EQ, ±20 dB, with preamp. Click a band to set it.'),
+        S('Preset: Rock', 'view=player;fx=1;preset=Rock', 'Presets as chips. Editing any band switches to Custom.'),
+        S('Equalizer off', 'view=player;fx=1;eqOn=0', 'Bands dim but keep their values.'),
+        S('Video adjustments', 'view=player;fx=1;fxTab=Video', 'Brightness, contrast, saturation, hue, gamma; one-click reset.'),
+      ]},
+      { title: 'Network stream', desc: 'Open a URL, buffer, and either play or fail with a clear error.', flow: true, steps: [
+        S('Media menu', 'view=player;menu=Media', 'Classic menu bar, kept intact. Shortcuts shown right-aligned.'),
+        S('Network URL', 'view=player;dlg=1;dlgTab=Network', 'Monospace URL field, supported protocols, recent streams.'),
+        S('Buffering', 'view=player;buffering=1;bufPct=56', 'Spinner and percentage over the last frame; URL shown for context.'),
+        S('Playing stream', 'view=player;playlistOpen=0;tv=3', 'Buffer complete — playback starts.'),
+        S('Error', 'view=player;modal=error;playing=0;url=rtsp://192.168.1.44:554/cam1', 'Unreachable source: plain-language error with Show log and Retry.'),
+      ]},
+      { title: 'Open media · other sources', desc: 'Remaining tabs of the Open media dialog.', steps: [
+        S('Disc', 'view=player;dlg=1;dlgTab=Disc', 'DVD, Blu-ray, Audio CD, SVCD/VCD; device and disc-menu options.'),
+        S('Capture device', 'view=player;dlg=1;dlgTab=Capture', 'DirectShow camera and microphone selection.'),
+      ]},
+    ],
+  },
+  library: {
+    label: 'Library, menus & settings', file: 'VLC Flows — Library, Menus & Settings.dc.html',
+    title: 'VLC redesign — library, menus & settings',
+    desc: 'Playlist management, music, network browsing, every menu of the classic menu bar, every preferences section and the remaining dialogs.',
+    sections: [
+      { title: 'Playlist management', desc: 'Right-click any playlist item for the context menu.', flow: true, steps: [
+        S('Docked playlist', 'view=player', 'Current item tinted with an animated indicator; filter at the top.'),
+        S('Context menu', 'view=player;ctx=2', 'Play, stream, convert, show in folder, information, remove.'),
+        S('Media info · General', 'view=player;modal=info', 'Ctrl+I. Tags at a glance.'),
+        S('Media info · Codec', 'view=player;modal=info;infoTab=Codec', 'Ctrl+J. Every stream with codec, resolution, channels.'),
+        S('Media info · Statistics', 'view=player;modal=info;infoTab=Statistics', 'Bitrates, decoded and lost frames.'),
+        S('Go to time', 'view=player;modal=jump;jumpVal=0:05:12', 'Ctrl+T. Type a timestamp, Enter to jump.'),
+      ]},
+      { title: 'Music', desc: 'Albums in the library open into a dedicated audio mode.', flow: true, steps: [
+        S('Music library', 'view=library;nav=Music', 'Album grid.'),
+        S('Audio mode', 'view=audio', 'Album art, tracklist and a live spectrum visualizer.'),
+        S('Paused', 'view=audio;playing=0', 'Visualizer settles flat.'),
+        S('Audio · immersive', 'view=audio', 'Floating control bar variant.', { layout: 'immersive' }),
+        S('Library with now playing', 'view=library;nav=Home;mode=music', 'Now-playing bar persists across library pages; expand returns to audio mode.'),
+      ]},
+      { title: 'Network & streams', desc: 'Local shares, media servers and internet sources.', steps: [
+        S('Network', 'view=library;nav=Network', 'SMB, UPnP and Windows shares discovered automatically.'),
+      ]},
+      { title: 'Menu bar — every menu', desc: 'Media, Playback, Audio, Video, Subtitle, Tools, View, Help — same structure and shortcuts as VLC.', steps: ['Media', 'Playback', 'Audio', 'Video', 'Subtitle', 'Tools', 'View', 'Help'].map(m => S(m, 'view=player;menu=' + m, '')) },
+      { title: 'Preferences', desc: 'Ctrl+P. Simple preferences by default; Advanced → Show all settings reveals the full module tree.', steps: ['Interface', 'Audio', 'Video', 'Subtitles / OSD', 'Input / Codecs', 'Hotkeys', 'Advanced'].map(k => S(k, 'view=settings;sec=' + k, '')) },
+      { title: 'System feedback', desc: 'Toasts and the About dialog.', steps: [
+        S('Snapshot saved', 'view=player;playlistOpen=0;toast=Snapshot saved to Pictures\\vlcsnap-2026-11-10-21h14m02s.png', 'Toasts rise in at the bottom and auto-dismiss after 2.4 s.'),
+        S('About', 'view=library;nav=Home;modal=about', 'Help → About.'),
+      ]},
+    ],
+  },
+  sizes: {
+    label: 'Screen sizes & themes', file: 'VLC Screen Sizes & Themes.dc.html',
+    title: 'VLC redesign — screen sizes & themes',
+    desc: 'Four window-size breakpoints, shown to relative scale. L ≥ 1600 px · M ≥ 1200 · S ≥ 960 · XS = 800 × 600 (VLC’s minimum). Below 1200 the sidebar collapses to an icon rail; at XS the playlist becomes an overlay drawer and secondary controls (stop, loop, random, speed, mini, fullscreen) move to menus. Then every key screen in the light theme.',
+    sections: [
+      ...[['Player', 'view=player'], ['Library', 'view=library;nav=Home'], ['Audio mode', 'view=audio'], ['Preferences', 'view=settings'], ['Effects open', 'view=player;fx=1;playlistOpen=0']].map(([t, sc]) => ({
+        title: t + ' across sizes', desc: '', sizes: true,
+        steps: [[1920, 1080, 'L'], [1280, 800, 'M'], [1024, 700, 'S'], [800, 600, 'XS']].map(([w, h, bp]) => S(bp + ' · ' + w + '×' + h, sc, '', { w, h })),
+      })),
+      { title: 'XS details', desc: 'Compact-only behaviours at 800 × 600.', steps: [
+        S('Playlist as overlay', 'view=player', 'Drawer over the video with a shadow; the video keeps full width.', { w: 800, h: 600 }),
+        S('Tracks at XS', 'view=player;playlistOpen=0;pop=tracks', '', { w: 800, h: 600 }),
+        S('Open media at XS', 'view=library;dlg=1', '', { w: 800, h: 600 }),
+      ]},
+      { title: 'Light theme', desc: 'Same structure; neutrals flip, accent orange and video surfaces stay.', steps: [
+        S('Player', 'view=player', '', { theme: 'light' }),
+        S('Library', 'view=library;nav=Home', '', { theme: 'light' }),
+        S('Videos', 'view=library;nav=Videos', '', { theme: 'light' }),
+        S('Audio mode', 'view=audio', '', { theme: 'light' }),
+        S('Preferences', 'view=settings', '', { theme: 'light' }),
+        S('Effects', 'view=player;fx=1', '', { theme: 'light' }),
+        S('Tracks', 'view=player;pop=tracks', '', { theme: 'light' }),
+        S('Menu open', 'view=player;menu=Tools', '', { theme: 'light' }),
+        S('Open media', 'view=library;dlg=1', '', { theme: 'light' }),
+        S('Media information', 'view=player;modal=info;infoTab=Codec', '', { theme: 'light' }),
+        S('Error', 'view=player;modal=error;playing=0;url=rtsp://192.168.1.44:554/cam1', '', { theme: 'light' }),
+        S('Empty library', 'view=library;nav=Home;empty=1', '', { theme: 'light' }),
+        S('Immersive', 'view=player;playlistOpen=0', '', { theme: 'light', layout: 'immersive' }),
+        S('Mini player', 'view=player;mini=1', '', { theme: 'light' }),
+      ]},
+    ],
+  },
+};
+const ORDER = ['playback', 'library', 'sizes'];
+
+class Component extends DCLogic {
+  renderVals() {
+    const key = BOARDS[this.props.board] ? this.props.board : 'playback';
+    const B = BOARDS[key], prefix = ORDER.indexOf(key) + 1;
+    const sections = B.sections.map((sec, si) => {
+      const num = prefix + '.' + (si + 1);
+      const z = sec.sizes ? 0.32 : 0.42;
+      return {
+        title: sec.title, desc: sec.desc, num, anchor: 's' + num.replace('.', '-'), href: '#s' + num.replace('.', '-'),
+        steps: sec.steps.map((st, i) => {
+          const w = st.w || 1280, h = st.h || 800;
+          const id = num + '.' + (i + 1);
+          return {
+            id, label: st.label, caption: st.caption, dims: w + '×' + h,
+            scene: 'freeze=1;' + st.scene, theme: st.theme || 'dark', layout: st.layout || 'docked', expert: false,
+            wn: String(w), hn: String(h), w: w + 'px', h: h + 'px', z,
+            ow: Math.round(w * z) + 'px', oh: Math.round(h * z) + 'px', frameBg: (st.theme === 'light') ? '#d6d2cc' : '#141312',
+            arrow: !!sec.flow && i < sec.steps.length - 1, arrowH: Math.round(h * z + 30) + 'px',
+          };
+        }),
+      };
+    });
+    return {
+      title: B.title, desc: B.desc, sections,
+      boards: [...ORDER.map(k => ({ label: BOARDS[k].label, href: './' + encodeURI(BOARDS[k].file), bg: k === key ? '#ff8a1f' : 'transparent', color: k === key ? '#1c1206' : '#cfcac3' })),
+        { label: 'Components & motion', href: './' + encodeURI('VLC Components & Motion.dc.html'), bg: 'transparent', color: '#cfcac3' },
+        { label: 'Live prototype', href: './' + encodeURI('VLC Redesign.dc.html'), bg: 'transparent', color: '#cfcac3' }],
+    };
+  }
+}
+</script>
+</body>
+</html>

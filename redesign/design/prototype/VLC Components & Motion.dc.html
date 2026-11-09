@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block" rel="stylesheet">
+<style>body{margin:0;background:#0a0a09}*{box-sizing:border-box}a{color:#ff8a1f;text-decoration:none}a:hover{color:#ffa552}@keyframes vlcFade{from{opacity:0}to{opacity:1}}@keyframes vlcDrop{from{opacity:0;transform:translateY(-6px) scale(.98)}to{opacity:1;transform:none}}@keyframes vlcRise{from{opacity:0;transform:translateY(8px) scale(.98)}to{opacity:1;transform:none}}@keyframes vlcSlideR{from{opacity:0;transform:translateX(28px)}to{opacity:1;transform:none}}@keyframes vlcPop{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}@keyframes vlcView{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}@keyframes vlcToast{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}@keyframes vlcSpin{to{transform:rotate(360deg)}}</style>
+</helmet>
+<section style="padding:56px 64px 96px;background:#0a0a09;color:#f2efea;font-family:'Segoe UI Variable Text','Segoe UI','Instrument Sans',system-ui,sans-serif;min-width:1400px;max-width:1600px">
+  <div style="display:flex;align-items:center;gap:14px">
+    <svg width="34" height="34" viewBox="0 0 64 64"><defs><linearGradient id="vlcC" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#ffb04a"></stop><stop offset="0.45" stop-color="#ff8800"></stop><stop offset="1" stop-color="#e05e00"></stop></linearGradient><linearGradient id="vlcB" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#ff9420"></stop><stop offset="1" stop-color="#c94f00"></stop></linearGradient><linearGradient id="vlcW" x1="0.2" x2="0.8" y1="0" y2="0"><stop offset="0" stop-color="#ffffff"></stop><stop offset="1" stop-color="#d9d9d9"></stop></linearGradient><clipPath id="vlcK"><path d="M28.6 5.2c1.5-2.6 5.3-2.6 6.8 0L50 50H14z"></path></clipPath></defs><path d="M28.6 5.2c1.5-2.6 5.3-2.6 6.8 0L50 50H14z" fill="url(#vlcC)"></path><g clip-path="url(#vlcK)"><rect x="0" y="17" width="64" height="7" fill="url(#vlcW)"></rect><rect x="0" y="31.5" width="64" height="8" fill="url(#vlcW)"></rect></g><path d="M9.5 47h45c1.6 0 3 .9 3.6 2.4l2.6 6.4c.8 2-.7 4.2-2.9 4.2H6.2c-2.2 0-3.7-2.2-2.9-4.2l2.6-6.4C6.5 47.9 7.9 47 9.5 47z" fill="url(#vlcB)"></path><path d="M9.6 47.8h44.8" stroke="#ffb35c" stroke-width="1.2" stroke-linecap="round" opacity="0.7"></path></svg>
+    <div style="font-size:32px;font-weight:600">VLC redesign — components, icons & motion</div>
+  </div>
+  <div style="font-size:15px;color:#a39e96;margin-top:8px;max-width:980px;line-height:1.5">The building blocks behind every screen. Tokens, type, the full icon set, every component with its states, and the motion system with live demos.</div>
+  <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:20px">
+    <a href="./VLC%20Flows%20%E2%80%94%20Playback.dc.html" style="flex:none;white-space:nowrap;height:32px;display:flex;align-items:center;padding:0 14px;border-radius:16px;font-size:13px;color:#cfcac3;border:1px solid rgba(255,255,255,0.12)">Playback flows</a>
+    <a href="./VLC%20Flows%20%E2%80%94%20Library,%20Menus%20&amp;%20Settings.dc.html" style="flex:none;white-space:nowrap;height:32px;display:flex;align-items:center;padding:0 14px;border-radius:16px;font-size:13px;color:#cfcac3;border:1px solid rgba(255,255,255,0.12)">Library, menus &amp; settings</a>
+    <a href="./VLC%20Screen%20Sizes%20&amp;%20Themes.dc.html" style="flex:none;white-space:nowrap;height:32px;display:flex;align-items:center;padding:0 14px;border-radius:16px;font-size:13px;color:#cfcac3;border:1px solid rgba(255,255,255,0.12)">Screen sizes &amp; themes</a>
+    <span style="flex:none;white-space:nowrap;height:32px;display:flex;align-items:center;padding:0 14px;border-radius:16px;font-size:13px;background:#ff8a1f;color:#1c1206">Components &amp; motion</span>
+    <a href="./VLC%20Redesign.dc.html" style="flex:none;white-space:nowrap;height:32px;display:flex;align-items:center;padding:0 14px;border-radius:16px;font-size:13px;color:#cfcac3;border:1px solid rgba(255,255,255,0.12)">Live prototype</a>
+  </div>
+
+  <div style="margin-top:56px;padding-top:28px;border-top:1px solid rgba(255,255,255,0.08)">
+    <div style="display:flex;align-items:baseline;gap:14px"><span style="font:600 14px 'JetBrains Mono',monospace;color:#ff8a1f">4.1</span><span style="font-size:24px;font-weight:600">Color tokens</span></div>
+    <div style="font-size:14px;color:#a39e96;margin:8px 0 20px">Warm neutrals with one accent: traffic-cone orange. Video surfaces stay dark in both themes.</div>
+    <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px">
+      <sc-for list="{{ palettes }}" as="p" hint-placeholder-count="2">
+        <div style="border-radius:10px;padding:18px;background:{{ p.bg }};border:1px solid rgba(255,255,255,0.08)">
+          <div style="font-size:13px;font-weight:600;color:{{ p.tx }};margin-bottom:14px">{{ p.name }}</div>
+          <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px">
+            <sc-for list="{{ p.tokens }}" as="t" hint-placeholder-count="12">
+              <div style="display:flex;flex-direction:column;gap:6px">
+                <div style="height:48px;border-radius:6px;background:{{ t.v }};border:1px solid rgba(128,128,128,0.25)"></div>
+                <div style="font:12px 'JetBrains Mono',monospace;color:{{ p.tx }}">{{ t.k }}</div>
+                <div style="font:11px 'JetBrains Mono',monospace;color:{{ p.mute }}">{{ t.v }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <div style="margin-top:56px;padding-top:28px;border-top:1px solid rgba(255,255,255,0.08)">
+    <div style="display:flex;align-items:baseline;gap:14px"><span style="font:600 14px 'JetBrains Mono',monospace;color:#ff8a1f">4.2</span><span style="font-size:24px;font-weight:600">Type</span></div>
+    <div style="font-size:14px;color:#a39e96;margin:8px 0 20px">Segoe UI Variable on Windows (Instrument Sans fallback). JetBrains Mono for paths, URLs, timecodes in dialogs and keys.</div>
+    <div style="display:flex;flex-direction:column;border-radius:10px;background:#141312;border:1px solid rgba(255,255,255,0.08)">
+      <sc-for list="{{ types }}" as="t" hint-placeholder-count="8">
+        <div style="display:grid;grid-template-columns:220px minmax(0,1fr);align-items:center;gap:24px;padding:14px 20px;border-top:{{ t.border }}">
+          <div style="font:12px 'JetBrains Mono',monospace;color:#a39e96">{{ t.name }}<br>{{ t.spec }}</div>
+          <div style="font:{{ t.font }};letter-spacing:{{ t.ls }}">{{ t.sample }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <div style="margin-top:56px;padding-top:28px;border-top:1px solid rgba(255,255,255,0.08)">
+    <div style="display:flex;align-items:baseline;gap:14px"><span style="font:600 14px 'JetBrains Mono',monospace;color:#ff8a1f">4.3</span><span style="font-size:24px;font-weight:600">Icons</span></div>
+    <div style="font-size:14px;color:#a39e96;margin:8px 0 20px">Material Symbols Rounded, weight 400. Transport icons filled; utility icons outlined. 20–24 px in the UI, 16–18 px in menus. Plus the cone mark.</div>
+    <div style="display:flex;gap:16px;margin-bottom:20px">
+      <sc-for list="{{ coneSizes }}" as="c" hint-placeholder-count="5">
+        <div style="width:120px;height:120px;border-radius:10px;background:#141312;border:1px solid rgba(255,255,255,0.08);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px">
+          <svg width="{{ c.s }}" height="{{ c.s }}" viewBox="0 0 64 64"><defs><linearGradient id="vlcC" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#ffb04a"></stop><stop offset="0.45" stop-color="#ff8800"></stop><stop offset="1" stop-color="#e05e00"></stop></linearGradient><linearGradient id="vlcB" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#ff9420"></stop><stop offset="1" stop-color="#c94f00"></stop></linearGradient><linearGradient id="vlcW" x1="0.2" x2="0.8" y1="0" y2="0"><stop offset="0" stop-color="#ffffff"></stop><stop offset="1" stop-color="#d9d9d9"></stop></linearGradient><clipPath id="vlcK"><path d="M28.6 5.2c1.5-2.6 5.3-2.6 6.8 0L50 50H14z"></path></clipPath></defs><path d="M28.6 5.2c1.5-2.6 5.3-2.6 6.8 0L50 50H14z" fill="url(#vlcC)"></path><g clip-path="url(#vlcK)"><rect x="0" y="17" width="64" height="7" fill="url(#vlcW)"></rect><rect x="0" y="31.5" width="64" height="8" fill="url(#vlcW)"></rect></g><path d="M9.5 47h45c1.6 0 3 .9 3.6 2.4l2.6 6.4c.8 2-.7 4.2-2.9 4.2H6.2c-2.2 0-3.7-2.2-2.9-4.2l2.6-6.4C6.5 47.9 7.9 47 9.5 47z" fill="url(#vlcB)"></path><path d="M9.6 47.8h44.8" stroke="#ffb35c" stroke-width="1.2" stroke-linecap="round" opacity="0.7"></path></svg>
+          <span style="font:11px 'JetBrains Mono',monospace;color:#8d877f">{{ c.label }}</span>
+        </div>
+      </sc-for>
+    </div>
+    <sc-for list="{{ iconGroups }}" as="g" hint-placeholder-count="4">
+      <div style="margin-bottom:20px">
+        <div style="font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#8d877f;margin-bottom:10px">{{ g.title }}</div>
+        <div style="display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:8px">
+          <sc-for list="{{ g.icons }}" as="i" hint-placeholder-count="10">
+            <div style="height:88px;border-radius:8px;background:#141312;border:1px solid rgba(255,255,255,0.06);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px" style-hover="border-color:#ff8a1f">
+              <span style="font:26px/1 'Material Symbols Rounded';font-variation-settings:{{ i.fill }};color:{{ i.color }}">{{ i.name }}</span>
+              <span style="font:10px 'JetBrains Mono',monospace;color:#8d877f;text-align:center;padding:0 4px;word-break:break-all">{{ i.name }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+
+  <div style="margin-top:56px;padding-top:28px;border-top:1px solid rgba(255,255,255,0.08)">
+    <div style="display:flex;align-items:baseline;gap:14px"><span style="font:600 14px 'JetBrains Mono',monospace;color:#ff8a1f">4.4</span><span style="font-size:24px;font-weight:600">Buttons &amp; controls</span></div>
+    <div style="font-size:14px;color:#a39e96;margin:8px 0 20px">Every state. Hover these live.</div>
+    <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px">
+      <div style="border-radius:10px;padding:20px;background:#141312;border:1px solid rgba(255,255,255,0.08);display:flex;flex-direction:column;gap:16px">
+        <div style="font-size:13px;font-weight:600">Text buttons</div>
+        <div style="display:grid;grid-template-columns:90px 1fr;gap:12px 16px;align-items:center;font:11px 'JetBrains Mono',monospace;color:#8d877f">
+          <span>primary</span><div style="display:flex;gap:8px"><div style="height:34px;display:flex;align-items:center;padding:0 18px;border-radius:6px;background:#ff8a1f;color:#1c1206;font:600 13px 'Segoe UI Variable Text','Segoe UI','Instrument Sans',sans-serif;cursor:pointer" style-hover="background:#ff9a3c">Play</div><div style="height:34px;display:flex;align-items:center;padding:0 18px;border-radius:6px;background:#ff9a3c;color:#1c1206;font:600 13px 'Segoe UI Variable Text','Segoe UI','Instrument Sans',sans-serif">Hover</div><div style="height:34px;display:flex;align-items:center;padding:0 18px;border-radius:6px;background:#ff8a1f;opacity:0.4;color:#1c1206;font:600 13px 'Segoe UI Variable Text','Segoe UI','Instrument Sans',sans-serif">Disabled</div></div>
+          <span>secondary</span><div style="display:flex;gap:8px"><div style="height:34px;display:flex;align-items:center;padding:0 16px;border-radius:6px;background:#2c2a27;color:#f2efea;font:13px 'Segoe UI Variable Text','Segoe UI','Instrument Sans',sans-serif;cursor:pointer" style-hover="background:#35322f">Cancel</div><div style="height:34px;display:flex;align-items:center;padding:0 16px;border-radius:6px;background:#35322f;color:#f2efea;font:13px 'Segoe UI Variable Text','Segoe UI','Instrument Sans',sans-serif">Hover</div></div>
+          <span>outline</span><div style="display:flex;gap:8px"><div style="height:34px;display:flex;align-items:center;padding:0 16px;border-radius:6px;border:1px solid rgba(255,255,255,0.16);color:#f2efea;font:13px 'Segoe UI Variable Text','Segoe UI','Instrument Sans',sans-serif;cursor:pointer" style-hover="background:rgba(255,255,255,0.06)">Open media…</div></div>
+          <span>split</span><div style="display:flex;border-radius:6px;overflow:hidden;width:max-content"><div style="height:34px;display:flex;align-items:center;padding:0 18px;background:#ff8a1f;color:#1c1206;font:600 13px 'Segoe UI Variable Text','Segoe UI','Instrument Sans',sans-serif">Play</div><div style="width:32px;height:34px;display:flex;align-items:center;justify-content:center;background:#ff8a1f;border-left:1px solid rgba(28,18,6,0.25);color:#1c1206;font:18px/1 'Material Symbols Rounded'">expand_more</div></div>
+          <span>sidebar</span><div style="width:200px;height:38px;display:flex;align-items:center;justify-content:center;gap:8px;border-radius:7px;background:#ff8a1f;color:#1c1206;font:600 13px 'Segoe UI Variable Text','Segoe UI','Instrument Sans',sans-serif"><span style="font:20px/1 'Material Symbols Rounded'">add</span>Open media</div>
+        </div>
+      </div>
+      <div style="border-radius:10px;padding:20px;background:#141312;border:1px solid rgba(255,255,255,0.08);display:flex;flex-direction:column;gap:16px">
+        <div style="font-size:13px;font-weight:600">Icon buttons (36 × 36)</div>
+        <div style="display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px">
+          <sc-for list="{{ iconStates }}" as="s" hint-placeholder-count="5">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:8px">
+              <div style="width:36px;height:36px;border-radius:6px;display:flex;align-items:center;justify-content:center;font:22px/1 'Material Symbols Rounded';background:{{ s.bg }};color:{{ s.color }};opacity:{{ s.op }}">{{ s.icon }}</div>
+              <span style="font:10px 'JetBrains Mono',monospace;color:#8d877f">{{ s.label }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <div style="font-size:13px;font-weight:600;margin-top:6px">Play / pause (44 px) · now bar (36) · mini (36)</div>
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:14px">
+          <div style="flex:none;width:44px;height:44px;border-radius:22px;background:#ff8a1f;color:#1c1206;display:flex;align-items:center;justify-content:center;font:28px/1 'Material Symbols Rounded';font-variation-settings:'FILL' 1;cursor:pointer;transition:transform .1s ease-out" style-hover="background:#ff9a3c" style-active="transform:scale(0.92)">pause</div>
+          <div style="flex:none;width:44px;height:44px;border-radius:22px;background:#ff8a1f;color:#1c1206;display:flex;align-items:center;justify-content:center;font:28px/1 'Material Symbols Rounded';font-variation-settings:'FILL' 1">play_arrow</div>
+          <div style="flex:none;width:36px;height:36px;border-radius:18px;background:#ff8a1f;color:#1c1206;display:flex;align-items:center;justify-content:center;font:24px/1 'Material Symbols Rounded';font-variation-settings:'FILL' 1">pause</div>
+          <div style="flex:none;width:76px;height:76px;border-radius:38px;background:rgba(0,0,0,0.55);border:1px solid rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;font:44px/1 'Material Symbols Rounded';font-variation-settings:'FILL' 1">play_arrow</div>
+          <span style="font:10px 'JetBrains Mono',monospace;color:#8d877f;white-space:nowrap">press: scale .92 / 100 ms</span>
+        </div>
+        <div style="font-size:13px;font-weight:600;margin-top:6px">Window controls</div>
+        <div style="display:flex;height:40px;width:max-content;border-radius:6px;overflow:hidden;background:#0e0d0c">
+          <div style="width:46px;display:flex;align-items:center;justify-content:center;font:18px/1 'Material Symbols Rounded'" style-hover="background:rgba(255,255,255,0.07)">remove</div>
+          <div style="width:46px;display:flex;align-items:center;justify-content:center;font:16px/1 'Material Symbols Rounded'" style-hover="background:rgba(255,255,255,0.07)">crop_square</div>
+          <div style="width:46px;display:flex;align-items:center;justify-content:center;font:18px/1 'Material Symbols Rounded'" style-hover="background:#c42b1c">close</div>
+          <div style="width:46px;display:flex;align-items:center;justify-content:center;font:18px/1 'Material Symbols Rounded';background:#c42b1c;color:#fff">close</div>
+        </div>
+      </div>
+      <div style="border-radius:10px;padding:20px;background:#141312;border:1px solid rgba(255,255,255,0.08);display:flex;flex-direction:column;gap:16px">
+        <div style="font-size:13px;font-weight:600">Toggles, chips, tabs, keys</div>
+        <div style="display:flex;gap:18px;align-items:center">
+          <div style="position:relative;width:40px;height:20px;border-radius:10px;background:#ff8a1f;border:1px solid #ff8a1f"><div style="position:absolute;top:3px;left:23px;width:12px;height:12px;border-radius:6px;background:#1c1206"></div></div>
+          <div style="position:relative;width:40px;height:20px;border-radius:10px;border:1px solid rgba(255,255,255,0.35)"><div style="position:absolute;top:3px;left:3px;width:12px;height:12px;border-radius:6px;background:#cfcac3"></div></div>
+          <span style="font:10px 'JetBrains Mono',monospace;color:#8d877f">knob slides 150 ms</span>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px">
+          <div style="height:28px;display:flex;align-items:center;padding:0 10px;border-radius:14px;font-size:12px;background:rgba(255,138,31,0.12);color:#ffa552;border:1px solid rgba(255,138,31,0.5)">Rock</div>
+          <div style="height:28px;display:flex;align-items:center;padding:0 10px;border-radius:14px;font-size:12px;color:#cfcac3;border:1px solid rgba(255,255,255,0.12)">Jazz</div>
+          <div style="height:28px;display:flex;align-items:center;padding:0 10px;border-radius:14px;font-size:12px;color:#cfcac3;border:1px solid rgba(255,255,255,0.12)">Headphones</div>
+          <span style="padding:3px 8px;border-radius:4px;background:rgba(255,138,31,0.14);color:#ffa552;font-size:11px;font-weight:600;align-self:center">FLAC · 24/96</span>
+        </div>
+        <div style="display:flex;gap:4px;border-bottom:1px solid rgba(255,255,255,0.06)">
+          <div style="padding:8px 10px 10px;font-size:13px;border-bottom:2px solid #ff8a1f">Equalizer</div>
+          <div style="padding:8px 10px 10px;font-size:13px;color:#a39e96;border-bottom:2px solid transparent">Video</div>
+          <div style="padding:8px 10px 10px;font-size:13px;color:#a39e96;border-bottom:2px solid transparent">Synchronization</div>
+        </div>
+        <div style="display:flex;gap:8px">
+          <div style="flex:1;height:58px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;border-radius:8px;font-size:12px;background:rgba(255,138,31,0.12);color:#ffa552;border:1px solid rgba(255,138,31,0.5)"><span style="font:20px/1 'Material Symbols Rounded'">language</span>Network</div>
+          <div style="flex:1;height:58px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;border-radius:8px;font-size:12px;background:#23211f;color:#cfcac3"><span style="font:20px/1 'Material Symbols Rounded'">album</span>Disc</div>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center">
+          <div style="padding:4px 10px;border-radius:5px;background:#23211f;border:1px solid rgba(255,255,255,0.1);border-bottom-width:2px;font:12px 'JetBrains Mono',monospace">Space</div>
+          <div style="padding:4px 10px;border-radius:5px;background:#23211f;border:1px solid rgba(255,255,255,0.1);border-bottom-width:2px;font:12px 'JetBrains Mono',monospace">Ctrl + L</div>
+          <div style="padding:4px 10px;border-radius:5px;background:#23211f;border:1px solid rgba(255,255,255,0.1);border-bottom-width:2px;font:12px 'JetBrains Mono',monospace">Shift + S</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:56px;padding-top:28px;border-top:1px solid rgba(255,255,255,0.08)">
+    <div style="display:flex;align-items:baseline;gap:14px"><span style="font:600 14px 'JetBrains Mono',monospace;color:#ff8a1f">4.5</span><span style="font-size:24px;font-weight:600">Sliders &amp; inputs</span></div>
+    <div style="font-size:14px;color:#a39e96;margin:8px 0 20px">Seek with chapter marks, volume with the 100% mark and boost zone, EQ bands, adjust sliders, fields.</div>
+    <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px">
+      <div style="border-radius:10px;padding:20px;background:#141312;border:1px solid rgba(255,255,255,0.08);display:flex;flex-direction:column;gap:18px">
+        <sc-for list="{{ seekStates }}" as="s" hint-placeholder-count="3">
+          <div>
+            <div style="font:11px 'JetBrains Mono',monospace;color:#8d877f;margin-bottom:8px">{{ s.label }}</div>
+            <div style="display:flex;align-items:center;gap:12px;font-size:12px;color:#cfcac3;font-variant-numeric:tabular-nums">
+              <span>{{ s.a }}</span>
+              <div style="flex:1;position:relative;height:16px;display:flex;align-items:center">
+                <div style="position:absolute;left:0;right:0;height:{{ s.th }};border-radius:3px;background:rgba(255,255,255,0.12)"></div>
+                <div style="position:absolute;left:0;height:{{ s.th }};border-radius:3px;width:{{ s.p }};background:#ff8a1f"></div>
+                <div style="position:absolute;left:18%;width:2px;height:{{ s.th }};background:#141312"></div>
+                <div style="position:absolute;left:41%;width:2px;height:{{ s.th }};background:#141312"></div>
+                <div style="position:absolute;left:67%;width:2px;height:{{ s.th }};background:#141312"></div>
+                <div style="position:absolute;left:{{ s.p }};width:{{ s.k }};height:{{ s.k }};margin-left:{{ s.km }};border-radius:8px;background:#fff;box-shadow:0 0 0 3px rgba(255,138,31,0.35)"></div>
+              </div>
+              <span>{{ s.b }}</span>
+            </div>
+          </div>
+        </sc-for>
+        <sc-for list="{{ volStates }}" as="v" hint-placeholder-count="3">
+          <div style="display:flex;align-items:center;gap:10px">
+            <span style="font:22px/1 'Material Symbols Rounded';font-variation-settings:'FILL' 1">{{ v.icon }}</span>
+            <div style="position:relative;width:140px;height:24px;display:flex;align-items:center">
+              <div style="position:absolute;left:0;right:0;height:4px;border-radius:2px;background:rgba(255,255,255,0.12)"></div>
+              <div style="position:absolute;left:0;height:4px;border-radius:2px;width:{{ v.p }};background:{{ v.c }}"></div>
+              <div style="position:absolute;left:80%;top:4px;width:1px;height:16px;background:rgba(255,255,255,0.25)"></div>
+            </div>
+            <span style="font-size:12px;color:#cfcac3;width:40px;text-align:right">{{ v.l }}</span>
+          </div>
+        </sc-for>
+      </div>
+      <div style="border-radius:10px;padding:20px;background:#141312;border:1px solid rgba(255,255,255,0.08)">
+        <div style="font:11px 'JetBrains Mono',monospace;color:#8d877f;margin-bottom:12px">eq band · +12 / 0 / −8 dB · ±20 range</div>
+        <div style="display:flex;gap:28px;justify-content:center">
+          <sc-for list="{{ eqDemo }}" as="b" hint-placeholder-count="3">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+              <div style="position:relative;width:24px;height:170px;display:flex;justify-content:center">
+                <div style="position:absolute;top:0;bottom:0;width:4px;border-radius:2px;background:rgba(255,255,255,0.1)"></div>
+                <div style="position:absolute;left:0;right:0;top:50%;height:1px;background:rgba(255,255,255,0.12)"></div>
+                <div style="position:absolute;width:4px;border-radius:2px;top:{{ b.top }};height:{{ b.height }};background:#ff8a1f"></div>
+                <div style="position:absolute;top:{{ b.top2 }};width:14px;height:14px;margin-top:-7px;border-radius:7px;background:#f2efea"></div>
+              </div>
+              <span style="font-size:10px;color:#a39e96">{{ b.f }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <div style="font:11px 'JetBrains Mono',monospace;color:#8d877f;margin:22px 0 8px">adjust slider</div>
+        <div style="position:relative;height:16px;display:flex;align-items:center">
+          <div style="position:absolute;left:0;right:0;height:4px;border-radius:2px;background:rgba(255,255,255,0.1)"></div>
+          <div style="position:absolute;left:0;height:4px;border-radius:2px;width:58%;background:#ff8a1f"></div>
+          <div style="position:absolute;left:58%;width:14px;height:14px;margin-left:-7px;border-radius:7px;background:#f2efea"></div>
+        </div>
+      </div>
+      <div style="border-radius:10px;padding:20px;background:#141312;border:1px solid rgba(255,255,255,0.08);display:flex;flex-direction:column;gap:12px">
+        <div style="font:11px 'JetBrains Mono',monospace;color:#8d877f">search · rest</div>
+        <div style="height:34px;display:flex;align-items:center;gap:8px;padding:0 12px;border-radius:6px;background:#1a1917;border:1px solid rgba(255,255,255,0.08);color:#8d877f;font-size:13px"><span style="font:18px/1 'Material Symbols Rounded'">search</span>Search media library</div>
+        <div style="font:11px 'JetBrains Mono',monospace;color:#8d877f">url field · focused</div>
+        <div style="height:38px;display:flex;align-items:center;padding:0 12px;border-radius:6px;background:#121110;border:1px solid #ff8a1f;box-shadow:0 0 0 3px rgba(255,138,31,0.18);font:13px 'JetBrains Mono',monospace">https://stream.example.org/live/master.m3u8</div>
+        <div style="font:11px 'JetBrains Mono',monospace;color:#8d877f">select</div>
+        <div style="height:32px;display:flex;align-items:center;justify-content:space-between;padding:0 10px 0 12px;border-radius:6px;background:#23211f;border:1px solid rgba(255,255,255,0.08);font-size:13px">Direct3D 11<span style="font:18px/1 'Material Symbols Rounded';color:#a39e96">expand_more</span></div>
+        <div style="font:11px 'JetBrains Mono',monospace;color:#8d877f">stepper</div>
+        <div style="display:flex;align-items:center;gap:10px">
+          <div style="width:30px;height:30px;border-radius:6px;display:flex;align-items:center;justify-content:center;font:18px/1 'Material Symbols Rounded';background:rgba(255,255,255,0.06)">remove</div>
+          <div style="width:84px;text-align:center;font:13px 'JetBrains Mono',monospace">+0.150 s</div>
+          <div style="width:30px;height:30px;border-radius:6px;display:flex;align-items:center;justify-content:center;font:18px/1 'Material Symbols Rounded';background:rgba(255,255,255,0.06)">add</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:56px;padding-top:28px;border-top:1px solid rgba(255,255,255,0.08)">
+    <div style="display:flex;align-items:baseline;gap:14px"><span style="font:600 14px 'JetBrains Mono',monospace;color:#ff8a1f">4.6</span><span style="font-size:24px;font-weight:600">Menus, rows &amp; cards</span></div>
+    <div style="font-size:14px;color:#a39e96;margin:8px 0 20px">Dropdown anatomy, list rows, media cards and tiles.</div>
+    <div style="display:grid;grid-template-columns:300px minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start">
+      <div style="padding:4px;background:#23211f;border:1px solid rgba(255,255,255,0.08);border-radius:8px;box-shadow:0 16px 40px rgba(0,0,0,0.5)">
+        <sc-for list="{{ menuDemo }}" as="it" hint-placeholder-count="6">
+          <sc-if value="{{ it.sep }}" hint-placeholder-val="{{ false }}"><div style="height:1px;margin:4px 8px;background:rgba(255,255,255,0.08)"></div></sc-if>
+          <sc-if value="{{ it.item }}" hint-placeholder-val="{{ true }}">
+            <div style="height:30px;display:grid;grid-template-columns:22px 1fr auto;align-items:center;gap:6px;padding:0 10px 0 6px;border-radius:5px;font-size:13px;background:{{ it.bg }};color:{{ it.color }}">
+              <span style="font:18px/1 'Material Symbols Rounded';color:{{ it.iconColor }};text-align:center">{{ it.icon }}</span><span>{{ it.label }}</span><span style="font-size:12px;color:#8d877f">{{ it.key }}</span>
+            </div>
+          </sc-if>
+        </sc-for>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:6px;padding:10px;border-radius:10px;background:#141312;border:1px solid rgba(255,255,255,0.08)">
+        <div style="font:11px 'JetBrains Mono',monospace;color:#8d877f;padding:0 4px 4px">playlist rows · current / hover / rest</div>
+        <div style="display:grid;grid-template-columns:24px minmax(0,1fr) auto;align-items:center;gap:10px;padding:8px 10px;border-radius:6px;background:rgba(255,138,31,0.12)"><span style="font:18px/1 'Material Symbols Rounded';color:#ff8a1f">graphic_eq</span><div><div style="font-size:13px;font-weight:500;color:#ffa552">Sintel</div><div style="font-size:11px;color:#8d877f">2010 · 1080p · H.264 · 5.1</div></div><span style="font-size:12px;color:#a39e96">14:48</span></div>
+        <div style="display:grid;grid-template-columns:24px minmax(0,1fr) auto;align-items:center;gap:10px;padding:8px 10px;border-radius:6px;background:rgba(255,255,255,0.05)"><span style="font-size:12px;color:#8d877f;text-align:center">2</span><div><div style="font-size:13px;font-weight:500">Big Buck Bunny</div><div style="font-size:11px;color:#8d877f">2008 · 4K · H.265</div></div><span style="font-size:12px;color:#a39e96">9:56</span></div>
+        <div style="display:grid;grid-template-columns:24px minmax(0,1fr) auto;align-items:center;gap:10px;padding:8px 10px;border-radius:6px"><span style="font-size:12px;color:#8d877f;text-align:center">3</span><div><div style="font-size:13px;font-weight:500">Tears of Steel</div><div style="font-size:11px;color:#8d877f">2012 · 1080p · VP9</div></div><span style="font-size:12px;color:#a39e96">12:14</span></div>
+        <div style="font:11px 'JetBrains Mono',monospace;color:#8d877f;padding:10px 4px 4px">nav item · active / rest</div>
+        <div style="height:36px;display:flex;align-items:center;gap:12px;padding:0 12px;border-radius:6px;font-size:13px;background:rgba(255,138,31,0.12);color:#ffa552"><span style="font:20px/1 'Material Symbols Rounded';font-variation-settings:'FILL' 1">home</span>Home</div>
+        <div style="height:36px;display:flex;align-items:center;gap:12px;padding:0 12px;border-radius:6px;font-size:13px;color:#cfcac3"><span style="font:20px/1 'Material Symbols Rounded';font-variation-settings:'FILL' 1">movie</span>Videos</div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px">
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div style="position:relative;aspect-ratio:16/9;border-radius:8px;overflow:hidden;background:repeating-linear-gradient(135deg,#22201e 0 10px,#1c1a18 10px 20px);border:1px solid #ff8a1f;display:flex;align-items:center;justify-content:center"><span style="font:11px 'JetBrains Mono',monospace;color:#8d877f">thumbnail</span><span style="position:absolute;right:8px;bottom:10px;padding:2px 6px;border-radius:4px;background:rgba(0,0,0,0.75);font-size:11px">9:37 left</span><div style="position:absolute;left:0;right:0;bottom:0;height:3px;background:rgba(255,255,255,0.15)"><div style="height:100%;width:35%;background:#ff8a1f"></div></div></div>
+          <div><div style="font-size:14px;font-weight:600">Video card · hover</div><div style="font-size:12px;color:#a39e96">with resume progress</div></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div style="aspect-ratio:16/9;border-radius:8px;background:repeating-linear-gradient(135deg,#22201e 0 10px,#1c1a18 10px 20px);border:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center"><span style="font:11px 'JetBrains Mono',monospace;color:#8d877f">album art</span></div>
+          <div><div style="font-size:14px;font-weight:600">Album card</div><div style="font-size:12px;color:#a39e96">square art</div></div>
+        </div>
+        <div style="grid-column:1 / -1;display:flex;align-items:center;gap:14px;padding:14px;border-radius:8px;background:#1a1917;border:1px solid rgba(255,255,255,0.06)">
+          <div style="width:40px;height:40px;border-radius:8px;background:rgba(255,138,31,0.12);display:flex;align-items:center;justify-content:center;font:22px/1 'Material Symbols Rounded';color:#ff8a1f">dns</div>
+          <div><div style="font-size:13px;font-weight:600">Network tile</div><div style="font:12px 'JetBrains Mono',monospace;color:#8d877f;margin-top:3px">smb://192.168.1.20/media</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:56px;padding-top:28px;border-top:1px solid rgba(255,255,255,0.08)">
+    <div style="display:flex;align-items:baseline;gap:14px"><span style="font:600 14px 'JetBrains Mono',monospace;color:#ff8a1f">4.7</span><span style="font-size:24px;font-weight:600">Feedback</span></div>
+    <div style="font-size:14px;color:#a39e96;margin:8px 0 20px">Toast, buffering, error, subtitles over video.</div>
+    <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px">
+      <div style="height:160px;border-radius:10px;background:#141312;border:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center">
+        <div style="display:flex;align-items:center;gap:10px;padding:10px 16px;border-radius:8px;background:#2c2a27;border:1px solid rgba(255,255,255,0.1);box-shadow:0 12px 30px rgba(0,0,0,0.5);font-size:13px"><span style="font:18px/1 'Material Symbols Rounded';color:#ff8a1f">info</span>Loaded subtitle: sintel.en.srt</div>
+      </div>
+      <div style="height:160px;border-radius:10px;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px">
+        <div style="flex:none;width:44px;height:44px;border-radius:22px;border:3px solid rgba(255,255,255,0.15);border-top-color:#ff8a1f;animation:vlcSpin .9s linear infinite"></div>
+        <div style="font-size:14px;font-weight:600">Buffering… 56%</div>
+      </div>
+      <div style="height:160px;border-radius:10px;background:#141312;border:1px solid rgba(255,255,255,0.08);display:flex;gap:14px;padding:20px">
+        <div style="width:40px;height:40px;flex:none;border-radius:20px;background:rgba(255,90,78,0.14);display:flex;align-items:center;justify-content:center;font:22px/1 'Material Symbols Rounded';color:#ff5a4e">error</div>
+        <div><div style="font-size:15px;font-weight:600">Your input can't be opened</div><div style="font-size:12px;color:#a39e96;margin-top:6px;line-height:1.5">Plain-language title, technical detail below, Show log + Retry.</div></div>
+      </div>
+      <div style="height:160px;border-radius:10px;background:repeating-linear-gradient(135deg,#171615 0 14px,#100f0e 14px 28px);display:flex;align-items:flex-end;justify-content:center;padding-bottom:22px">
+        <div style="padding:4px 12px;border-radius:4px;background:rgba(0,0,0,0.65);font-size:18px;font-weight:500">I'm looking for someone.</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="motion" style="margin-top:56px;padding-top:28px;border-top:1px solid rgba(255,255,255,0.08)">
+    <div style="display:flex;align-items:baseline;gap:14px"><span style="font:600 14px 'JetBrains Mono',monospace;color:#ff8a1f">4.8</span><span style="font-size:24px;font-weight:600">Motion</span>
+      <div onClick="{{ replay }}" style="margin-left:auto;height:34px;display:flex;align-items:center;gap:8px;padding:0 16px;border-radius:6px;background:#ff8a1f;color:#1c1206;font-size:13px;font-weight:600;cursor:pointer" style-hover="background:#ff9a3c"><span style="font:18px/1 'Material Symbols Rounded'">replay</span>Replay all</div>
+    </div>
+    <div style="font-size:14px;color:#a39e96;margin:8px 0 20px;max-width:980px;line-height:1.5">Fast and functional, Fluent-like: things enter with a short decelerating ease and leave instantly. No bounces. Everything respects Windows “Animation effects” off / prefers-reduced-motion, plus a Reduce motion setting in the prototype.</div>
+    <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:24px">
+      <sc-for list="{{ tokens }}" as="t" hint-placeholder-count="4">
+        <div style="padding:16px;border-radius:10px;background:#141312;border:1px solid rgba(255,255,255,0.08)">
+          <div style="font-size:14px;font-weight:600">{{ t.name }}</div>
+          <div style="font:12px 'JetBrains Mono',monospace;color:#ffa552;margin-top:6px">{{ t.spec }}</div>
+          <div style="font-size:12px;color:#a39e96;margin-top:6px;line-height:1.45">{{ t.use }}</div>
+        </div>
+      </sc-for>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px">
+      <sc-for list="{{ demos }}" as="d" hint-placeholder-count="12">
+        <div style="border-radius:10px;background:#141312;border:1px solid rgba(255,255,255,0.08);overflow:hidden">
+          <div style="position:relative;height:150px;background:{{ d.stage }};display:flex;align-items:{{ d.align }};justify-content:{{ d.justify }};padding:16px;overflow:hidden">
+            <sc-if value="{{ show }}" hint-placeholder-val="{{ true }}">
+              <div style="animation:{{ d.anim }};transform-origin:{{ d.origin }};width:{{ d.w }};height:{{ d.h }};border-radius:{{ d.r }};background:{{ d.bg }};border:{{ d.border }};box-shadow:0 12px 30px rgba(0,0,0,0.45);display:flex;align-items:center;justify-content:center;font-size:12px;color:{{ d.color }}">{{ d.inner }}</div>
+            </sc-if>
+          </div>
+          <div style="padding:12px 14px">
+            <div style="font-size:13px;font-weight:600">{{ d.name }}</div>
+            <div style="font:11px 'JetBrains Mono',monospace;color:#ffa552;margin-top:4px">{{ d.spec }}</div>
+            <div style="font-size:12px;color:#a39e96;margin-top:4px;line-height:1.4">{{ d.note }}</div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+    <div style="margin-top:24px;border-radius:10px;background:#141312;border:1px solid rgba(255,255,255,0.08)">
+      <div style="display:grid;grid-template-columns:240px 200px 260px minmax(0,1fr);gap:16px;padding:12px 20px;font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#8d877f">
+        <span>Element</span><span>Trigger</span><span>Animation</span><span>Exit / notes</span>
+      </div>
+      <sc-for list="{{ spec }}" as="r" hint-placeholder-count="12">
+        <div style="display:grid;grid-template-columns:240px 200px 260px minmax(0,1fr);gap:16px;padding:11px 20px;font-size:13px;border-top:1px solid rgba(255,255,255,0.05)">
+          <span style="font-weight:500">{{ r.el }}</span><span style="color:#cfcac3">{{ r.trig }}</span><span style="font:12px 'JetBrains Mono',monospace;color:#ffa552">{{ r.anim }}</span><span style="color:#a39e96">{{ r.exit }}</span>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const E = 'cubic-bezier(0.2,0.8,0.2,1)';
+class Component extends DCLogic {
+  state = { show: true };
+  replay = () => { this.setState({ show: false }); setTimeout(() => this.setState({ show: true }), 60); };
+  renderVals() {
+    const tok = (k, v) => ({ k, v });
+    const palettes = [
+      { name: 'Dark', bg: '#121110', tx: '#f2efea', mute: '#a39e96', tokens: [tok('--page', '#0a0a09'), tok('--chrome', '#0e0d0c'), tok('--bg', '#121110'), tok('--panel', '#141312'), tok('--surface', '#1a1917'), tok('--raised', '#23211f'), tok('--hover', '#2c2a27'), tok('--tx', '#f2efea'), tok('--tx2', '#cfcac3'), tok('--mute', '#a39e96'), tok('accent', '#ff8a1f'), tok('--accTx', '#ffa552')] },
+      { name: 'Light', bg: '#f6f4f1', tx: '#1b1916', mute: '#5f5a53', tokens: [tok('--page', '#d6d2cc'), tok('--chrome', '#ebe8e4'), tok('--bg', '#f6f4f1'), tok('--panel', '#f1eeea'), tok('--surface', '#ffffff'), tok('--raised', '#ffffff'), tok('--hover', '#e6e2dd'), tok('--tx', '#1b1916'), tok('--tx2', '#3d3933'), tok('--mute', '#5f5a53'), tok('accent', '#ff8a1f'), tok('--accTx', '#b35300')] },
+    ];
+    const F = "'Segoe UI Variable Text','Segoe UI','Instrument Sans',sans-serif";
+    const types = [
+      ['Display', '48 / 600 / −0.02em', `600 48px/1.1 ${F}`, '-0.02em', 'Low Tide Radio'],
+      ['Page title', '26 / 600', `600 26px/1.2 ${F}`, '-0.01em', 'Home'],
+      ['Panel title', '15–17 / 600', `600 16px/1.3 ${F}`, '0', 'Effects and filters'],
+      ['Body', '13 / 400', `400 13px/1.5 ${F}`, '0', 'Supports http, https, rtsp, rtmp, mms, udp, ftp, smb and HLS / DASH manifests.'],
+      ['Meta', '12 / 400 · muted', `400 12px/1.4 ${F}`, '0', '2010 · 1080p · H.264 · 5.1'],
+      ['Overline', '11 / 600 / +0.06em caps', `600 11px/1.4 ${F}`, '0.06em', 'AUDIO TRACK'],
+      ['Timecode', '12 / tabular', `400 12px/1.4 ${F}`, '0', '5:12  /  −9:36'],
+      ['Mono', 'JetBrains Mono 12', "400 12px/1.4 'JetBrains Mono',monospace", '0', 'D:\\Movies\\Blender\\sintel_1080p.mkv'],
+    ].map(([name, spec, font, ls, sample], i) => ({ name, spec, font, ls, sample, border: i ? '1px solid rgba(255,255,255,0.05)' : 'none' }));
+    const G = (title, names, filled) => ({ title, icons: names.map(n => ({ name: n, fill: filled ? "'FILL' 1" : "'FILL' 0", color: '#f2efea' })) });
+    const iconGroups = [
+      G('Transport (filled)', ['play_arrow', 'pause', 'stop', 'skip_previous', 'skip_next', 'fiber_manual_record', 'volume_up', 'volume_down', 'volume_off', 'graphic_eq'], true),
+      G('Player', ['repeat', 'repeat_one', 'shuffle', 'subtitles', 'tune', 'playlist_play', 'picture_in_picture_alt', 'fullscreen', 'open_in_full', 'keyboard_tab', 'photo_camera', 'aspect_ratio', 'cast', 'replay']),
+      G('Library & navigation', ['home', 'movie', 'library_music', 'music_note', 'lan', 'folder', 'folder_open', 'create_new_folder', 'search', 'arrow_back', 'settings', 'history', 'podcasts', 'radio', 'rss_feed', 'dns', 'computer']),
+      G('Dialogs & actions', ['add', 'remove', 'close', 'check', 'expand_more', 'chevron_right', 'info', 'error', 'draft', 'album', 'language', 'videocam', 'upload_file', 'file_open', 'save', 'content_copy', 'delete', 'sort', 'check_box_outline_blank', 'crop_square']),
+      G('Preferences', ['web', 'graphic_eq', 'movie', 'subtitles', 'input', 'keyboard', 'code']),
+    ];
+    const coneSizes = [16, 24, 32, 48, 64].map(s => ({ s: String(s), label: s + ' px' }));
+    const iconStates = [
+      ['rest', 'transparent', '#cfcac3', 1, 'tune'], ['hover', 'rgba(255,255,255,0.07)', '#f2efea', 1, 'tune'],
+      ['on', 'rgba(255,255,255,0.07)', '#ff8a1f', 1, 'tune'], ['open', 'rgba(255,255,255,0.09)', '#ff8a1f', 1, 'subtitles'], ['disabled', 'transparent', '#cfcac3', 0.35, 'tune'],
+    ].map(([label, bg, color, op, icon]) => ({ label, bg, color, op, icon }));
+    const seekStates = [['seek · rest', '5:12', '−9:36', '35%', '4px', '14px', '-7px'], ['seek · hover (track 6 px)', '5:12', '−9:36', '35%', '6px', '16px', '-8px'], ['now bar (3 px, no knob)', '0:58', '3:51', '25%', '3px', '0px', '0px']]
+      .map(([label, a, b, p, th, k, km]) => ({ label, a, b, p, th, k, km }));
+    const volStates = [['volume_down', 32, '#ff8a1f'], ['volume_up', 80, '#ff8a1f'], ['volume_up', 115, '#ff5a1f'], ['volume_off', 0, '#ff8a1f']]
+      .map(([icon, v, c]) => ({ icon, p: (v / 125 * 100) + '%', c, l: v + '%' }));
+    const eqDemo = [[12, '1K'], [0, '3K'], [-8, '6K']].map(([v, f]) => ({ f, top: v >= 0 ? (50 - v / 40 * 100) + '%' : '50%', height: Math.abs(v) / 40 * 100 + '%', top2: (50 - v / 40 * 100) + '%' }));
+    const menuDemo = [['draft', 'Open File…', 'Ctrl+O', 'rest'], ['language', 'Open Network Stream…', 'Ctrl+N', 'hover'], ['history', 'Open Recent Media', '›', 'rest'], '-', ['check', 'Playlist', 'Ctrl+L', 'rest'], ['check', 'Advanced Controls', '', 'rest'], ['call_to_action', 'Status Bar', '', 'disabled']]
+      .map(m => m === '-' ? { sep: true, item: false } : { sep: false, item: true, icon: m[0], iconColor: m[0] === 'check' ? '#ff8a1f' : '#a39e96', label: m[1], key: m[2], bg: m[3] === 'hover' ? 'rgba(255,255,255,0.07)' : 'transparent', color: m[3] === 'disabled' ? '#6b665f' : '#f2efea' });
+    const tokens = [
+      { name: 'Instant', spec: '80–100 ms · ease-out', use: 'Hover fills, button press scale, volume fill.' },
+      { name: 'Fast', spec: '120–160 ms · decelerate', use: 'Menus, popovers, context menu, toggles.' },
+      { name: 'Standard', spec: '200–240 ms · decelerate', use: 'Panels, dialogs, view changes, toasts.' },
+      { name: 'Ambient', spec: '250–900 ms · linear', use: 'Progress, visualizer, spinner, auto-hide (300 ms).' },
+    ];
+    const box = (o) => ({ stage: '#0e0d0c', align: 'center', justify: 'center', origin: 'center', w: '160px', h: '80px', r: '8px', bg: '#23211f', border: '1px solid rgba(255,255,255,0.08)', color: '#cfcac3', inner: '', ...o });
+    const demos = [
+      box({ name: 'Menu dropdown', spec: `vlcDrop 140ms ${'decel'}`, note: 'Fade + 6 px down + 98% scale from top-left.', anim: `vlcDrop .14s ${E}`, origin: 'top left', align: 'flex-start', justify: 'flex-start', inner: 'Media ▾' }),
+      box({ name: 'Popover (tracks, speed)', spec: 'vlcRise 160ms decel', note: 'Rises 8 px from its button, origin at bottom.', anim: `vlcRise .16s ${E}`, origin: 'bottom right', align: 'flex-end', justify: 'flex-end', inner: 'Audio · Subtitles' }),
+      box({ name: 'Context menu', spec: 'vlcPop 120ms decel', note: 'Scales from the click corner.', anim: `vlcPop .12s ${E}`, origin: 'top right', align: 'flex-start', justify: 'flex-end', inner: 'Play · Info · Remove' }),
+      box({ name: 'Dialog', spec: 'backdrop fade 180ms · card vlcPop 200ms', note: 'Backdrop dims while the card scales from 96%.', anim: `vlcPop .2s ${E}`, stage: 'rgba(0,0,0,0.55)', w: '200px', h: '100px', inner: 'Open media' }),
+      box({ name: 'Playlist / Effects panel', spec: 'vlcSlideR 220ms decel', note: 'Slides 28 px in from the right edge.', anim: `vlcSlideR .22s ${E}`, justify: 'flex-end', align: 'stretch', w: '120px', h: 'auto', r: '8px 0 0 8px', inner: 'Playlist' }),
+      box({ name: 'View change', spec: 'vlcView 240ms decel', note: 'Library ↔ player ↔ audio ↔ settings: fade + 8 px rise.', anim: `vlcView .24s ${E}`, w: '100%', h: '100%', inner: 'Library' }),
+      box({ name: 'Toast', spec: 'vlcToast 220ms decel · 2.4 s hold', note: 'Rises from the bottom, then removed.', anim: `vlcToast .22s ${E}`, align: 'flex-end', w: '220px', h: '40px', bg: '#2c2a27', inner: 'Snapshot saved' }),
+      box({ name: 'Paused indicator', spec: 'vlcPop 180ms decel', note: 'Appears centred on pause; gone on play.', anim: `vlcPop .18s ${E}`, stage: '#000', w: '64px', h: '64px', r: '32px', bg: 'rgba(0,0,0,0.55)', border: '1px solid rgba(255,255,255,0.15)', color: '#fff', inner: '▶' }),
+      box({ name: 'Mini player', spec: 'vlcPop 240ms decel', note: 'Window shrinks into the mini card.', anim: `vlcPop .24s ${E}`, w: '180px', h: '100px', inner: 'Mini player' }),
+      box({ name: 'Drop target', spec: 'vlcFade 150ms', note: 'Dashed accent frame on dragenter.', anim: 'vlcFade .15s ease-out', w: '90%', h: '80%', bg: 'rgba(255,138,31,0.10)', border: '2px dashed #ff8a1f', color: '#ffa552', inner: 'Drop to play' }),
+      box({ name: 'Buffering', spec: 'vlcSpin 900ms linear ∞', note: 'Ring with accent arc while buffering.', anim: 'vlcSpin .9s linear infinite', stage: '#000', w: '44px', h: '44px', r: '22px', bg: 'transparent', border: '3px solid rgba(255,255,255,0.15)', inner: '' }),
+      box({ name: 'Error dialog', spec: 'vlcPop 200ms decel', note: 'Same entrance as any dialog. No shake.', anim: `vlcPop .2s ${E}`, stage: 'rgba(0,0,0,0.55)', w: '200px', h: '90px', color: '#ff5a4e', inner: "Input can't be opened" }),
+    ].map(d => d.name === 'Buffering' ? { ...d, border: '3px solid rgba(255,255,255,0.15)', bg: 'transparent' } : d);
+    const spec = [
+      ['Menu bar dropdown', 'click / hover-switch', 'vlcDrop 140ms', 'Instant close; hovering another title swaps without re-animating backdrop'],
+      ['Tracks & speed popovers', 'click', 'vlcRise 160ms', 'Instant close on outside click or Esc'],
+      ['Playlist context menu', 'right-click', 'vlcPop 120ms', 'Instant close'],
+      ['Playlist panel', 'Ctrl+L / button', 'vlcSlideR 220ms', 'Instant hide; video reflows'],
+      ['Effects & filters', 'Ctrl+E / button', 'vlcSlideR 220ms', 'Instant hide'],
+      ['Dialogs (open, info, jump, about, error)', 'menu / shortcut / failure', 'fade 180ms + vlcPop 200ms', 'Instant close'],
+      ['View transitions', 'nav, expand, back', 'vlcView 240ms', 'Outgoing view removed immediately'],
+      ['Toasts', 'snapshot, subtitle, record…', 'vlcToast 220ms', 'Auto-dismiss after 2.4 s'],
+      ['Seek progress & knob', 'playback tick', 'width/left 250ms linear', 'Continuous'],
+      ['Volume fill', 'click / wheel', 'width 120ms ease-out', 'Colour shifts past 100%'],
+      ['EQ bands', 'click / preset', 'top/height 150ms ease-out', 'Preset change animates all bands together'],
+      ['Toggle switches', 'click', 'knob left 150ms', '—'],
+      ['Play button', 'press', 'scale .92 · 100ms', 'Icon swaps play ↔ pause'],
+      ['Immersive controls', '2.5 s idle while playing', 'opacity 0 + 12px down · 300ms', 'Any mouse move restores; cursor hidden while idle'],
+      ['Spectrum visualizer', 'audio playing', 'bar height 250ms linear', 'Settles to flat on pause'],
+      ['Buffering ring', 'stream loading', 'vlcSpin 900ms ∞', 'Replaced by video or error dialog'],
+      ['Now-playing indicator', 'current item', 'graphic_eq icon; pause icon when paused', '—'],
+      ['Mini player', 'Ctrl+H / PiP', 'vlcPop 240ms', 'Restore re-enters the main window with vlcView'],
+      ['Drop overlay', 'dragenter', 'vlcFade 150ms', 'Removed on drop / dragleave'],
+    ].map(([el, trig, anim, exit]) => ({ el, trig, anim, exit }));
+    return { palettes, types, iconGroups, coneSizes, iconStates, seekStates, volStates, eqDemo, menuDemo, tokens, demos, spec, show: this.state.show, replay: this.replay };
+  }
+}
+</script>
+</body>
+</html>
